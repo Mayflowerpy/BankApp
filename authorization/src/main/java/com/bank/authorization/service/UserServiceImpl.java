@@ -34,11 +34,13 @@ public class UserServiceImpl implements UserService{
         userRepository.saveAndFlush(newUser);
     }
 
+    @Transactional
     @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void updateUser(long id, User userForUpdate) {
 //        if (!getById(id).getPassword().equals(userForUpdate.getPassword())) {
