@@ -1,9 +1,9 @@
 package com.bank.authorization.service;
 
 import com.bank.authorization.entity.User;
+import com.bank.authorization.exception.UserNotFoundException;
 import com.bank.authorization.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getById(long id) {
         Optional<User> userById = userRepository.findById(id);
-        userById.orElseThrow(() -> new UsernameNotFoundException(String.format("User with id %s not found", id)));
+        userById.orElseThrow(UserNotFoundException::new);
         return userById.get();
     }
 

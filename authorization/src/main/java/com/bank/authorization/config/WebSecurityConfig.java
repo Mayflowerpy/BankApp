@@ -13,18 +13,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf().disable() //Отключение csrf-token (cross-site request forgery)
                 .authorizeRequests()
-//                .antMatchers("/api", "/api/login", "/api/error").permitAll()
-//                .antMatchers("/api/admin/**").hasRole("ADMIN")
-//                .antMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/api/auth","/login", "/api/auth/login", "/api/auth/error").permitAll()
+//                .antMatchers("/api/auth/users/**").hasRole("ADMIN")
+//                .antMatchers("/api/auth/user/**").hasAnyRole("USER", "ADMIN")
 //                .anyRequest().authenticated()
                 .anyRequest().permitAll()
                 .and()
-//                .formLogin().loginPage("/login")
-//                .loginProcessingUrl("/process_login")
-//                .failureUrl("/api/login?error")
-//                .and()
                 .logout().permitAll();
     }
 
