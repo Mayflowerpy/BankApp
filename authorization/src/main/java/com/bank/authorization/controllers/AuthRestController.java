@@ -65,13 +65,7 @@ public class AuthRestController {
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<String> authDeleteUser (@PathVariable("id") long id,
-                                                  BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(getErrorsFromBindingResult(bindingResult),
-                    HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<String> authDeleteUser (@PathVariable("id") long id) {
 
         userService.deleteUser(id);
         return new ResponseEntity<>(String.format("User with id-%s was deleted", id), HttpStatus.OK);

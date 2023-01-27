@@ -1,7 +1,7 @@
 server:
   port: 8087
   servlet:
-    context-path: /api/authorization
+    context-path: /api/auth
 management:
   server:
     port: 8187
@@ -14,21 +14,13 @@ management:
         include: '*'
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/postgres?characterEncoding=UTF-8&serverTimezone=GMT&allowPublicKeyRetrieval=true&useSSL=false&zeroDateTimeBehavior=convertToNull
+    url: jdbc:postgresql://localhost:5433/postgres
     username: user
     password: password
   liquibase:
-    default-schema: authorization
+    default-schema: auth
     change-log: db/changelog/db.changelog-master.yaml
     enabled: true
     drop-first: false
   application:
     name: authorization-app
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: none
-    properties:
-      hibernate:
-        default_schema: authorization
-        dialect: org.hibernate.dialect.PostgreSQLDialect

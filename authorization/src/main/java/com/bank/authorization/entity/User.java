@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name="user", schema = "authorization")
+@Table(name="user")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,12 +33,6 @@ public class User {
 
     @Column(name="password")
     private String password;
-
-    public User(String role, Long profileId, String password) {
-        this.role = role;
-        this.profileId = profileId;
-        this.password = password;
-    }
 
     @Override
     public String toString() {
