@@ -1,6 +1,7 @@
 package com.bank.authorization.util;
 
 import com.bank.authorization.entity.Role;
+import com.bank.authorization.entity.User;
 import com.bank.authorization.service.RoleService;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,9 @@ public class DatabaseInit {
 
     @PostConstruct
     public void initDbUsers() {
+
         Role roleAdmin = new Role("ROLE_ADMIN");
         Role roleUser = new Role("ROLE_USER");
-
 
         if (roleService.getRoles().isEmpty()) {
             roleService.addRole(roleAdmin);
@@ -34,8 +35,13 @@ public class DatabaseInit {
         if (userService.getUsersList().isEmpty()) {
             Set<Role> adminRoles = new HashSet<>();
             Collections.addAll(adminRoles, roleService.roleByID(1L), roleService.roleByID(2L));
-//            User admin = new User("Vladislav", "Shilov", 26, "admin", "Shilovvlad@mail.ru", adminRoles);
-//            userService.addUser(admin);
+            User admin = new User(adminRoles, 1L, "admin");
+            userService.addUser(admin);
+
+            Set<Role> userRoles = new HashSet<>();
+            Collections.addAll(userRoles, roleService.roleByID(2L));
+            User user = new User(userRoles, 2L, "user");
+            userService.addUser(user);
         }
     }
 }
