@@ -2,20 +2,14 @@ package com.bank.authorization.controllers;
 
 import com.bank.authorization.entity.Role;
 import com.bank.authorization.entity.User;
-import com.bank.authorization.exception.RoleNotFoundException;
-import com.bank.authorization.exception.UserNotFoundException;
 import com.bank.authorization.service.RoleService;
 import com.bank.authorization.service.UserService;
-import com.bank.authorization.util.RoleErrorResponse;
-import com.bank.authorization.util.UserErrorResponse;
+import com.bank.authorization.util.ErrBindingResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,17 +17,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class AuthRestController {
 
     private final UserService userService;
     private final RoleService roleService;
+    private final ErrBindingResult errBindingResult;
     @Autowired
-    public AuthRestController(UserService userService, RoleService roleService) {
+    public AuthRestController(UserService userService, RoleService roleService, ErrBindingResult errBindingResult) {
         this.userService = userService;
         this.roleService = roleService;
+        this.errBindingResult = errBindingResult;
     }
 
     @GetMapping("/users")
@@ -51,7 +46,7 @@ public class AuthRestController {
                                               BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(getErrorsFromBindingResult(bindingResult),
+            return new ResponseEntity<>(errBindingResult.getErrorsFromBindingResult(bindingResult),
                     HttpStatus.BAD_REQUEST);
         }
 
@@ -65,7 +60,7 @@ public class AuthRestController {
                                                BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(getErrorsFromBindingResult(bindingResult),
+            return new ResponseEntity<>(errBindingResult.getErrorsFromBindingResult(bindingResult),
                     HttpStatus.BAD_REQUEST);
         }
 
@@ -100,32 +95,11 @@ public class AuthRestController {
                                               BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(getErrorsFromBindingResult(bindingResult),
+            return new ResponseEntity<>(errBindingResult.getErrorsFromBindingResult(bindingResult),
                     HttpStatus.BAD_REQUEST);
         }
 
         roleService.addRole(role);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-
-
-    private String getErrorsFromBindingResult(BindingResult bindingResult) {
-        return bindingResult.getFieldErrors()
-                .stream()
-                .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .collect(Collectors.joining("; "));
-    }
-
-    @ExceptionHandler
-    public ResponseEntity<UserErrorResponse> handlerException(UserNotFoundException e) {
-        UserErrorResponse userErrorResponse = new UserErrorResponse("User with this id not found",  System.currentTimeMillis());
-        return new ResponseEntity<>(userErrorResponse, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler
-    public ResponseEntity<RoleErrorResponse> handlerException(RoleNotFoundException e) {
-        RoleErrorResponse roleErrorResponse = new RoleErrorResponse("Role with this id not found",  System.currentTimeMillis());
-        return new ResponseEntity<>(roleErrorResponse, HttpStatus.NOT_FOUND);
     }
 }
