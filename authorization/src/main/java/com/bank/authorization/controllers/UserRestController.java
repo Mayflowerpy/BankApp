@@ -1,8 +1,6 @@
 package com.bank.authorization.controllers;
 
-import com.bank.authorization.entity.Role;
 import com.bank.authorization.entity.User;
-import com.bank.authorization.service.RoleService;
 import com.bank.authorization.service.UserService;
 import com.bank.authorization.util.ErrBindingResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class AuthRestController {
+public class UserRestController {
 
     private final UserService userService;
-    private final RoleService roleService;
     private final ErrBindingResult errBindingResult;
     @Autowired
-    public AuthRestController(UserService userService, RoleService roleService, ErrBindingResult errBindingResult) {
+    public UserRestController(UserService userService, ErrBindingResult errBindingResult) {
         this.userService = userService;
-        this.roleService = roleService;
         this.errBindingResult = errBindingResult;
     }
 
@@ -79,27 +75,4 @@ public class AuthRestController {
 //    public ResponseEntity<User> showUser(Authentication auth) {
 //        return  new ResponseEntity<>(userService.getUserByEmail(auth.getName()).get(), HttpStatus.OK);
 //    }
-
-    @GetMapping("/users/roles")
-    public ResponseEntity<List<Role>> getAllRoles() {
-        return new ResponseEntity<>(roleService.getRoles(), HttpStatus.OK);
-    }
-
-    @GetMapping("/users/roles/{id}")
-    ResponseEntity<Role> getRoleById(@PathVariable("id") long id){
-        return new ResponseEntity<>(roleService.roleByID(id), HttpStatus.OK);
-    }
-
-    @PostMapping("/users/roles")
-    public ResponseEntity<String> authAddRole(@RequestBody Role role,
-                                              BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(errBindingResult.getErrorsFromBindingResult(bindingResult),
-                    HttpStatus.BAD_REQUEST);
-        }
-
-        roleService.addRole(role);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 }

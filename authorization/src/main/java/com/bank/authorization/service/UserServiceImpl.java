@@ -27,6 +27,11 @@ public class UserServiceImpl implements UserService{
         return userById.get();
     }
 
+    @Override
+    public List<User> getUsersList() {
+        return userRepository.findAll();
+    }
+
     @Transactional
     @Override
     public void addUser(User newUser) {
@@ -48,10 +53,5 @@ public class UserServiceImpl implements UserService{
 //        }
         userForUpdate.setId(id);
         userRepository.saveAndFlush(userForUpdate);
-    }
-
-    @Override
-    public List<User> getUsersList() {
-        return userRepository.findAll();
     }
 }

@@ -35,4 +35,15 @@ public class RoleServiceImpl implements RoleService{
         role.orElseThrow(RoleNotFoundException::new);
         return role.get();
     }
+
+    @Override
+    public void deleteRole(Long id) {
+        roleRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateRole(long id, Role roleForUpdate) {
+        roleForUpdate.setId(id);
+        roleRepository.saveAndFlush(roleForUpdate);
+    }
 }
