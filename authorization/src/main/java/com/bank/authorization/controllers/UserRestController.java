@@ -1,6 +1,6 @@
 package com.bank.authorization.controllers;
 
-import com.bank.authorization.entity.User;
+import com.bank.authorization.dto.UserDTO;
 import com.bank.authorization.service.UserService;
 import com.bank.authorization.util.ErrBindingResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class UserRestController {
@@ -28,17 +29,20 @@ public class UserRestController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> showAllUsers() {
-        return new ResponseEntity<>(userService.getUsersList(), HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> showAllUsers() {
+        return new ResponseEntity<>(userService.getUsersList()
+                .stream()
+                .map(userService::mapToUserDTO)
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
-        return new ResponseEntity<>(userService.getById(id), HttpStatus.OK);
+    public ResponseEntity<UserDTO> getUserById(@PathVariable("id") long id) {
+        return new ResponseEntity<>(userService.mapToUserDTO(userService.getById(id)), HttpStatus.OK);
     }
 
     @PostMapping("/users")
-    public ResponseEntity<String> authAddUser(@RequestBody User user,
+    public ResponseEntity<String> authAddUser(@RequestBody UserDTO userDTO,
                                               BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -46,13 +50,13 @@ public class UserRestController {
                     HttpStatus.BAD_REQUEST);
         }
 
-        userService.addUser(user);
+        userService.addUser(userService.mapToUser(userDTO));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/users/{id}")
     public  ResponseEntity<String> authEditUser(@PathVariable("id") long id,
-                                               @RequestBody User user,
+                                               @RequestBody UserDTO userDTO,
                                                BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -60,7 +64,7 @@ public class UserRestController {
                     HttpStatus.BAD_REQUEST);
         }
 
-        userService.updateUser(id, user);
+        userService.updateUser(id, userService.mapToUser(userDTO));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

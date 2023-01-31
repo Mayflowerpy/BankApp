@@ -1,10 +1,11 @@
 package com.bank.authorization.service;
 
+import com.bank.authorization.dto.UserDTO;
 import com.bank.authorization.entity.User;
 import com.bank.authorization.exception.UserNotFoundException;
+import com.bank.authorization.mapper.UserMapper;
 import com.bank.authorization.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -15,9 +16,11 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -53,5 +56,13 @@ public class UserServiceImpl implements UserService{
 //        }
         userForUpdate.setId(id);
         userRepository.saveAndFlush(userForUpdate);
+    }
+
+    public User mapToUser(UserDTO userDTO) {
+        return userMapper.toUser(userDTO);
+    }
+
+    public UserDTO mapToUserDTO(User user) {
+        return userMapper.toUserDTO(user);
     }
 }
