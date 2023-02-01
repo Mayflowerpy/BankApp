@@ -7,6 +7,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+/**
+ * Углубленная валидация данных сущности User
+ * На данный момент здесь нет ни одной валидации
+ *
+ * @author Vladislav Shilov
+ */
+
 @Component
 public class UserValidator implements Validator {
 

@@ -12,6 +12,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * WebSecurityConfig - Конфигурационный класс в основе которого WebSecurityConfigurerAdapter(Deprecated)
+ * @author Vladislav Shilov
+ */
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -25,12 +30,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
     }
 
+    /**
+     * В configure прописаны матчеры для url и доступы ролей к ним
+     * successHandler(successUserHandler) - подключение Handler для переадресации после авторизации
+     */
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable() //Отключение csrf-token (cross-site request forgery)
                 .authorizeRequests()
 //                .antMatchers("/api/auth","/login", "/api/auth/login", "/api/auth/error").permitAll()
-//                .antMatchers("/api/auth/users/**").hasRole("ADMIN")
+//                .antMatchers("/api/auth/users/**", "/api/auth/roles/**").hasRole("ADMIN")
 //                .antMatchers("/api/auth/userView/**").hasAnyRole("USER", "ADMIN")
 //                .anyRequest().authenticated()
                 .anyRequest().permitAll()
@@ -40,11 +49,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().permitAll();
     }
 
+    /**
+     * Создание бина для шифрования пароля
+     * Для шифровки используется BCryptPasswordEncoder(10 - стандартная шифровка)
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
 
+    /**
+     * Дефолтный конфиг
+     * setPasswordEncoder - подключаем шифратор
+     * setUserDetailsService - userDetailsService класс создающий principal с username, password, roles
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -53,5 +71,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(userDetailsService);
         auth.authenticationProvider(provider);
     }
-
 }

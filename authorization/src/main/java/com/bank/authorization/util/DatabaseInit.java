@@ -12,6 +12,14 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Класс для инициализации баз данных user и roles, если они пустые
+ * Добавляет две роли(Admin и User)
+ * Добавляет двух пользователей(одного с ролью Admin, другого с ролью User)
+ *
+ * @author Vladislav Shilov
+ */
+
 @Component
 public class DatabaseInit {
     private final UserService userService;
@@ -25,8 +33,8 @@ public class DatabaseInit {
     @PostConstruct
     public void initDbUsers() {
 
-        Role roleAdmin = new Role(RoleEnum.ROLE_ADMIN.name());
-        Role roleUser = new Role(RoleEnum.ROLE_USER.name());
+        Role roleAdmin = new Role(RoleEnum.ROLE_ADMIN);
+        Role roleUser = new Role(RoleEnum.ROLE_USER);
 
         if (roleService.getRoles().isEmpty()) {
             roleService.addRole(roleAdmin);

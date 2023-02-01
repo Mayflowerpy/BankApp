@@ -5,6 +5,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import java.util.stream.Collectors;
 
+/**
+ * Класс для преобразования поля ошибок BindingResult в отформатированную строку
+ * Используется в RestController
+ *
+ * @author Vladislav Shilov
+ */
+
 @Component
 public class ErrBindingResult {
 

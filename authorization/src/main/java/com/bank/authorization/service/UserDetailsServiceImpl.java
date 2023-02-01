@@ -8,6 +8,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
+/**
+ * Класс необходимый для аутентификации и авторизации в приложении
+ * Метод loadUserByUsername(String username) - подгружает пользователя из базы данных по полю Username
+ * В случае если пользователь отсутствует - выбрасывает исключение UsernameNotFoundException
+ * Метод возвращает объект UserDetails, включающий username, password, roles(authorities)
+ *
+ * @author Vladislav Shilov
+ */
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

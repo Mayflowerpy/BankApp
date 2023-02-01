@@ -1,6 +1,5 @@
 package com.bank.authorization.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,12 +22,22 @@ import javax.validation.constraints.Pattern;
 import java.util.Collection;
 import java.util.Set;
 
+/**
+ * Сущность User, имплементирующая UserDetails для секьюрности
+ * Поля:
+ * Long id - идентификатор пользователя
+ * Set<Role> role - Коллекция ролей пользователя, связана Many-to-Many с сущностью Role с ленивой загрузкой
+ * Long profileId - идентификатор сущности Profile другого микросервиса(содержит основную информацию профиля и username)
+ * String password - Пароль пользователя(валидация поля происходит паттерном регулярного выражения)
+ *
+ * @author Vladislav Shilov
+ */
+
 @Entity
 @Table(name="user")
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class User implements UserDetails {
     @Id
     @NotNull

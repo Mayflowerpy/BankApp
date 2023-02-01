@@ -11,6 +11,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/**
+ * Handler для обработки ошибок RestController
+ * При возникновении ошибки создает объект класса ErrorResponse(message, currentTimeMillis)
+ * Возвращает ResponseEntity(ErrorResponse, HttpStatus)
+ * Аннотация ControllerAdvice - для создания бина ErrorHandler и указания, что это обработчик ошибок
+ *
+ * @author Vladislav Shilov
+ */
+
 @ControllerAdvice
 public class ErrorHandler {
 

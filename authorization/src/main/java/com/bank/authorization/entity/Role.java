@@ -1,6 +1,5 @@
 package com.bank.authorization.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,13 +15,23 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
+/**
+ * Сущность Role - отвечает за предоставления прав доступа(authority) объектам User
+ * Имплементирует GrantedAuthority
+ * Роли являются перечислением и возможные роли берутся из EnumRole
+ *
+ * @author Vladislav Shilov
+ */
+
 @Entity
 @Table(name="roles")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Role implements GrantedAuthority {
+    public Role(RoleEnum name) {
+        this.name = name;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
@@ -31,15 +40,11 @@ public class Role implements GrantedAuthority {
     @Column(name = "name", unique = true)
     @Enumerated(value=EnumType.STRING)
     @NotEmpty(message = "Role should not be empty")
-    private String name;
+    private RoleEnum name;
 
     @Override
     public String getAuthority() {
-        return getName();
-    }
-
-    public Role(String name) {
-        this.name = name;
+        return getName().name();
     }
 
     @Override
@@ -57,6 +62,6 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String toString() {
-        return name;
+        return name.name();
     }
 }

@@ -9,9 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
 
+/**
+ * Handler для переадресации на нужный url в зависимости от прав доступа
+ * @author Vladislav Shilov
+ */
+
 @Component
 public class SuccessUserHandler implements AuthenticationSuccessHandler {
-    // Spring Security использует объект Authentication, пользователя авторизованной сессии.
+    /** @param authentication - Spring Security использует объект Authentication, пользователя авторизованной сессии*/
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,

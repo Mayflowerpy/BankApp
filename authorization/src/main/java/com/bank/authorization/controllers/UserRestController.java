@@ -1,6 +1,7 @@
 package com.bank.authorization.controllers;
 
 import com.bank.authorization.dto.UserDTO;
+import com.bank.authorization.exception.UserNotCreatedException;
 import com.bank.authorization.service.UserService;
 import com.bank.authorization.util.ErrBindingResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
+
+/**
+ * REST-Controller для сущности User
+ * Все методы возвращают ResponseEntity
+ * Методы Post и Put принимают UserDTO
+ * Методы Post и Put могут выбросить ошибку UserNotCreatedException(с сообщением, обработанным errBindingResult)
+ * Метод GET вернет ошибку UserNotFoundException в случае несуществующей role
+ * Выброшенные ошибки обрабатываются ErrorHandler, и возвращают сообщение ошибки и HttpStatus
+ * Методы:
+ * GET - getAllUsers()
+ * GET - getUserById(id)
+ * GET - getAuthUser(authentication) - возвращает объект авторизованного пользователя
+ * POST - addUser(user)
+ * PUT - editUserById(id, user)
+ * DELETE - deleteUserById(id)
+ *
+ * @author Vladislav Shilov
+ */
 
 @RestController
 public class UserRestController {
@@ -31,7 +49,7 @@ public class UserRestController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserDTO>> showAllUsers() {
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
         return new ResponseEntity<>(userService.getUsersList()
                 .stream()
                 .map(userService::mapToUserDTO)
@@ -43,42 +61,35 @@ public class UserRestController {
         return new ResponseEntity<>(userService.mapToUserDTO(userService.getById(id)), HttpStatus.OK);
     }
 
+    //    @GetMapping("/userView")
+//    public ResponseEntity<User> getAuthUser(Authentication auth) {
+//        return  new ResponseEntity<>(userService.getUserByEmail(auth.getName()).get(), HttpStatus.OK);
+//    }
+
     @PostMapping("/users")
-    public ResponseEntity<String> authAddUser(@RequestBody @Valid UserDTO userDTO,
-                                              BindingResult bindingResult) {
-
+    public ResponseEntity<String> addUser(@RequestBody @Valid UserDTO userDTO,
+                                              BindingResult bindingResult) throws UserNotCreatedException {
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(errBindingResult.getErrorsFromBindingResult(bindingResult),
-                    HttpStatus.BAD_REQUEST);
+            throw new UserNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));
         }
-
         userService.addUser(userService.mapToUser(userDTO));
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("User has been added", HttpStatus.OK);
     }
 
     @PutMapping("/users/{id}")
-    public  ResponseEntity<String> authEditUser(@PathVariable("id") long id,
+    public  ResponseEntity<String> editUserById(@PathVariable("id") long id,
                                                @RequestBody @Valid UserDTO userDTO,
-                                               BindingResult bindingResult) {
-
+                                               BindingResult bindingResult) throws UserNotCreatedException {
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(errBindingResult.getErrorsFromBindingResult(bindingResult),
-                    HttpStatus.BAD_REQUEST);
+            throw new UserNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));
         }
-
         userService.updateUser(id, userService.mapToUser(userDTO));
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(String.format("User with id-%s has been updated", id), HttpStatus.OK);
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<String> authDeleteUser (@PathVariable("id") long id) {
-
+    public ResponseEntity<String> deleteUserById(@PathVariable("id") long id) {
         userService.deleteUser(id);
-        return new ResponseEntity<>(String.format("User with id-%s was deleted", id), HttpStatus.OK);
+        return new ResponseEntity<>(String.format("User with id-%s has been deleted", id), HttpStatus.OK);
     }
-
-//    @GetMapping("/userView")
-//    public ResponseEntity<User> showUser(Authentication auth) {
-//        return  new ResponseEntity<>(userService.getUserByEmail(auth.getName()).get(), HttpStatus.OK);
-//    }
 }

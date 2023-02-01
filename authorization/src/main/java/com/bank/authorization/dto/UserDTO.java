@@ -9,6 +9,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Set;
 
+/**
+ * Трансферный слой dto для сущности user
+ * За основу взяты все поля кроме id
+ *
+ * @author Vladislav Shilov
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
