@@ -7,10 +7,13 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +29,8 @@ public class Role implements GrantedAuthority {
     private Long id;
 
     @Column(name = "name", unique = true)
+    @Enumerated(value=EnumType.STRING)
+    @NotEmpty(message = "Role should not be empty")
     private String name;
 
     @Override

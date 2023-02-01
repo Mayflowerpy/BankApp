@@ -17,7 +17,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Collection;
 import java.util.Set;
 
@@ -43,11 +45,16 @@ public class User implements UserDetails {
     private Set<Role> role;
 
     @NotNull
+    @NotEmpty(message = "ProfileId should not be empty")
     @Column(name="profile_id")
     private Long profileId;
 
     @NotNull
     @Column(name="password")
+    @NotEmpty(message = "Password should not be empty")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9@#$%]).{5,}$",
+            message = "The string must be at least 5 characters long, contain at least 1 uppercase letter, " +
+                    "1 lowercase letter, and OR special character OR number.")
     private String password;
 
     public User(Set<Role> role, Long profileId, String password) {

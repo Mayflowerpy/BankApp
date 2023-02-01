@@ -25,6 +25,10 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         User user = (User) target;
-        //описание необходимых валидаций
+
+        //Валидация email, если существует в базе данных - reject
+//        if(userService.getUserByEmail(user.getEmail() != null)) {
+//            errors.rejectValue("email", "This email is already taken");
+//        }
     }
 }

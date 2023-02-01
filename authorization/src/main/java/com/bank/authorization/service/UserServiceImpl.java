@@ -6,6 +6,7 @@ import com.bank.authorization.exception.UserNotFoundException;
 import com.bank.authorization.mapper.UserMapper;
 import com.bank.authorization.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService{
     @Transactional
     @Override
     public void addUser(User newUser) {
-//        newUser.setPassword(new BCryptPasswordEncoder().encode(newUser.getPassword()));
+        newUser.setPassword(new BCryptPasswordEncoder().encode(newUser.getPassword()));
         userRepository.saveAndFlush(newUser);
     }
 
@@ -51,9 +52,9 @@ public class UserServiceImpl implements UserService{
     @Transactional
     @Override
     public void updateUser(long id, User userForUpdate) {
-//        if (!getById(id).getPassword().equals(userForUpdate.getPassword())) {
-//            userForUpdate.setPassword(new BCryptPasswordEncoder().encode(userForUpdate.getPassword()));
-//        }
+        if (!getById(id).getPassword().equals(userForUpdate.getPassword())) {
+            userForUpdate.setPassword(new BCryptPasswordEncoder().encode(userForUpdate.getPassword()));
+        }
         userForUpdate.setId(id);
         userRepository.saveAndFlush(userForUpdate);
     }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,7 +34,7 @@ public class RoleRestController {
     }
 
     @PostMapping("/users/roles")
-    public ResponseEntity<String> authAddRole(@RequestBody Role role,
+    public ResponseEntity<String> authAddRole(@RequestBody @Valid Role role,
                                               BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -47,7 +48,7 @@ public class RoleRestController {
 
     @PutMapping("/users/roles/{id}")
     public  ResponseEntity<String> authEditRole(@PathVariable("id") long id,
-                                                @RequestBody Role role,
+                                                @RequestBody @Valid Role role,
                                                 BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {

@@ -1,6 +1,7 @@
 package com.bank.authorization.util;
 
 import com.bank.authorization.entity.Role;
+import com.bank.authorization.entity.RoleEnum;
 import com.bank.authorization.entity.User;
 import com.bank.authorization.service.RoleService;
 import org.springframework.stereotype.Component;
@@ -24,8 +25,8 @@ public class DatabaseInit {
     @PostConstruct
     public void initDbUsers() {
 
-        Role roleAdmin = new Role("ROLE_ADMIN");
-        Role roleUser = new Role("ROLE_USER");
+        Role roleAdmin = new Role(RoleEnum.ROLE_ADMIN.name());
+        Role roleUser = new Role(RoleEnum.ROLE_USER.name());
 
         if (roleService.getRoles().isEmpty()) {
             roleService.addRole(roleAdmin);
@@ -35,12 +36,12 @@ public class DatabaseInit {
         if (userService.getUsersList().isEmpty()) {
             Set<Role> adminRoles = new HashSet<>();
             Collections.addAll(adminRoles, roleService.roleByID(1L), roleService.roleByID(2L));
-            User admin = new User(adminRoles, 1L, "admin");
+            User admin = new User(adminRoles, 1L, "Admin1@");
             userService.addUser(admin);
 
             Set<Role> userRoles = new HashSet<>();
             Collections.addAll(userRoles, roleService.roleByID(2L));
-            User user = new User(userRoles, 2L, "user");
+            User user = new User(userRoles, 2L, "User1@");
             userService.addUser(user);
         }
     }

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +44,7 @@ public class UserRestController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<String> authAddUser(@RequestBody UserDTO userDTO,
+    public ResponseEntity<String> authAddUser(@RequestBody @Valid UserDTO userDTO,
                                               BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -56,7 +58,7 @@ public class UserRestController {
 
     @PutMapping("/users/{id}")
     public  ResponseEntity<String> authEditUser(@PathVariable("id") long id,
-                                               @RequestBody UserDTO userDTO,
+                                               @RequestBody @Valid UserDTO userDTO,
                                                BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -75,7 +77,7 @@ public class UserRestController {
         return new ResponseEntity<>(String.format("User with id-%s was deleted", id), HttpStatus.OK);
     }
 
-//    @GetMapping("/authUser")
+//    @GetMapping("/userView")
 //    public ResponseEntity<User> showUser(Authentication auth) {
 //        return  new ResponseEntity<>(userService.getUserByEmail(auth.getName()).get(), HttpStatus.OK);
 //    }
