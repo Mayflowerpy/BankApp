@@ -6,5 +6,5 @@ package com.bank.authorization.exception;
  * @author Vladislav Shilov
  */
 
-public class UserNotFoundException extends RuntimeException{
+public class UserNotFoundException extends RuntimeException {
 }

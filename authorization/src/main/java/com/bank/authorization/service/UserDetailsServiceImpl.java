@@ -29,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     /**
      * Метод loadUserByUsername(String username) - подгружает пользователя из базы данных по полю Username
      * В случае если пользователь отсутствует - выбрасывает исключение UsernameNotFoundException
-     * Загрузка email происходит путем получения его из микросервиса profile с помощью FeignClient и ProfileFeignServiceImpl
+     * Загрузка email происходит получением его из микросервиса profile с помощью FeignClient и ProfileFeignServiceImpl
      * Загрузка password и roles происходит из базы данных данного микросервиса
      * Сопоставление email и password происходит по полю profileId сущности User
      *
@@ -38,12 +38,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Profile> profile = profileFeignService.getProfileByUsername(username);
+        final Optional<Profile> profile = profileFeignService.getProfileByUsername(username);
         if (profile.isEmpty()) {
             throw new UsernameNotFoundException(String.format("User with mail %s not found", username));
         } else {
-            User user = userService.getByProfileId(profile.get().getId());
-            return new org.springframework.security.core.userdetails.User(profile.get().getEmail(), user.getPassword(), user.getAuthorities());
+            final User user = userService.getByProfileId(profile.get().getId());
+            return new org.springframework.security.core.userdetails.User(profile.get().getEmail(),
+                    user.getPassword(), user.getAuthorities());
         }
     }
 }

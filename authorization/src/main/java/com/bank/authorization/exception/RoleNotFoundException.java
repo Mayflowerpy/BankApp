@@ -6,5 +6,5 @@ package com.bank.authorization.exception;
  * @author Vladislav Shilov
  */
 
-public class RoleNotFoundException extends RuntimeException{
+public class RoleNotFoundException extends RuntimeException {
 }

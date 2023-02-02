@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * Сервисный слой бизнес-логики для получения сущности Profile из микросервиса profile
  * Реализует методы интерфейса ProfileFeignService
- * getProfileByUsername(username) - метод представляет собой получение списка профилей из микросервиса profile посредством
+ * getProfileByUsername(username) - получение списка профилей из микросервиса profile посредством
  * FeignClient и дальнейший поиск объекта Profile по переданному username
  * Возвращает Optional<Profile>
  *
@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class ProfileFeignServiceImpl implements ProfileFeignService{
+public class ProfileFeignServiceImpl implements ProfileFeignService {
     private final UserRestController userRestController;
 
     @Autowired
@@ -30,7 +30,7 @@ public class ProfileFeignServiceImpl implements ProfileFeignService{
 
     @Override
     public Optional<Profile> getProfileByUsername(String username) {
-        List<Profile> profiles = userRestController.getProfiles();
+        final List<Profile> profiles = userRestController.getProfiles();
         return profiles.stream()
                 .filter(obj -> ((obj.getEmail().equals(username))))
                 .findFirst();

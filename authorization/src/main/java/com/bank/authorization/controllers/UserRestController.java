@@ -49,8 +49,10 @@ public class UserRestController {
     private final ErrBindingResult errBindingResult;
     private final ProfileFeignClient authFeignClient;
     private final ProfileFeignService profileFeignService;
+
     @Autowired
-    public UserRestController(UserService userService, ErrBindingResult errBindingResult, ProfileFeignClient authFeignClient, ProfileFeignService profileFeignService) {
+    public UserRestController(UserService userService, ErrBindingResult errBindingResult,
+                              ProfileFeignClient authFeignClient, ProfileFeignService profileFeignService) {
         this.userService = userService;
         this.errBindingResult = errBindingResult;
         this.authFeignClient = authFeignClient;

@@ -30,13 +30,14 @@ import java.util.Set;
  * Long profileId - идентификатор сущности Profile другого микросервиса(содержит основную информацию профиля и username)
  * String password - Пароль пользователя(валидация поля происходит паттерном регулярного выражения)
  * getAuthorities() - возвращает лист ролей пользователя
- * getUsername() - должен возвращать username, но логика предоставления username реализована в ProfileFeignServiceImpl и UserDetailsServiceImpl
+ * getUsername() - должен возвращать username, но логика предоставления username реализована в
+ * ProfileFeignServiceImpl и UserDetailsServiceImpl
  *
  * @author Vladislav Shilov
  */
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -57,11 +58,11 @@ public class User implements UserDetails {
 
     @NotNull
     @NotEmpty(message = "ProfileId should not be empty")
-    @Column(name="profile_id")
+    @Column(name = "profile_id")
     private Long profileId;
 
     @NotNull
-    @Column(name="password")
+    @Column(name = "password")
     @NotEmpty(message = "Password should not be empty")
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9@#$%]).{5,}$",
             message = "The string must be at least 5 characters long, contain at least 1 uppercase letter, " +

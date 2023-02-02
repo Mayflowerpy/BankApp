@@ -33,8 +33,8 @@ public class DatabaseInit {
     @PostConstruct
     public void initDbUsers() {
 
-        Role roleAdmin = new Role(RoleEnum.ROLE_ADMIN);
-        Role roleUser = new Role(RoleEnum.ROLE_USER);
+        final Role roleAdmin = new Role(RoleEnum.ROLE_ADMIN);
+        final Role roleUser = new Role(RoleEnum.ROLE_USER);
 
         if (roleService.getRoles().isEmpty()) {
             roleService.addRole(roleAdmin);
@@ -42,14 +42,14 @@ public class DatabaseInit {
         }
 
         if (userService.getUsersList().isEmpty()) {
-            Set<Role> adminRoles = new HashSet<>();
+            final Set<Role> adminRoles = new HashSet<>();
             Collections.addAll(adminRoles, roleService.roleByID(1L), roleService.roleByID(2L));
-            User admin = new User(adminRoles, 1L, "Admin1@");
+            final User admin = new User(adminRoles, 1L, "Admin1@");
             userService.addUser(admin);
 
-            Set<Role> userRoles = new HashSet<>();
+            final Set<Role> userRoles = new HashSet<>();
             Collections.addAll(userRoles, roleService.roleByID(2L));
-            User user = new User(userRoles, 2L, "User1@");
+            final User user = new User(userRoles, 2L, "User1@");
             userService.addUser(user);
         }
     }

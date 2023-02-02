@@ -6,7 +6,7 @@ package com.bank.authorization.exception;
  * @author Vladislav Shilov
  */
 
-public class RoleNotCreatedException extends RuntimeException{
+public class RoleNotCreatedException extends RuntimeException {
     public RoleNotCreatedException(String message) {
         super(message);
     }

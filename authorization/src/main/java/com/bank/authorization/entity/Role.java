@@ -24,23 +24,25 @@ import java.util.Objects;
  */
 
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 @Getter
 @Setter
 @NoArgsConstructor
 public class Role implements GrantedAuthority {
-    public Role(RoleEnum name) {
-        this.name = name;
-    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "name", unique = true)
-    @Enumerated(value=EnumType.STRING)
     @NotEmpty(message = "Role should not be empty")
+    @Enumerated(value = EnumType.STRING)
     private RoleEnum name;
+
+    public Role(RoleEnum name) {
+        this.name = name;
+    }
 
     @Override
     public String getAuthority() {
@@ -49,9 +51,13 @@ public class Role implements GrantedAuthority {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Role role = (Role) o;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Role role = (Role) o;
         return Objects.equals(name, role.name);
     }
 

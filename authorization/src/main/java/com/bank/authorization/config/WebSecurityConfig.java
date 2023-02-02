@@ -38,9 +38,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable() //Отключение csrf-token (cross-site request forgery)
                 .authorizeRequests()
-                .antMatchers("/api/auth","/login", "/api/auth/login", "/api/auth/error").permitAll()
+                .antMatchers("/api/auth", "/login", "/api/auth/login", "/api/auth/error").permitAll()
                 .antMatchers("/api/auth/users/**", "/api/auth/roles/**").hasRole("ADMIN")
-                .antMatchers("/api/auth/userView/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/auth/userView/**").authenticated()
                 .anyRequest().authenticated()
 //                .anyRequest().permitAll()
                 .and()
@@ -65,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        final DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setHideUserNotFoundExceptions(false);
         provider.setPasswordEncoder(passwordEncoder());
         provider.setUserDetailsService(userDetailsService);

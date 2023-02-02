@@ -47,14 +47,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getById(long id) {
-        Optional<User> userById = userRepository.findById(id);
+        final Optional<User> userById = userRepository.findById(id);
         userById.orElseThrow(UserNotFoundException::new);
         return userById.get();
     }
 
     @Override
     public User getByProfileId(long id) {
-        Optional<User> userById = userRepository.getUserByProfileId(id);
+        final Optional<User> userById = userRepository.getUserByProfileId(id);
         userById.orElseThrow(UserNotFoundException::new);
         return userById.get();
     }

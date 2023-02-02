@@ -25,7 +25,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
     @Autowired
     public RoleServiceImpl(RoleRepository roleRepository) {
@@ -39,7 +39,7 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public Role roleByID(Long id) throws RoleNotFoundException {
-        Optional<Role> role = roleRepository.findById(id);
+        final Optional<Role> role = roleRepository.findById(id);
         role.orElseThrow(RoleNotFoundException::new);
         return role.get();
     }

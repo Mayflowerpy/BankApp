@@ -6,7 +6,7 @@ package com.bank.authorization.exception;
  * @author Vladislav Shilov
  */
 
-public class UserNotCreatedException extends RuntimeException{
+public class UserNotCreatedException extends RuntimeException {
     public UserNotCreatedException(String message) {
         super(message);
     }

@@ -25,25 +25,27 @@ public class ErrorHandler {
 
     @ExceptionHandler
     public ResponseEntity<UserErrorResponse> handlerException(UserNotFoundException e) {
-        UserErrorResponse userErrorResponse = new UserErrorResponse("User with this id not found", System.currentTimeMillis());
+        final UserErrorResponse userErrorResponse =
+                new UserErrorResponse("User with this id not found", System.currentTimeMillis());
         return new ResponseEntity<>(userErrorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
     public ResponseEntity<UserErrorResponse> handlerException(UserNotCreatedException e) {
-        UserErrorResponse userErrorResponse = new UserErrorResponse(e.getMessage(), System.currentTimeMillis());
+        final UserErrorResponse userErrorResponse = new UserErrorResponse(e.getMessage(), System.currentTimeMillis());
         return new ResponseEntity<>(userErrorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler
     public ResponseEntity<RoleErrorResponse> handlerException(RoleNotFoundException e) {
-        RoleErrorResponse roleErrorResponse = new RoleErrorResponse("Role with this id not found", System.currentTimeMillis());
+        final RoleErrorResponse roleErrorResponse =
+                new RoleErrorResponse("Role with this id not found", System.currentTimeMillis());
         return new ResponseEntity<>(roleErrorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
     public ResponseEntity<RoleErrorResponse> handlerException(RoleNotCreatedException e) {
-        RoleErrorResponse roleErrorResponse = new RoleErrorResponse(e.getMessage(), System.currentTimeMillis());
+        final RoleErrorResponse roleErrorResponse = new RoleErrorResponse(e.getMessage(), System.currentTimeMillis());
         return new ResponseEntity<>(roleErrorResponse, HttpStatus.BAD_REQUEST);
     }
 }
