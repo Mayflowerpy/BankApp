@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  * Методы:
  * GET - getAllUsers()
  * GET - getUserById(id)
- * GET - getProfiles(id) - обращение к profile для получения списка объектов Profile
+ * GET - getProfiles() - обращение к profile для получения списка объектов Profile
  * GET - getAuthUser(authentication) - возвращает объект Profile авторизованного пользователя
  * POST - addUser(user)
  * PUT - editUserById(id, user)
