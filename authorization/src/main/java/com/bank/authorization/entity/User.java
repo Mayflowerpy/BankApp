@@ -26,9 +26,11 @@ import java.util.Set;
  * Сущность User, имплементирующая UserDetails для секьюрности
  * Поля:
  * Long id - идентификатор пользователя
- * Set<Role> role - Коллекция ролей пользователя, связана Many-to-Many с сущностью Role с ленивой загрузкой
+ * Set<Role> role - Коллекция ролей пользователя, связана Many-to-Many с сущностью Role с EAGER загрузкой
  * Long profileId - идентификатор сущности Profile другого микросервиса(содержит основную информацию профиля и username)
  * String password - Пароль пользователя(валидация поля происходит паттерном регулярного выражения)
+ * getAuthorities() - возвращает лист ролей пользователя
+ * getUsername() - должен возвращать username, но логика предоставления username реализована в ProfileFeignServiceImpl и UserDetailsServiceImpl
  *
  * @author Vladislav Shilov
  */
@@ -45,7 +47,7 @@ public class User implements UserDetails {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

@@ -52,6 +52,13 @@ public class UserServiceImpl implements UserService {
         return userById.get();
     }
 
+    @Override
+    public User getByProfileId(long id) {
+        Optional<User> userById = userRepository.getUserByProfileId(id);
+        userById.orElseThrow(UserNotFoundException::new);
+        return userById.get();
+    }
+
     @Transactional
     @Override
     public void addUser(User newUser) {

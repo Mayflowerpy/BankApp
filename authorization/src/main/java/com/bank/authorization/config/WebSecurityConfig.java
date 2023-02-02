@@ -38,13 +38,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable() //Отключение csrf-token (cross-site request forgery)
                 .authorizeRequests()
-//                .antMatchers("/api/auth","/login", "/api/auth/login", "/api/auth/error").permitAll()
-//                .antMatchers("/api/auth/users/**", "/api/auth/roles/**").hasRole("ADMIN")
-//                .antMatchers("/api/auth/userView/**").hasAnyRole("USER", "ADMIN")
-//                .anyRequest().authenticated()
-                .anyRequest().permitAll()
-//                .and()
-//                .formLogin().successHandler(successUserHandler).permitAll()
+                .antMatchers("/api/auth","/login", "/api/auth/login", "/api/auth/error").permitAll()
+                .antMatchers("/api/auth/users/**", "/api/auth/roles/**").hasRole("ADMIN")
+                .antMatchers("/api/auth/userView/**").hasAnyRole("USER", "ADMIN")
+                .anyRequest().authenticated()
+//                .anyRequest().permitAll()
+                .and()
+                .formLogin().successHandler(successUserHandler).permitAll()
                 .and()
                 .logout().permitAll();
     }

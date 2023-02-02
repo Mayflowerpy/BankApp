@@ -6,4 +6,5 @@ import java.util.List;
 public interface ProfileService {
     Profile getById(long id);
     List<Profile> getProfilesList();
+//    Profile getbyEmail(String email);
 }

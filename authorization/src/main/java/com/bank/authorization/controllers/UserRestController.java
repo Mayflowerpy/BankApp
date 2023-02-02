@@ -2,11 +2,15 @@ package com.bank.authorization.controllers;
 
 import com.bank.authorization.dto.UserDTO;
 import com.bank.authorization.exception.UserNotCreatedException;
+import com.bank.authorization.feign.ProfileFeignClient;
+import com.bank.authorization.pojos.Profile;
+import com.bank.authorization.service.ProfileFeignService;
 import com.bank.authorization.service.UserService;
 import com.bank.authorization.util.ErrBindingResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +33,7 @@ import java.util.stream.Collectors;
  * Методы:
  * GET - getAllUsers()
  * GET - getUserById(id)
- * GET - getAuthUser(authentication) - возвращает объект авторизованного пользователя
+ * GET - getAuthUser(authentication) - возвращает объект Profile авторизованного пользователя
  * POST - addUser(user)
  * PUT - editUserById(id, user)
  * DELETE - deleteUserById(id)
@@ -42,10 +46,14 @@ public class UserRestController {
 
     private final UserService userService;
     private final ErrBindingResult errBindingResult;
+    private final ProfileFeignClient authFeignClient;
+    private final ProfileFeignService profileFeignService;
     @Autowired
-    public UserRestController(UserService userService, ErrBindingResult errBindingResult) {
+    public UserRestController(UserService userService, ErrBindingResult errBindingResult, ProfileFeignClient authFeignClient, ProfileFeignService profileFeignService) {
         this.userService = userService;
         this.errBindingResult = errBindingResult;
+        this.authFeignClient = authFeignClient;
+        this.profileFeignService = profileFeignService;
     }
 
     @GetMapping("/users")
@@ -61,10 +69,15 @@ public class UserRestController {
         return new ResponseEntity<>(userService.mapToUserDTO(userService.getById(id)), HttpStatus.OK);
     }
 
-    //    @GetMapping("/userView")
-//    public ResponseEntity<User> getAuthUser(Authentication auth) {
-//        return  new ResponseEntity<>(userService.getUserByEmail(auth.getName()).get(), HttpStatus.OK);
-//    }
+    @GetMapping("/profiles")
+    public List<Profile> getProfiles() {
+        return authFeignClient.showAllUsers();
+    }
+
+    @GetMapping("/userView")
+    public ResponseEntity<Profile> getAuthUser(Authentication auth) {
+        return new ResponseEntity<>(profileFeignService.getProfileByUsername(auth.getName()).get(), HttpStatus.OK);
+    }
 
     @PostMapping("/users")
     public ResponseEntity<String> addUser(@RequestBody @Valid UserDTO userDTO,
