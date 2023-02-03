@@ -8,3 +8,4 @@ spring:
       hibernate:
         default_schema: auth
         show-sql: true
+    open-in-view: false
