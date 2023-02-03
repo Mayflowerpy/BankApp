@@ -39,4 +39,14 @@ public class Profile {
 
     @Column(name="actual_registration_id")
     private long actualRegistrationId;
+
+    public Profile(long phoneNumber, String email, String nameOnCard, long inn, long snils, long passportId, long actualRegistrationId) {
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.nameOnCard = nameOnCard;
+        this.inn = inn;
+        this.snils = snils;
+        this.passportId = passportId;
+        this.actualRegistrationId = actualRegistrationId;
+    }
 }

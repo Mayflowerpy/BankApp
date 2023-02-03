@@ -4,7 +4,6 @@ import com.bank.authorization.dto.UserDTO;
 import com.bank.authorization.exception.UserNotCreatedException;
 import com.bank.authorization.feign.ProfileFeignClient;
 import com.bank.authorization.pojos.Profile;
-import com.bank.authorization.service.ProfileFeignService;
 import com.bank.authorization.service.UserService;
 import com.bank.authorization.util.ErrBindingResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -33,7 +34,7 @@ import java.util.stream.Collectors;
  * Методы:
  * GET - getAllUsers()
  * GET - getUserById(id)
- * GET - getProfiles() - обращение к profile для получения списка объектов Profile
+ * GET - getProfileByUsername(username) - обращение к profile для получения объекта Profile по полю email
  * GET - getAuthUser(authentication) - возвращает объект Profile авторизованного пользователя
  * POST - addUser(user)
  * PUT - editUserById(id, user)
@@ -47,16 +48,14 @@ public class UserRestController {
 
     private final UserService userService;
     private final ErrBindingResult errBindingResult;
-    private final ProfileFeignClient authFeignClient;
-    private final ProfileFeignService profileFeignService;
+    private final ProfileFeignClient profileFeignClient;
 
     @Autowired
     public UserRestController(UserService userService, ErrBindingResult errBindingResult,
-                              ProfileFeignClient authFeignClient, ProfileFeignService profileFeignService) {
+                              ProfileFeignClient profileFeignClient) {
         this.userService = userService;
         this.errBindingResult = errBindingResult;
-        this.authFeignClient = authFeignClient;
-        this.profileFeignService = profileFeignService;
+        this.profileFeignClient = profileFeignClient;
     }
 
     @GetMapping("/users")
@@ -72,14 +71,14 @@ public class UserRestController {
         return new ResponseEntity<>(userService.mapToUserDTO(userService.getById(id)), HttpStatus.OK);
     }
 
-    @GetMapping("/profiles")
-    public List<Profile> getProfiles() {
-        return authFeignClient.showAllUsers();
+    @GetMapping
+    public Optional<Profile> getProfileByUsername(@RequestParam String email) {
+        return profileFeignClient.getProfileByUsername(email);
     }
 
     @GetMapping("/userView")
     public ResponseEntity<Profile> getAuthUser(Authentication auth) {
-        return new ResponseEntity<>(profileFeignService.getProfileByUsername(auth.getName()).get(), HttpStatus.OK);
+        return new ResponseEntity<>(getProfileByUsername(auth.getName()).get(), HttpStatus.OK);
     }
 
     @PostMapping("/users")

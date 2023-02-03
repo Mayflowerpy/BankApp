@@ -1,5 +1,6 @@
 package com.bank.authorization.service;
 
+import com.bank.authorization.controllers.UserRestController;
 import com.bank.authorization.entity.User;
 import com.bank.authorization.pojos.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +20,17 @@ import java.util.Optional;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserService userService;
-    private final ProfileFeignService profileFeignService;
+    private final UserRestController userRestController;
     @Autowired
-    public UserDetailsServiceImpl(UserService userService, ProfileFeignService profileFeignService) {
+    public UserDetailsServiceImpl(UserService userService, UserRestController userRestController) {
         this.userService = userService;
-        this.profileFeignService = profileFeignService;
+        this.userRestController = userRestController;
     }
 
     /**
-     * Метод loadUserByUsername(String username) - подгружает пользователя из базы данных по полю Username
+     * Метод loadUserByUsername(String username) - подгружает пользователя из базы данных по полю email(username)
      * В случае если пользователь отсутствует - выбрасывает исключение UsernameNotFoundException
-     * Загрузка email происходит получением его из микросервиса profile с помощью FeignClient и ProfileFeignServiceImpl
+     * Загрузка email происходит получением его из микросервиса profile с помощью FeignClient
      * Загрузка password и roles происходит из базы данных данного микросервиса
      * Сопоставление email и password происходит по полю profileId сущности User
      *
@@ -38,7 +39,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final Optional<Profile> profile = profileFeignService.getProfileByUsername(username);
+        final Optional<Profile> profile = userRestController.getProfileByUsername(username);
         if (profile.isEmpty()) {
             throw new UsernameNotFoundException(String.format("User with mail %s not found", username));
         } else {

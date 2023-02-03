@@ -32,8 +32,13 @@ public class ProfileServiceImpl implements ProfileService{
         return profileRepository.findAll();
     }
 
-//    @Override
-//    public Profile getbyEmail(String email) {
-//        return null;
-//    }
+    @Override
+    public Optional<Profile> getByEmail(String email) {
+        return profileRepository.getProfileByEmail(email);
+    }
+
+    @Override
+    public void addProfile(Profile profile) {
+        profileRepository.saveAndFlush(profile);
+    }
 }

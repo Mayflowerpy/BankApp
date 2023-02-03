@@ -19,6 +19,7 @@ import java.util.Optional;
  * Методы:
  * getUsers() - возвращает список объектов User
  * userByID(id) - возвращает объект User или бросает исключение RoleNotFoundException если в Optional - null
+ * getByProfileId -
  * addUser(role) - добавляет объект User в базу данных, шифрует поле password посредством BCryptPasswordEncoder
  * updateUser(id, role) - обновляет объект User в данных по id, если пароль был изменен - повторно шифрует поле
  * deleteUser(id) - удаляет объект User из базы данных по id

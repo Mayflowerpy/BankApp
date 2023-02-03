@@ -22,6 +22,8 @@ import java.util.Set;
 public class UserDTO {
 
     @NotNull
+    private Long id;
+    @NotNull
     @NotEmpty(message = "Role should not be empty")
     private Set<Role> role;
 

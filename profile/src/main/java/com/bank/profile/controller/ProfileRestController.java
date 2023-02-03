@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController
@@ -25,8 +25,13 @@ public class ProfileRestController {
         return new ResponseEntity<>(profileService.getProfilesList(), HttpStatus.OK);
     }
 
-    @GetMapping("/profiles/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Profile> getUserById(@PathVariable("id") long id) {
         return new ResponseEntity<>(profileService.getById(id), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<Profile> getUserByEmail(@RequestParam(value="username") String username) {
+        return new ResponseEntity<>(profileService.getByEmail(username).get(), HttpStatus.OK);
     }
 }
