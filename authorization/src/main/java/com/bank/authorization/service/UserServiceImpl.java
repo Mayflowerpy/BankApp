@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsersList() {
+    public List<User> getAll() {
         return userRepository.findAll();
     }
 
@@ -62,14 +62,14 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void addUser(User newUser) {
+    public void add(User newUser) {
         newUser.setPassword(new BCryptPasswordEncoder().encode(newUser.getPassword()));
         userRepository.saveAndFlush(newUser);
     }
 
     @Transactional
     @Override
-    public void updateUser(long id, User userForUpdate) {
+    public void update(long id, User userForUpdate) {
         if (!getById(id).getPassword().equals(userForUpdate.getPassword())) {
             userForUpdate.setPassword(new BCryptPasswordEncoder().encode(userForUpdate.getPassword()));
         }
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void deleteUser(Long id) {
+    public void delete(Long id) {
         userRepository.deleteById(id);
     }
 
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.toUser(userDTO);
     }
 
-    public UserDTO mapToUserDTO(User user) {
-        return userMapper.toUserDTO(user);
+    public UserDTO mapToDTO(User user) {
+        return userMapper.toDTO(user);
     }
 }

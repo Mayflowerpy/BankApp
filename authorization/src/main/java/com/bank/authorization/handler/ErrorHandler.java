@@ -1,9 +1,6 @@
 package com.bank.authorization.handler;
 
-import com.bank.authorization.exception.RoleNotCreatedException;
-import com.bank.authorization.exception.RoleNotFoundException;
-import com.bank.authorization.exception.UserNotCreatedException;
-import com.bank.authorization.exception.UserNotFoundException;
+import com.bank.authorization.exception.*;
 import com.bank.authorization.util.RoleErrorResponse;
 import com.bank.authorization.util.UserErrorResponse;
 import org.springframework.http.HttpStatus;
@@ -47,5 +44,12 @@ public class ErrorHandler {
     public ResponseEntity<RoleErrorResponse> handlerException(RoleNotCreatedException e) {
         final RoleErrorResponse roleErrorResponse = new RoleErrorResponse(e.getMessage(), System.currentTimeMillis());
         return new ResponseEntity<>(roleErrorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<UserErrorResponse> handlerException(ProfileNotFoundException e) {
+        final UserErrorResponse userErrorResponse =
+                new UserErrorResponse("Profile with this id not found", System.currentTimeMillis());
+        return new ResponseEntity<>(userErrorResponse, HttpStatus.NOT_FOUND);
     }
 }

@@ -47,39 +47,39 @@ public class RoleRestController {
     }
 
     @GetMapping("/roles")
-    public ResponseEntity<List<Role>> getAllRoles() {
-        return new ResponseEntity<>(roleService.getRoles(), HttpStatus.OK);
+    public ResponseEntity<List<Role>> getAll() {
+        return new ResponseEntity<>(roleService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/roles/{id}")
     ResponseEntity<Role> getRoleById(@PathVariable("id") long id) {
-        return new ResponseEntity<>(roleService.roleByID(id), HttpStatus.OK);
+        return new ResponseEntity<>(roleService.getById(id), HttpStatus.OK);
     }
 
     @PostMapping("/roles")
-    public ResponseEntity<String> addRole(@RequestBody @Valid Role role,
+    public ResponseEntity<String> add(@RequestBody @Valid Role role,
                                               BindingResult bindingResult) throws RoleNotCreatedException {
         if (bindingResult.hasErrors()) {
             throw new RoleNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));
         }
-        roleService.addRole(role);
+        roleService.add(role);
         return new ResponseEntity<>(String.format("Role %s has been added", role.toString()), HttpStatus.OK);
     }
 
     @PutMapping("/roles/{id}")
-    public  ResponseEntity<String> editRoleById(@PathVariable("id") long id,
+    public  ResponseEntity<String> update(@PathVariable("id") long id,
                                                 @RequestBody @Valid Role role,
                                                 BindingResult bindingResult) throws RoleNotCreatedException {
         if (bindingResult.hasErrors()) {
             throw new RoleNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));
         }
-        roleService.updateRole(id, role);
+        roleService.update(id, role);
         return new ResponseEntity<>(String.format("Role with id-%s has been updated", id), HttpStatus.OK);
     }
 
     @DeleteMapping("/roles/{id}")
-    public ResponseEntity<String> deleteRoleById (@PathVariable("id") long id) {
-        roleService.deleteRole(id);
+    public ResponseEntity<String> delete(@PathVariable("id") long id) {
+        roleService.delete(id);
         return new ResponseEntity<>(String.format("Role with id-%s has been deleted", id), HttpStatus.OK);
     }
 }

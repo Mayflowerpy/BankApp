@@ -1,7 +1,7 @@
 package com.bank.authorization.validator;
 
 import com.bank.authorization.entity.User;
-import com.bank.authorization.service.UserServiceImpl;
+import com.bank.authorization.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -17,10 +17,10 @@ import org.springframework.validation.Validator;
 @Component
 public class UserValidator implements Validator {
 
-    UserServiceImpl userService;
+    UserService userService;
 
     @Autowired
-    public UserValidator(UserServiceImpl userService) {
+    public UserValidator(UserService userService) {
         this.userService = userService;
     }
 

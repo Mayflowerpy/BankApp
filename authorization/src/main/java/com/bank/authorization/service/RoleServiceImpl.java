@@ -33,12 +33,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Role> getRoles() {
+    public List<Role> getAll() {
         return roleRepository.findAll();
     }
 
     @Override
-    public Role roleByID(Long id) throws RoleNotFoundException {
+    public Role getById(Long id) throws RoleNotFoundException {
         final Optional<Role> role = roleRepository.findById(id);
         role.orElseThrow(RoleNotFoundException::new);
         return role.get();
@@ -46,18 +46,18 @@ public class RoleServiceImpl implements RoleService {
 
     @Transactional
     @Override
-    public void addRole(Role role) {
+    public void add(Role role) {
         roleRepository.saveAndFlush(role);
     }
 
     @Override
-    public void updateRole(long id, Role roleForUpdate) {
+    public void update(long id, Role roleForUpdate) {
         roleForUpdate.setId(id);
         roleRepository.saveAndFlush(roleForUpdate);
     }
 
     @Override
-    public void deleteRole(Long id) {
+    public void delete(Long id) {
         roleRepository.deleteById(id);
     }
 }

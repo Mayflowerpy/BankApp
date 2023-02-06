@@ -11,9 +11,9 @@ import java.util.List;
  */
 
 public interface RoleService {
-    List<Role> getRoles();
-    void addRole(Role role);
-    Role roleByID(Long id);
-    void deleteRole(Long id);
-    void updateRole(long id, Role roleForUpdate);
+    List<Role> getAll();
+    void add(Role role);
+    Role getById(Long id);
+    void delete(Long id);
+    void update(long id, Role roleForUpdate);
 }

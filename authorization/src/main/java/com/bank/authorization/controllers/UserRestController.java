@@ -1,6 +1,7 @@
 package com.bank.authorization.controllers;
 
 import com.bank.authorization.dto.UserDTO;
+import com.bank.authorization.exception.ProfileNotFoundException;
 import com.bank.authorization.exception.UserNotCreatedException;
 import com.bank.authorization.feign.ProfileFeignClient;
 import com.bank.authorization.pojos.Profile;
@@ -59,16 +60,16 @@ public class UserRestController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
-        return new ResponseEntity<>(userService.getUsersList()
+    public ResponseEntity<List<UserDTO>> getAll() {
+        return new ResponseEntity<>(userService.getAll()
                 .stream()
-                .map(userService::mapToUserDTO)
+                .map(userService::mapToDTO)
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable("id") long id) {
-        return new ResponseEntity<>(userService.mapToUserDTO(userService.getById(id)), HttpStatus.OK);
+        return new ResponseEntity<>(userService.mapToDTO(userService.getById(id)), HttpStatus.OK);
     }
 
     @GetMapping
@@ -78,33 +79,33 @@ public class UserRestController {
 
     @GetMapping("/userView")
     public ResponseEntity<Profile> getAuthUser(Authentication auth) {
-        return new ResponseEntity<>(getProfileByUsername(auth.getName()).get(), HttpStatus.OK);
+        return new ResponseEntity<>(getProfileByUsername(auth.getName()).orElseThrow(ProfileNotFoundException::new), HttpStatus.OK);
     }
 
     @PostMapping("/users")
-    public ResponseEntity<String> addUser(@RequestBody @Valid UserDTO userDTO,
+    public ResponseEntity<String> add(@RequestBody @Valid UserDTO userDTO,
                                               BindingResult bindingResult) throws UserNotCreatedException {
         if (bindingResult.hasErrors()) {
             throw new UserNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));
         }
-        userService.addUser(userService.mapToUser(userDTO));
+        userService.add(userService.mapToUser(userDTO));
         return new ResponseEntity<>("User has been added", HttpStatus.OK);
     }
 
     @PutMapping("/users/{id}")
-    public  ResponseEntity<String> editUserById(@PathVariable("id") long id,
+    public  ResponseEntity<String> update(@PathVariable("id") long id,
                                                @RequestBody @Valid UserDTO userDTO,
                                                BindingResult bindingResult) throws UserNotCreatedException {
         if (bindingResult.hasErrors()) {
             throw new UserNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));
         }
-        userService.updateUser(id, userService.mapToUser(userDTO));
+        userService.update(id, userService.mapToUser(userDTO));
         return new ResponseEntity<>(String.format("User with id-%s has been updated", id), HttpStatus.OK);
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<String> deleteUserById(@PathVariable("id") long id) {
-        userService.deleteUser(id);
+    public ResponseEntity<String> delete(@PathVariable("id") long id) {
+        userService.delete(id);
         return new ResponseEntity<>(String.format("User with id-%s has been deleted", id), HttpStatus.OK);
     }
 }
