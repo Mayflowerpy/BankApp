@@ -5,6 +5,7 @@
         xsi:schemaLocation="
         http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
     <changeSet author="Рустам" id="1672955805601-1">
         <createTable remarks="аудит" tableName="audit">
             <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
@@ -30,14 +31,17 @@
             </column>
         </createTable>
     </changeSet>
+
     <changeSet author="Рустам" id="1672955805601-2">
         <createTable remarks="аутентифицированный пользователь" tableName="user">
             <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="user_pkey"/>
             </column>
-            <column name="role" remarks="роль" type="VARCHAR(40)">
-                <constraints nullable="false"/>
-            </column>
+
+<!--            Нужно изменить на Set и сделать foreign key!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!--            <column name="role" remarks="роль" type="VARCHAR(40)">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
             <column name="profile_id" remarks="технический идентификатор профиля" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
@@ -46,7 +50,37 @@
             </column>
         </createTable>
     </changeSet>
+
     <changeSet author="Рустам" id="1672955805601-3">
-        <addUniqueConstraint columnNames="password" constraintName="user_password_key" tableName="user"/>
+        <createTable remarks="таблица ролей" tableName="roles">
+            <column autoIncrement="true" name="id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="role_pkey"/>
+            </column>
+            <column name="name" remarks="роль" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
     </changeSet>
+
+    <changeSet author="Рустам" id="1672955805601-4">
+        <createTable remarks="соотношение юзеров к ролям" tableName="users_roles">
+            <column autoIncrement="true" name="user_id" remarks="технический идентификатор" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_ref_pkey"/>
+            </column>
+            <column autoIncrement="true" name="role_id" remarks="технический идентификатор" type="BIGINT">
+                    <constraints nullable="false" primaryKey="true" primaryKeyName="role_ref_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Рустам" id="1672955805601-5">
+        <addUniqueConstraint columnNames="name" constraintName="role_name_key" tableName="roles"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955805601-6">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="users_roles" constraintName="users_roles__user_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="Рустам" id="1672955805601-7">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="users_roles" constraintName="users_roles__roles_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="roles"/>
+    </changeSet>
+
 </databaseChangeLog>

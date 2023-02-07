@@ -3,3 +3,9 @@ spring:
     name: authorization-app
   profiles:
     active: local
+  jpa:
+    properties:
+      hibernate:
+        default_schema: auth
+        show-sql: true
+    open-in-view: false
