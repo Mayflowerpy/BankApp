@@ -2,7 +2,6 @@ package com.bank.publicinfo.controller;
 
 import com.bank.publicinfo.dto.BranchDto;
 import com.bank.publicinfo.entity.Branch;
-import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.service.BranchService;
 import com.bank.publicinfo.service.EntityDtoMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-
-import static com.bank.publicinfo.util.ErrorBindingResult.getBindingResultErrors;
 
 /**
  * REST-контроллер RestBranchController. Сущность - Branch (отделение банка).
@@ -64,7 +61,7 @@ public class RestBranchController implements BasicRestController<BranchDto> {
     public ResponseEntity<BranchDto> create(@RequestBody @Valid BranchDto dto, BindingResult bindingResult) {
         log.info("Вызов метода create() |DTO = " + dto + "| в контроллере " + this.getClass());
         if (bindingResult.hasErrors()) {
-            throw new NotExecutedException(getBindingResultErrors(bindingResult));
+            throw new IllegalArgumentException(bindingResult.getAllErrors().toString());
         }
         service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
@@ -75,7 +72,7 @@ public class RestBranchController implements BasicRestController<BranchDto> {
     public ResponseEntity<BranchDto> update(@RequestBody @Valid BranchDto dto, BindingResult bindingResult) {
         log.info("Вызов метода update() |DTO = " + dto + "| в контроллере " + this.getClass());
         if (bindingResult.hasErrors()) {
-            throw new NotExecutedException(getBindingResultErrors(bindingResult));
+            throw new IllegalArgumentException(bindingResult.getAllErrors().toString());
         }
         service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);

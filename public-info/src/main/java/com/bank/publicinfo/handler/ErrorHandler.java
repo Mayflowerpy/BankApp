@@ -41,7 +41,7 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler
-    public ResponseEntity<ErrorResponse> illegalArgumentException(IllegalArgumentException e) {
+    public ResponseEntity<ErrorResponse> notExecutedException(NotExecutedException e) {
         log.error("В контроллере получен некорректный объект: " + e + " " + e.getMessage());
         return new ResponseEntity<>(
                 new ErrorResponse("В контроллере получен некорректный объект: " + e.getMessage(), System.currentTimeMillis()), HttpStatus.BAD_REQUEST);
