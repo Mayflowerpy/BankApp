@@ -1,8 +1,8 @@
 package com.bank.authorization.util;
 
+import com.bank.authorization.dto.UserDTO;
 import com.bank.authorization.entity.Role;
 import com.bank.authorization.entity.RoleEnum;
-import com.bank.authorization.entity.User;
 import com.bank.authorization.service.RoleService;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,14 +42,23 @@ public class DatabaseInit {
         }
 
         if (userService.getAll().isEmpty()) {
+
             final Set<Role> adminRoles = new HashSet<>();
             Collections.addAll(adminRoles, roleService.getById(1L), roleService.getById(2L));
-            final User admin = new User(adminRoles, 1L, "Admin1@");
+            final UserDTO admin = UserDTO.builder()
+                    .role(adminRoles)
+                    .profileId(1L)
+                    .password("Admin1@")
+                    .build();
             userService.add(admin);
 
             final Set<Role> userRoles = new HashSet<>();
             Collections.addAll(userRoles, roleService.getById(2L));
-            final User user = new User(userRoles, 2L, "User1@");
+            final UserDTO user = UserDTO.builder()
+                    .role(userRoles)
+                    .profileId(2L)
+                    .password("User1@")
+                    .build();
             userService.add(user);
         }
     }

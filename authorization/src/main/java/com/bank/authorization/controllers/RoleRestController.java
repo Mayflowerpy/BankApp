@@ -26,11 +26,11 @@ import java.util.List;
  * Метод GET вернет ошибку RoleNotFoundException в случае несуществующей role
  * Выброшенные ошибки обрабатываются ErrorHandler, и возвращают сообщение ошибки и HttpStatus
  * Методы:
- * GET - getAllRoles()
- * GET - getRoleById(id)
- * POST - addRole(role)
- * PUT - editRoleById(id, role)
- * DELETE - deleteRoleById(id)
+ * GET - getAll()
+ * GET - getById(id)
+ * POST - add(role)
+ * PUT - update(id, role)
+ * DELETE - delete(id)
  *
  * @author Vladislav Shilov
  */

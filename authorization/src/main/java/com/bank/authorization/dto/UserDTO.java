@@ -2,16 +2,17 @@ package com.bank.authorization.dto;
 
 import com.bank.authorization.entity.Role;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Objects;
 import java.util.Set;
 
 /**
  * Трансферный слой dto для сущности user
- * За основу взяты все поля кроме id
  *
  * @author Vladislav Shilov
  */
@@ -19,6 +20,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserDTO {
 
     @NotNull
@@ -37,4 +39,24 @@ public class UserDTO {
             message = "The string must be at least 5 characters long, contain at least 1 uppercase letter, " +
                     "1 lowercase letter, and OR special character(@#$%) OR number.")
     private String password;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final UserDTO userDTO = (UserDTO) o;
+        return Objects.equals(id, userDTO.id) &&
+                Objects.equals(role, userDTO.role) &&
+                Objects.equals(profileId, userDTO.profileId) &&
+                Objects.equals(password, userDTO.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, role, profileId, password);
+    }
 }
