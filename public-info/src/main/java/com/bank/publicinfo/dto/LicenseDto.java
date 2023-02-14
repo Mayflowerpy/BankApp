@@ -21,16 +21,18 @@ import javax.validation.constraints.NotEmpty;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class LicenseDto {
 
     @NotEmpty(message = "Id should not be empty")
     @Min(value = 1, message = "Id should be greater than 0")
     private Long id;
 
+    @NonNull
     @NotEmpty(message = "License photo should not be empty")
     private Byte[] photo;
 
+    @NonNull
     @NotEmpty(message = "Bank details should not be empty")
     private BankDetails bankDetails;
 }

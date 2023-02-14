@@ -33,8 +33,8 @@ public class RestAtmController implements BasicRestController<AtmDto> {
     private final AtmService service;
     private final EntityDtoMapper<Atm, AtmDto> mapper;
 
-    private final String ENTITY_CLASS_NAME = "com.bank.publicinfo.entity.Atm";
-    private final String DTO_CLASS_NAME = "com.bank.publicinfo.dto.AtmDto";
+    private final String ENTITY_CLASS_NAME = Atm.class.getCanonicalName();
+    private final String DTO_CLASS_NAME = AtmDto.class.getCanonicalName();
 
     public RestAtmController(AtmService service, EntityDtoMapper<Atm, AtmDto> mapper) {
         this.service = service;
@@ -51,7 +51,7 @@ public class RestAtmController implements BasicRestController<AtmDto> {
     @GetMapping(value = "/atm/id={id}")
     public ResponseEntity<AtmDto> getById(@PathVariable("id") Long id) {
         log.info("Вызов метода getById() |id = " + id + "| в контроллере " + this.getClass());
-        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.FOUND);
+        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.OK);
     }
 
     @PostMapping(value = "/admin/atm/new")

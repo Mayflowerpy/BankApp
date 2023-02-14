@@ -25,13 +25,14 @@ import java.sql.Time;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AtmDto {
 
     @NotEmpty(message = "Id should not be empty")
     @Min(value = 1, message = "Id should be greater than 0")
     private Long id;
 
+    @NonNull
     @NotEmpty(message = "Address should not be empty")
     @Size(min = 2, max = 370, message = "Address should be between 2 and 370 characters")
     private String address;
@@ -40,6 +41,7 @@ public class AtmDto {
 
     private Time endOfWork;
 
+    @NonNull
     @NotEmpty(message = "All hours should not be empty")
     private Boolean allHours;
 

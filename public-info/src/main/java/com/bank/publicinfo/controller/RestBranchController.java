@@ -33,8 +33,8 @@ public class RestBranchController implements BasicRestController<BranchDto> {
     private final BranchService service;
     private final EntityDtoMapper<Branch, BranchDto> mapper;
 
-    private final String ENTITY_CLASS_NAME = "com.bank.publicinfo.entity.Branch";
-    private final String DTO_CLASS_NAME = "com.bank.publicinfo.dto.BranchDto";
+    private final String ENTITY_CLASS_NAME = Branch.class.getCanonicalName();
+    private final String DTO_CLASS_NAME = BranchDto.class.getCanonicalName();
 
     public RestBranchController(BranchService service, EntityDtoMapper<Branch, BranchDto> mapper) {
         this.service = service;
@@ -52,7 +52,7 @@ public class RestBranchController implements BasicRestController<BranchDto> {
     @Override
     public ResponseEntity<BranchDto> getById(@PathVariable("id") Long id) {
         log.info("Вызов метода getById() |id = " + id + "| в контроллере " + this.getClass());
-        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.FOUND);
+        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.OK);
     }
 
     @PostMapping(value = "/admin/branch/new")
