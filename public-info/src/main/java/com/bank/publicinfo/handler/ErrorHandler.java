@@ -39,6 +39,13 @@ public class ErrorHandler {
         ErrorResponse response = new ErrorResponse(Timestamp.valueOf(LocalDateTime.now()), HttpStatus.BAD_REQUEST, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> illegalArgumentException(IllegalArgumentException e) {
+        log.error("В контроллере получен некорректный объект: " + e + " " + e.getMessage());
+        return new ResponseEntity<>(
+                new ErrorResponse("В контроллере получен некорректный объект: " + e.getMessage(), System.currentTimeMillis()), HttpStatus.BAD_REQUEST);
+    }
 }
 
 
