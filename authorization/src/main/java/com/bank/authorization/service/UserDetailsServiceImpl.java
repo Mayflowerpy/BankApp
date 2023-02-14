@@ -2,6 +2,7 @@ package com.bank.authorization.service;
 
 import com.bank.authorization.controllers.UserRestController;
 import com.bank.authorization.entity.User;
+import com.bank.authorization.mapper.UserMapper;
 import com.bank.authorization.pojos.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,11 +40,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final Optional<Profile> profile = userRestController.getProfileByUsername(username);
+        final Optional<Profile> profile = Optional.ofNullable(userRestController.getProfileByUsername(username));
         if (profile.isEmpty()) {
             throw new UsernameNotFoundException(String.format("User with mail %s not found", username));
         } else {
-            final User user = userService.getByProfileId(profile.get().getId());
+            final User user = UserMapper.MAPPER.toUser(userService.getByProfileId(profile.get().getId()));
             return new org.springframework.security.core.userdetails.User(profile.get().getEmail(),
                     user.getPassword(), user.getAuthorities());
         }

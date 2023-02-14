@@ -1,5 +1,7 @@
 package com.bank.authorization.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +29,9 @@ import java.util.Objects;
 @Table(name = "roles")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Role implements GrantedAuthority {
 
     @Id

@@ -17,14 +17,12 @@ import java.util.Optional;
  * Реализует методы интерфейса UserService
  * Реализуется посредством JpaRepository класса UserRepository
  * Методы:
- * getUsers() - возвращает список объектов User
- * userByID(id) - возвращает объект User или бросает исключение RoleNotFoundException если в Optional - null
- * getByProfileId -
- * addUser(role) - добавляет объект User в базу данных, шифрует поле password посредством BCryptPasswordEncoder
- * updateUser(id, role) - обновляет объект User в данных по id, если пароль был изменен - повторно шифрует поле
- * deleteUser(id) - удаляет объект User из базы данных по id
- * mapToUser(userDTO) - преобразует объект UserDTO в объект User
- * mapToUserDTO(user) - преобразует объект User в объект UserDTO
+ * getAll() - возвращает список объектов UserDto
+ * getById(id) - возвращает объект UserDto или бросает исключение RoleNotFoundException если в Optional - null
+ * getByProfileId - возвращает объект UserDto по полю profileId, нужно для реализации авторизации
+ * add(user) - добавляет объект User в базу данных, шифрует поле password посредством BCryptPasswordEncoder
+ * update(id, user) - обновляет объект User в данных по id, если пароль был изменен - повторно шифрует поле
+ * delete(id) - удаляет объект User из базы данных по id
  *
  * @author Vladislav Shilov
  */
@@ -42,52 +40,42 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserDTO> getAll() {
+        return userMapper.toDTOList(userRepository.findAll());
     }
 
     @Override
-    public User getById(long id) {
+    public UserDTO getById(long id) {
         final Optional<User> userById = userRepository.findById(id);
-        userById.orElseThrow(UserNotFoundException::new);
-        return userById.get();
+        return userMapper.toDTO(userById.orElseThrow(UserNotFoundException::new));
     }
 
     @Override
-    public User getByProfileId(long id) {
+    public UserDTO getByProfileId(long id) {
         final Optional<User> userById = userRepository.getUserByProfileId(id);
-        userById.orElseThrow(UserNotFoundException::new);
-        return userById.get();
+        return userMapper.toDTO(userById.orElseThrow(UserNotFoundException::new));
     }
 
     @Transactional
     @Override
-    public void add(User newUser) {
+    public void add(UserDTO newUser) {
         newUser.setPassword(new BCryptPasswordEncoder().encode(newUser.getPassword()));
-        userRepository.saveAndFlush(newUser);
+        userRepository.saveAndFlush(userMapper.toUser(newUser));
     }
 
     @Transactional
     @Override
-    public void update(long id, User userForUpdate) {
+    public void update(long id, UserDTO userForUpdate) {
         if (!getById(id).getPassword().equals(userForUpdate.getPassword())) {
             userForUpdate.setPassword(new BCryptPasswordEncoder().encode(userForUpdate.getPassword()));
         }
         userForUpdate.setId(id);
-        userRepository.saveAndFlush(userForUpdate);
+        userRepository.saveAndFlush(userMapper.toUser(userForUpdate));
     }
 
     @Transactional
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
-    }
-
-    public User mapToUser(UserDTO userDTO) {
-        return userMapper.toUser(userDTO);
-    }
-
-    public UserDTO mapToDTO(User user) {
-        return userMapper.toDTO(user);
     }
 }

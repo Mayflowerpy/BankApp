@@ -40,8 +40,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role getById(Long id) throws RoleNotFoundException {
         final Optional<Role> role = roleRepository.findById(id);
-        role.orElseThrow(RoleNotFoundException::new);
-        return role.get();
+        return role.orElseThrow(RoleNotFoundException::new);
     }
 
     @Transactional
