@@ -6,7 +6,7 @@ import org.springframework.validation.BindingResult;
 import java.util.stream.Collectors;
 
 /**
- * Класс ErrorResponse - используется в контроллерах для получения ошибок
+ * Класс ErrorBindingResult - используется в контроллерах для получения ошибок
  *
  * @author UnsleepingOwl (Lev Yakolin)
  */
