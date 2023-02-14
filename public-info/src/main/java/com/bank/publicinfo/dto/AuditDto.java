@@ -4,6 +4,7 @@ package com.bank.publicinfo.dto;
 import com.bank.publicinfo.entity.Audit;
 import com.bank.publicinfo.entity.EntityType;
 import com.bank.publicinfo.entity.OperationType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.validation.constraints.Min;
@@ -32,34 +33,41 @@ import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AuditDto {
 
     @NotEmpty(message = "Id should not be empty")
     @Min(value = 1, message = "Id should be greater than 0")
     private Long id;
 
+    @NonNull
     @NotEmpty(message = "Entity type should not be empty")
     @Size(min = 2, max = 40, message = "Address should be between 2 and 40 characters")
     private EntityType entityType;
 
+    @NonNull
     @NotEmpty(message = "Operation type should not be empty")
     @Size(min = 2, max = 255, message = "Address should be between 2 and 255 characters")
     private OperationType operationType;
 
+    @NonNull
     @NotEmpty(message = "This string should not be empty")
     @Size(min = 2, max = 255, message = "This string should be between 2 and 255 characters")
     private String createdBy;
 
     private String modifiedBy;
 
+    @NonNull
     @NotEmpty(message = "Time of creation should not be empty")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Timestamp createdAt;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Timestamp modifiedAt;
 
     private String newEntityJson;
 
+    @NonNull
     @NotEmpty(message = "Entity should not be empty")
     private String entityJson;
 }

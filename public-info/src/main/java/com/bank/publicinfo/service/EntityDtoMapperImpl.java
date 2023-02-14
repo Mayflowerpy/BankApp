@@ -24,18 +24,23 @@ public class EntityDtoMapperImpl<E, D> implements EntityDtoMapper<E, D> {
     @SuppressWarnings(value = "all")
     @Override
     public E toEntity(D dto, String entityClassName) {
-        log.info("Вызов метода toEntity() |DTO = " + dto + "| в сервисе " + this.getClass() + ". Класс сущности " + entityClassName);
+
+        log.debug("Вызов метода toEntity() |DTO = " + dto + "| в сервисе " + this.getClass() + ". Класс сущности: " + entityClassName);
+
         E entity;
         try {
             Class<?> entityClass = Class.forName(entityClassName);
             entity = (E) entityClass.getDeclaredConstructor().newInstance();
             if (dto != null) {
                 BeanUtils.copyProperties(dto, entity);
-                log.info("Вызов метода BeanUtils.copyProperties(dto, entity) в сервисе " + this.getClass() +
+                log.debug("Вызов метода BeanUtils.copyProperties(dto, entity) в сервисе " + this.getClass() +
                         ". Entity: " + entity);
             }
         } catch (ClassNotFoundException | InvocationTargetException |
                  IllegalAccessException | NoSuchMethodException | InstantiationException e) {
+
+            log.error(this.getClass() + ": Ошибка в работе метода toEntity() " + e);
+
             throw new RuntimeException(e);
         }
         return entity;
@@ -44,18 +49,25 @@ public class EntityDtoMapperImpl<E, D> implements EntityDtoMapper<E, D> {
     @SuppressWarnings(value = "all")
     @Override
     public D toDto(E entity, String dtoClassName) {
-        log.info("Вызов метода toDto() |Entity = " + entity + "| в сервисе " + this.getClass() + ". Класс DTO " + dtoClassName);
+
+        log.debug("Вызов метода toDto() |Entity = " + entity + "| в сервисе " + this.getClass() + ". Класс DTO: " + dtoClassName);
+
         D dto;
         try {
             Class<?> dtoClass = Class.forName(dtoClassName);
             dto = (D) dtoClass.getDeclaredConstructor().newInstance();
             if (entity != null) {
                 BeanUtils.copyProperties(entity, dto);
-                log.info("Вызов метода BeanUtils.copyProperties(entity, dto) в сервисе " + this.getClass() +
+
+                log.debug("Вызов метода BeanUtils.copyProperties(entity, dto) в сервисе " + this.getClass() +
                         ". DTO: " + dto);
+
             }
         } catch (ClassNotFoundException | InvocationTargetException |
                  IllegalAccessException | NoSuchMethodException | InstantiationException e) {
+
+            log.error(this.getClass() + ": Ошибка в работе метода toDto() " + e);
+
             throw new RuntimeException(e);
         }
         return dto;
@@ -63,7 +75,9 @@ public class EntityDtoMapperImpl<E, D> implements EntityDtoMapper<E, D> {
 
     @Override
     public List<D> toDtoList(Collection<E> entityCollection, String dtoClassName) {
-        log.info("Вызов метода toDtoList() в сервисе " + this.getClass());
+
+        log.debug("Вызов метода toDtoList() в сервисе " + this.getClass());
+
         return entityCollection.stream().map(e -> toDto(e, dtoClassName)).collect(Collectors.toList());
     }
 }

@@ -33,8 +33,8 @@ public class RestAuditController implements BasicRestController<AuditDto> {
     private final AuditService service;
     private final EntityDtoMapper<Audit, AuditDto> mapper;
 
-    private final String ENTITY_CLASS_NAME = "com.bank.publicinfo.entity.Audit";
-    private final String DTO_CLASS_NAME = "com.bank.publicinfo.dto.AuditDto";
+    private final String ENTITY_CLASS_NAME = Audit.class.getCanonicalName();
+    private final String DTO_CLASS_NAME = AuditDto.class.getCanonicalName();
 
     public RestAuditController(AuditService service, EntityDtoMapper<Audit, AuditDto> mapper) {
         this.service = service;
@@ -52,7 +52,7 @@ public class RestAuditController implements BasicRestController<AuditDto> {
     @Override
     public ResponseEntity<AuditDto> getById(@PathVariable("id") Long id) {
         log.info("Вызов метода getById() |id = " + id + "| в контроллере " + this.getClass());
-        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.FOUND);
+        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.OK);
     }
 
     @PostMapping(value = "/admin/audit/new")

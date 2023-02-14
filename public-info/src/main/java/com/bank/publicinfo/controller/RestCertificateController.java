@@ -33,8 +33,8 @@ public class RestCertificateController implements BasicRestController<Certificat
     private final CertificateService service;
     private final EntityDtoMapper<Certificate, CertificateDto> mapper;
 
-    private final String ENTITY_CLASS_NAME = "com.bank.publicinfo.entity.Certificate";
-    private final String DTO_CLASS_NAME = "com.bank.publicinfo.dto.CertificateDto";
+    private final String ENTITY_CLASS_NAME = Certificate.class.getCanonicalName();
+    private final String DTO_CLASS_NAME = CertificateDto.class.getCanonicalName();
 
     public RestCertificateController(CertificateService service, EntityDtoMapper<Certificate, CertificateDto> mapper) {
         this.service = service;
@@ -52,7 +52,7 @@ public class RestCertificateController implements BasicRestController<Certificat
     @Override
     public ResponseEntity<CertificateDto> getById(@PathVariable("id") Long id) {
         log.info("Вызов метода getById() |id = " + id + "| в контроллере " + this.getClass());
-        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.FOUND);
+        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.OK);
     }
 
     @PostMapping(value = "/admin/certificate/new")

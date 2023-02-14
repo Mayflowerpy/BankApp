@@ -33,8 +33,8 @@ public class RestLicenseController implements BasicRestController<LicenseDto> {
     private final LicenseService service;
     private final EntityDtoMapper<License, LicenseDto> mapper;
 
-    private final String ENTITY_CLASS_NAME = "com.bank.publicinfo.entity.License";
-    private final String DTO_CLASS_NAME = "com.bank.publicinfo.dto.LicenseDto";
+    private final String ENTITY_CLASS_NAME = License.class.getCanonicalName();
+    private final String DTO_CLASS_NAME = LicenseDto.class.getCanonicalName();
 
     public RestLicenseController(LicenseService service, EntityDtoMapper<License, LicenseDto> mapper) {
         this.service = service;
@@ -52,7 +52,7 @@ public class RestLicenseController implements BasicRestController<LicenseDto> {
     @Override
     public ResponseEntity<LicenseDto> getById(@PathVariable("id") Long id) {
         log.info("Вызов метода getById() |id = " + id + "| в контроллере " + this.getClass());
-        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.FOUND);
+        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.OK);
     }
 
     @PostMapping(value = "/admin/license/new")

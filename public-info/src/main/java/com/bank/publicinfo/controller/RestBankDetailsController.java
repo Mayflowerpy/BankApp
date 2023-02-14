@@ -33,8 +33,8 @@ public class RestBankDetailsController implements BasicRestController<BankDetail
     private final BankDetailsService service;
     private final EntityDtoMapper<BankDetails, BankDetailsDto> mapper;
 
-    private final String ENTITY_CLASS_NAME = "com.bank.publicinfo.entity.BankDetails";
-    private final String DTO_CLASS_NAME = "com.bank.publicinfo.dto.BankDetailsDto";
+    private final String ENTITY_CLASS_NAME = BankDetails.class.getCanonicalName();
+    private final String DTO_CLASS_NAME = BankDetailsDto.class.getCanonicalName();
 
     public RestBankDetailsController(BankDetailsService service, EntityDtoMapper<BankDetails, BankDetailsDto> mapper) {
         this.service = service;
@@ -52,7 +52,7 @@ public class RestBankDetailsController implements BasicRestController<BankDetail
     @Override
     public ResponseEntity<BankDetailsDto> getById(@PathVariable("id") Long id) {
         log.info("Вызов метода getById() |id = " + id + "| в контроллере " + this.getClass());
-        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.FOUND);
+        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.OK);
     }
 
     @PostMapping(value = "/admin/bank-details/new")
