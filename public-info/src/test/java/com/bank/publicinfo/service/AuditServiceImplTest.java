@@ -1,6 +1,7 @@
 package com.bank.publicinfo.service;
 
 import com.bank.publicinfo.entity.*;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.exception.NotFoundException;
 import com.bank.publicinfo.repository.AuditRepository;
 import org.junit.jupiter.api.*;
@@ -29,7 +30,7 @@ class AuditServiceImplTest {
     private AuditServiceImpl service;
 
     private final Audit ENTITY = new Audit(EntityType.ENTITY_TYPE_ONE, OperationType.OPERATION_TYPE_ONE, "createdBy",
-            Timestamp.valueOf(LocalDateTime.of(2020, 1, 1, 0, 0, 0, 0)), "entityJson");
+            Timestamp.valueOf(LocalDateTime.of(2020, 1, 1, 12, 0, 0, 0)), "entityJson");
 
     @BeforeEach
     void prepare() {
@@ -127,6 +128,15 @@ class AuditServiceImplTest {
             service.save(ENTITY);
 
             verify(mockRepository).save(ENTITY);
+        }
+
+        @Test
+        @DisplayName("Выброс NotExecutedException, если сохраняемая сущность уже есть")
+        void savedThrowsNotExecutedException() {
+
+            when(mockRepository.existsById(ENTITY.getId())).thenReturn(true);
+
+            assertThatThrownBy(() -> service.save(ENTITY)).isInstanceOf(NotExecutedException.class);
         }
     }
 }

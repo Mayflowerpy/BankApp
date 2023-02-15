@@ -1,6 +1,7 @@
 package com.bank.publicinfo.service;
 
 import com.bank.publicinfo.entity.BankDetails;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.exception.NotFoundException;
 import com.bank.publicinfo.repository.BankDetailsRepository;
 import org.junit.jupiter.api.*;
@@ -125,6 +126,15 @@ class BankDetailsServiceImplTest {
             service.save(ENTITY);
 
             verify(mockRepository).save(ENTITY);
+        }
+
+        @Test
+        @DisplayName("Выброс NotExecutedException, если сохраняемая сущность уже есть")
+        void savedThrowsNotExecutedException() {
+
+            when(mockRepository.existsById(ENTITY.getId())).thenReturn(true);
+
+            assertThatThrownBy(() -> service.save(ENTITY)).isInstanceOf(NotExecutedException.class);
         }
     }
 }
