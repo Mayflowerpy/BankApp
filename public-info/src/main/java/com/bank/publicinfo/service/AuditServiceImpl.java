@@ -45,10 +45,10 @@ public class AuditServiceImpl implements AuditService {
     public void save(Audit audit) throws NotExecutedException {
         log.debug("Вызов метода save() |Entity = " + audit + "| в сервисе " + this.getClass());
         if (auditRepository.existsById(audit.getId())) {
-            auditRepository.save(audit);
-        } else {
             throw new NotExecutedException("Not executed: " + this.getClass().getSimpleName() +
                     ", object with id = " + audit.getId() + " already exists");
+        } else {
+            auditRepository.save(audit);
         }
 
     }
