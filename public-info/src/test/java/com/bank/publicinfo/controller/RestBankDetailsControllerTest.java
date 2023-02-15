@@ -2,6 +2,7 @@ package com.bank.publicinfo.controller;
 
 import com.bank.publicinfo.dto.BankDetailsDto;
 import com.bank.publicinfo.entity.BankDetails;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.service.BankDetailsService;
 import com.bank.publicinfo.service.EntityDtoMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,6 +49,9 @@ class RestBankDetailsControllerTest {
 
     private final BankDetailsDto DTO = new BankDetailsDto(144_525_974L, 1_000_000_000L, 1_000_000_000L,
             11_810_600_000_000_957L, "city", "jointStock", "name");
+
+    private final BankDetailsDto INVALID_DTO = new BankDetailsDto(4L, 1L, 2L, 3L, "c", "j", "n");
+
 
     {
         ENTITY.setId(1L);
@@ -136,6 +140,20 @@ class RestBankDetailsControllerTest {
     }
 
     @Test
+    @DisplayName("Выброс NotExecutedException при ошибке валидации (сохранение сущности)")
+    void testCreateThrowsNotExecutedException() throws Exception {
+
+        when(mockMapper.toEntity(INVALID_DTO, ENTITY_CLASS_NAME)).thenThrow(new NotExecutedException());
+
+        final MockHttpServletResponse response = mockMvc.perform(post("/admin/bank-details/new")
+                        .content(objectMapper.writeValueAsString(INVALID_DTO)).contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
     @DisplayName("Обновление сущности")
     void testUpdate() throws Exception {
 
@@ -149,6 +167,20 @@ class RestBankDetailsControllerTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
         assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(DTO));
         verify(mockService).save(ENTITY);
+    }
+
+    @Test
+    @DisplayName("Выброс NotExecutedException при ошибке валидации (обновление сущности)")
+    void testUpdateThrowsNotExecutedException() throws Exception {
+
+        when(mockMapper.toEntity(INVALID_DTO, ENTITY_CLASS_NAME)).thenThrow(new NotExecutedException());
+
+        final MockHttpServletResponse response = mockMvc.perform(patch("/admin/bank-details/edit")
+                        .content(objectMapper.writeValueAsString(INVALID_DTO)).contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
     @Test

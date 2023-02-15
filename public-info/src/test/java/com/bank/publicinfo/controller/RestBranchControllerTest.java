@@ -2,6 +2,7 @@ package com.bank.publicinfo.controller;
 
 import com.bank.publicinfo.dto.BranchDto;
 import com.bank.publicinfo.entity.Branch;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.service.BranchService;
 import com.bank.publicinfo.service.EntityDtoMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,6 +49,9 @@ class RestBranchControllerTest {
     private final Branch ENTITY = new Branch("address", 11_111L, "city", Time.valueOf(LocalTime.of(12, 0, 0)),
             Time.valueOf(LocalTime.of(12, 0, 0)));
     private final BranchDto DTO = new BranchDto("address", 11_111L, "city", Time.valueOf(LocalTime.of(12, 0, 0)),
+            Time.valueOf(LocalTime.of(12, 0, 0)));
+
+    private final BranchDto INVALID_DTO = new BranchDto("a", 1L, "c", Time.valueOf(LocalTime.of(12, 0, 0)),
             Time.valueOf(LocalTime.of(12, 0, 0)));
 
     {
@@ -137,6 +141,20 @@ class RestBranchControllerTest {
     }
 
     @Test
+    @DisplayName("Выброс NotExecutedException при ошибке валидации (сохранение сущности)")
+    void testCreateThrowsNotExecutedException() throws Exception {
+
+        when(mockMapper.toEntity(INVALID_DTO, ENTITY_CLASS_NAME)).thenThrow(new NotExecutedException());
+
+        final MockHttpServletResponse response = mockMvc.perform(post("/admin/branch/new")
+                        .content(objectMapper.writeValueAsString(INVALID_DTO)).contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
     @DisplayName("Обновление сущности")
     void testUpdate() throws Exception {
 
@@ -150,6 +168,20 @@ class RestBranchControllerTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
         assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(DTO));
         verify(mockService).save(ENTITY);
+    }
+
+    @Test
+    @DisplayName("Выброс NotExecutedException при ошибке валидации (обновление сущности)")
+    void testUpdateThrowsNotExecutedException() throws Exception {
+
+        when(mockMapper.toEntity(INVALID_DTO, ENTITY_CLASS_NAME)).thenThrow(new NotExecutedException());
+
+        final MockHttpServletResponse response = mockMvc.perform(patch("/admin/branch/edit")
+                        .content(objectMapper.writeValueAsString(INVALID_DTO)).contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
     @Test
