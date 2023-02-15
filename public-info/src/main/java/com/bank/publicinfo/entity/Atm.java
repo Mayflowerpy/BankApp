@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Time;
 
@@ -44,7 +45,7 @@ public class Atm {
     private Time endOfWork;
 
     @NonNull
-    @NotEmpty
+    @NotNull
     @Column(name = "all_hours")
     private Boolean allHours;
 

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -31,24 +32,24 @@ public class BankDetails {
     private Long id;
 
     @NonNull
-    @NotEmpty
+    @NotNull
     @Column(name = "bik")
     private Long bik;
 
     @NonNull
-    @NotEmpty
+    @NotNull
     @Column(name = "inn")
     private Long inn;
 
     @NonNull
-    @NotEmpty
+    @NotNull
     @Column(name = "kpp")
     private Long kpp;
 
     @NonNull
-    @NotEmpty
+    @NotNull
     @Column(name = "cor_account")
-    private Integer corAccount;
+    private Long corAccount;
 
     @NonNull
     @NotEmpty

@@ -1,7 +1,6 @@
 package com.bank.publicinfo.exception;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +12,6 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class NotFoundException extends RuntimeException {
 
     public NotFoundException(String message) {

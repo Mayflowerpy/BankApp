@@ -2,13 +2,13 @@ package com.bank.publicinfo.service;
 
 import com.bank.publicinfo.entity.Branch;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface BranchService {
 
     Branch findById(Long id);
 
-    List<Branch> findAll();
+    Collection<Branch> findAll();
 
     void delete(Long id);
 

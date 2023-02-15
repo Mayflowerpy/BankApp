@@ -94,8 +94,8 @@ class EntityDtoMapperImplTest {
         private final String ENTITY_CLASS_NAME = "com.bank.publicinfo.entity.BankDetails";
         private final String DTO_CLASS_NAME = "com.bank.publicinfo.dto.BankDetailsDto";
 
-        private final BankDetails ENTITY = new BankDetails(1L, 0L, 0L, 0, "city", "jointStockCompany", "name");
-        private final BankDetailsDto DTO = new BankDetailsDto(1L, 0L, 0L, 0, "city", "jointStockCompany", "name");
+        private final BankDetails ENTITY = new BankDetails(1L, 0L, 0L, 0L, "city", "jointStockCompany", "name");
+        private final BankDetailsDto DTO = new BankDetailsDto(1L, 0L, 0L, 0L, "city", "jointStockCompany", "name");
 
 
         @Test
@@ -162,7 +162,7 @@ class EntityDtoMapperImplTest {
         private final String ENTITY_CLASS_NAME = "com.bank.publicinfo.entity.Certificate";
         private final String DTO_CLASS_NAME = "com.bank.publicinfo.dto.CertificateDto";
 
-        private final BankDetails BANK_DETAILS = new BankDetails(0L, 0L, 0L, 0, "city", "jointStockCompany", "name");
+        private final BankDetails BANK_DETAILS = new BankDetails(0L, 0L, 0L, 0L, "city", "jointStockCompany", "name");
 
         private final Certificate ENTITY = new Certificate(new Byte[]{(byte) 0b0}, BANK_DETAILS);
         private final CertificateDto DTO = new CertificateDto(new Byte[]{(byte) 0b0}, BANK_DETAILS);
@@ -196,7 +196,7 @@ class EntityDtoMapperImplTest {
         private final String ENTITY_CLASS_NAME = "com.bank.publicinfo.entity.License";
         private final String DTO_CLASS_NAME = "com.bank.publicinfo.dto.LicenseDto";
 
-        private final BankDetails BANK_DETAILS = new BankDetails(0L, 0L, 0L, 0, "city", "jointStockCompany", "name");
+        private final BankDetails BANK_DETAILS = new BankDetails(0L, 0L, 0L, 0L, "city", "jointStockCompany", "name");
 
         private final License ENTITY = new License(new Byte[]{(byte) 0b0}, BANK_DETAILS);
         private final LicenseDto DTO = new LicenseDto(new Byte[]{(byte) 0b0}, BANK_DETAILS);

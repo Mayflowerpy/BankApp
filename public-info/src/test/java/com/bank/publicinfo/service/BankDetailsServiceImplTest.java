@@ -27,7 +27,7 @@ class BankDetailsServiceImplTest {
 
     private BankDetailsServiceImpl service;
 
-    private final BankDetails ENTITY = new BankDetails(1L, 0L, 0L, 0, "city", "jointStockCompany", "name");
+    private final BankDetails ENTITY = new BankDetails(1L, 0L, 0L, 0L, "city", "jointStockCompany", "name");
 
     @BeforeEach
     void prepare() {

@@ -1,6 +1,7 @@
 package com.bank.publicinfo.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author UnsleepingOwl (Lev Yakolin)
  */
 
+@SuppressWarnings("all")
 public interface BasicRestController<D> {
 
     /**
@@ -32,17 +34,19 @@ public interface BasicRestController<D> {
      * Создает новую сущность в базе данных и вовзращает объект передачи данных
      *
      * @param dto - объект передачи данных
+     * @param bindingResult - объект проверки ошибок валидации
      * @return ResponseEntity<D>
      */
-    ResponseEntity<D> create(D dto);
+    ResponseEntity<D> create(D dto, BindingResult bindingResult);
 
     /**
      * Обновляет сущность в базе данных и вовзращает объект передачи данных
      *
      * @param dto- объект передачи данных
+     * @param bindingResult - объект проверки ошибок валидации
      * @return ResponseEntity<AtmDto>
      */
-    ResponseEntity<D> update(D dto);
+    ResponseEntity<D> update(D dto, BindingResult bindingResult);
 
     /**
      * Удаляет сущность из базы данных по ID

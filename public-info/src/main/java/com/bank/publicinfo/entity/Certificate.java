@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * Сущность Certificate - сертификат банка.
@@ -35,7 +36,7 @@ public class Certificate {
     private Byte[] photo;
 
     @NonNull
-    @NotEmpty
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private BankDetails bankDetails;
 }

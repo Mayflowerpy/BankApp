@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Time;
 
@@ -28,13 +29,13 @@ import java.sql.Time;
 @RequiredArgsConstructor
 public class AtmDto {
 
-    @NotEmpty(message = "Id should not be empty")
+    @NotNull(message = "Id should not be null")
     @Min(value = 1, message = "Id should be greater than 0")
     private Long id;
 
     @NonNull
     @NotEmpty(message = "Address should not be empty")
-    @Size(min = 2, max = 370, message = "Address should be between 2 and 370 characters")
+    @Size(min = 2, max = 370, message = "The address must contain between 2 and 370 characters")
     private String address;
 
     private Time startOfWork;
@@ -42,7 +43,7 @@ public class AtmDto {
     private Time endOfWork;
 
     @NonNull
-    @NotEmpty(message = "All hours should not be empty")
+    @NotNull(message = "All hours should not be null")
     private Boolean allHours;
 
     private Branch branch;
