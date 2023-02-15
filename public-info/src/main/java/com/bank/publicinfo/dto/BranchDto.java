@@ -29,18 +29,18 @@ public class BranchDto {
 
     @NonNull
     @NotEmpty(message = "Address should not be empty")
-    @Size(min = 2, max = 370, message = "Address should be between 2 and 370 characters")
+    @Size(min = 2, max = 370, message = "Address must contain between 2 and 370 characters")
     private String address;
 
     @NonNull
     @NotNull(message = "Phone number should not be null")
-    @Min(value = 10_000L, message = "Phone number should be more than 5 characters")
-    @Max(value = 99_999_999_999L, message = "Phone number should be less than 11 characters")
+    @Min(value = 10_000L, message = "Phone number must contain between 5 and 11 numbers")
+    @Max(value = 99_999_999_999L, message = "Phone number must contain between 5 and 11 numbers")
     private Long phoneNumber;
 
     @NonNull
     @NotEmpty(message = "City should not be empty")
-    @Size(min = 2, max = 250, message = "City should be between 2 and 250 characters")
+    @Size(min = 2, max = 250, message = "City must contain between 2 and 250 characters")
     private String city;
 
     @NonNull
