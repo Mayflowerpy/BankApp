@@ -2,15 +2,19 @@ package com.bank.publicinfo.controller;
 
 import com.bank.publicinfo.dto.AtmDto;
 import com.bank.publicinfo.entity.Atm;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.service.AtmService;
 import com.bank.publicinfo.service.EntityDtoMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static com.bank.publicinfo.util.ErrorBindingResult.getBindingResultErrors;
 
 /**
  * REST-контроллер RestAtmController. Сущность - Atm (банкомат).
@@ -56,16 +60,22 @@ public class RestAtmController implements BasicRestController<AtmDto> {
 
     @PostMapping(value = "/admin/atm/new")
     @Override
-    public ResponseEntity<AtmDto> create(@RequestBody @Valid AtmDto dto) {
+    public ResponseEntity<AtmDto> create(@RequestBody @Valid AtmDto dto, BindingResult bindingResult) throws NotExecutedException {
         log.info("Вызов метода create() |DTO = " + dto + "| в контроллере " + this.getClass());
+        if (bindingResult.hasErrors()) {
+            throw new NotExecutedException(getBindingResultErrors(bindingResult));
+        }
         service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     @PatchMapping(value = "/admin/atm/edit")
     @Override
-    public ResponseEntity<AtmDto> update(@RequestBody @Valid AtmDto dto) {
+    public ResponseEntity<AtmDto> update(@RequestBody @Valid AtmDto dto, BindingResult bindingResult) throws NotExecutedException {
         log.info("Вызов метода update() |DTO = " + dto + "| в контроллере " + this.getClass());
+        if (bindingResult.hasErrors()) {
+            throw new NotExecutedException(getBindingResultErrors(bindingResult));
+        }
         service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }

@@ -28,7 +28,7 @@ class CertificateServiceImplTest {
 
     private CertificateServiceImpl service;
 
-    private final BankDetails BANK_DETAILS = new BankDetails(0L, 0L, 0L, 0, "city", "jointStockCompany", "name");
+    private final BankDetails BANK_DETAILS = new BankDetails(0L, 0L, 0L, 0L, "city", "jointStockCompany", "name");
 
     private final Certificate ENTITY = new Certificate(new Byte[]{(byte) 0b0}, BANK_DETAILS);
 

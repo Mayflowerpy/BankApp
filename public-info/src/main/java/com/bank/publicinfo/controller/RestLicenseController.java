@@ -2,15 +2,19 @@ package com.bank.publicinfo.controller;
 
 import com.bank.publicinfo.dto.LicenseDto;
 import com.bank.publicinfo.entity.License;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.service.LicenseService;
 import com.bank.publicinfo.service.EntityDtoMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static com.bank.publicinfo.util.ErrorBindingResult.getBindingResultErrors;
 
 /**
  * REST-контроллер RestLicenseController. Сущность - License (лицензия).
@@ -57,16 +61,22 @@ public class RestLicenseController implements BasicRestController<LicenseDto> {
 
     @PostMapping(value = "/admin/license/new")
     @Override
-    public ResponseEntity<LicenseDto> create(@RequestBody @Valid LicenseDto dto) {
+    public ResponseEntity<LicenseDto> create(@RequestBody @Valid LicenseDto dto, BindingResult bindingResult) {
         log.info("Вызов метода create() |DTO = " + dto + "| в контроллере " + this.getClass());
+        if (bindingResult.hasErrors()) {
+            throw new NotExecutedException(getBindingResultErrors(bindingResult));
+        }
         service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     @PatchMapping(value = "/admin/license/edit")
     @Override
-    public ResponseEntity<LicenseDto> update(@RequestBody @Valid LicenseDto dto) {
-        log.info("Вызов метода update() |DTO = " + dto + "| в контроллере " + this.getClass());
+    public ResponseEntity<LicenseDto> update(@RequestBody @Valid LicenseDto dto, BindingResult bindingResult) {
+        log.debug("Вызов метода update() |DTO = " + dto + "| в контроллере " + this.getClass());
+        if (bindingResult.hasErrors()) {
+            throw new NotExecutedException(getBindingResultErrors(bindingResult));
+        }
         service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
@@ -74,7 +84,7 @@ public class RestLicenseController implements BasicRestController<LicenseDto> {
     @DeleteMapping(value = "/admin/license/id={id}")
     @Override
     public ResponseEntity<Void> deleteById(@PathVariable("id") Long id) {
-        log.info("Вызов метода deleteById() |id = " + id + "| в контроллере " + this.getClass());
+        log.debug("Вызов метода deleteById() |id = " + id + "| в контроллере " + this.getClass());
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

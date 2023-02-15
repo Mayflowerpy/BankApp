@@ -44,7 +44,8 @@ class RestCertificateControllerTest {
     private final String ENTITY_CLASS_NAME = Certificate.class.getCanonicalName();
     private final String DTO_CLASS_NAME = CertificateDto.class.getCanonicalName();
 
-    private final BankDetails BANK_DETAILS = new BankDetails(0L, 0L, 0L, 0, "city", "jointStockCompany", "name");
+    private final BankDetails BANK_DETAILS = new BankDetails(144_525_974L, 1_000_000_000L, 1_000_000_000L,
+            11_810_600_000_000_957L, "city", "jointStock", "name");
 
     private final Certificate ENTITY = new Certificate(new Byte[]{(byte) 0b0}, BANK_DETAILS);
 

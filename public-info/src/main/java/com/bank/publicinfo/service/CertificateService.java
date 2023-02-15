@@ -3,7 +3,7 @@ package com.bank.publicinfo.service;
 import com.bank.publicinfo.entity.BankDetails;
 import com.bank.publicinfo.entity.Certificate;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface CertificateService {
 
@@ -11,7 +11,7 @@ public interface CertificateService {
 
     Certificate findByBankDetails(BankDetails bankDetails);
 
-    List<Certificate> findAll();
+    Collection<Certificate> findAll();
 
     void delete(Long id);
 

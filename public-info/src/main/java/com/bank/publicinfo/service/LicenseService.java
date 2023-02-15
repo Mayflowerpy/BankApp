@@ -3,7 +3,7 @@ package com.bank.publicinfo.service;
 import com.bank.publicinfo.entity.BankDetails;
 import com.bank.publicinfo.entity.License;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface LicenseService {
 
@@ -11,7 +11,7 @@ public interface LicenseService {
 
     License findByBankDetails(BankDetails bankDetails);
 
-    List<License> findAll();
+    Collection<License> findAll();
 
     void delete(Long id);
 

@@ -2,15 +2,19 @@ package com.bank.publicinfo.controller;
 
 import com.bank.publicinfo.dto.BankDetailsDto;
 import com.bank.publicinfo.entity.BankDetails;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.service.BankDetailsService;
 import com.bank.publicinfo.service.EntityDtoMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static com.bank.publicinfo.util.ErrorBindingResult.getBindingResultErrors;
 
 /**
  * REST-контроллер RestBankDetailsController. Сущность - BankDetails (банковские реквизиты).
@@ -57,16 +61,22 @@ public class RestBankDetailsController implements BasicRestController<BankDetail
 
     @PostMapping(value = "/admin/bank-details/new")
     @Override
-    public ResponseEntity<BankDetailsDto> create(@RequestBody @Valid BankDetailsDto dto) {
+    public ResponseEntity<BankDetailsDto> create(@RequestBody @Valid BankDetailsDto dto, BindingResult bindingResult) {
         log.info("Вызов метода create() |DTO = " + dto + "| в контроллере " + this.getClass());
+        if (bindingResult.hasErrors()) {
+            throw new NotExecutedException(getBindingResultErrors(bindingResult));
+        }
         service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     @PatchMapping(value = "/admin/bank-details/edit")
     @Override
-    public ResponseEntity<BankDetailsDto> update(@RequestBody @Valid BankDetailsDto dto) {
+    public ResponseEntity<BankDetailsDto> update(@RequestBody @Valid BankDetailsDto dto, BindingResult bindingResult) {
         log.info("Вызов метода update() |DTO = " + dto + "| в контроллере " + this.getClass());
+        if (bindingResult.hasErrors()) {
+            throw new NotExecutedException(getBindingResultErrors(bindingResult));
+        }
         service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }

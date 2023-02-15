@@ -2,13 +2,13 @@ package com.bank.publicinfo.service;
 
 import com.bank.publicinfo.entity.Audit;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface AuditService {
 
     Audit findById(Long id);
 
-    List<Audit> findAll();
+    Collection<Audit> findAll();
 
     void delete(Long id);
 

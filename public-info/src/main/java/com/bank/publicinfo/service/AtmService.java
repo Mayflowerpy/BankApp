@@ -3,7 +3,7 @@ package com.bank.publicinfo.service;
 import com.bank.publicinfo.entity.Atm;
 import com.bank.publicinfo.entity.Branch;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface AtmService {
 
@@ -11,7 +11,7 @@ public interface AtmService {
 
     Atm findByBranch(Branch branch);
 
-    List<Atm> findAll();
+    Collection<Atm> findAll();
 
     void delete(Long id);
 

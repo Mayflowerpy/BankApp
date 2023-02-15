@@ -22,7 +22,8 @@ public class BranchServiceImpl implements BranchService {
     @Override
     public Branch findById(Long id) {
         log.debug("Вызов метода findById() |id = " + id + "| в сервисе " + this.getClass());
-        return branchRepository.findById(id).orElseThrow(() -> new NotFoundException(this.getClass() + " findById(), id = " + id));
+        return branchRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Not found: " + this.getClass().getSimpleName() + ", findById(), id = " + id));
     }
 
     @Override

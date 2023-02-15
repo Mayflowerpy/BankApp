@@ -43,9 +43,11 @@ class RestBankDetailsControllerTest {
     private final String ENTITY_CLASS_NAME = BankDetails.class.getCanonicalName();
     private final String DTO_CLASS_NAME = BankDetailsDto.class.getCanonicalName();
 
-    private final BankDetails ENTITY = new BankDetails(1L, 0L, 0L, 0, "city", "jointStockCompany", "name");
+    private final BankDetails ENTITY = new BankDetails(144_525_974L, 1_000_000_000L, 1_000_000_000L,
+            11_810_600_000_000_957L, "city", "jointStock", "name");
 
-    private final BankDetailsDto DTO = new BankDetailsDto(1L, 0L, 0L, 0, "city", "jointStockCompany", "name");
+    private final BankDetailsDto DTO = new BankDetailsDto(144_525_974L, 1_000_000_000L, 1_000_000_000L,
+            11_810_600_000_000_957L, "city", "jointStock", "name");
 
     {
         ENTITY.setId(1L);

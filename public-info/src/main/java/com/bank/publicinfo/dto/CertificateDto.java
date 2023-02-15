@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * CertificateDto - объект передачи данных сущности Certificate (сертификат банка).
@@ -23,7 +24,7 @@ import javax.validation.constraints.NotEmpty;
 @RequiredArgsConstructor
 public class CertificateDto {
 
-    @NotEmpty(message = "Id should not be empty")
+    @NotNull(message = "Id should not be null")
     @Min(value = 1, message = "Id should be greater than 0")
     private Long id;
 
@@ -32,6 +33,6 @@ public class CertificateDto {
     private Byte[] photo;
 
     @NonNull
-    @NotEmpty(message = "Bank details should not be empty")
+    @NotNull(message = "Bank details should not be null")
     private BankDetails bankDetails;
 }

@@ -45,10 +45,11 @@ class RestBranchControllerTest {
     private final String ENTITY_CLASS_NAME = Branch.class.getCanonicalName();
     private final String DTO_CLASS_NAME = BranchDto.class.getCanonicalName();
 
-    private final Branch ENTITY = new Branch("address", 0L, "city", Time.valueOf(LocalTime.of(12, 0, 0)),
+    private final Branch ENTITY = new Branch("address", 11_111L, "city", Time.valueOf(LocalTime.of(12, 0, 0)),
             Time.valueOf(LocalTime.of(12, 0, 0)));
-    private final BranchDto DTO = new BranchDto("address", 0L, "city", Time.valueOf(LocalTime.of(12, 0, 0)),
+    private final BranchDto DTO = new BranchDto("address", 11_111L, "city", Time.valueOf(LocalTime.of(12, 0, 0)),
             Time.valueOf(LocalTime.of(12, 0, 0)));
+
     {
         ENTITY.setId(1L);
         DTO.setId(1L);

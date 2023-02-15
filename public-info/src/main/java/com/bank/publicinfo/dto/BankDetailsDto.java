@@ -24,47 +24,46 @@ import javax.validation.constraints.*;
 @RequiredArgsConstructor
 public class BankDetailsDto {
 
-    @NotEmpty(message = "Id should not be empty")
+    @NotNull(message = "Id should not be null")
     @Min(value = 1, message = "Id should be greater than 0")
     private Long id;
 
     @NonNull
-    @NotEmpty(message = "BIK should not be empty")
+    @NotNull(message = "BIK should not be null")
     @Min(value = 100_000_000L, message = "BIK should be 9 characters long")
     @Max(value = 999_999_999L, message = "BIK should be 9 characters long")
     private Long bik;
 
     @NonNull
-    @NotEmpty(message = "INN should not be empty")
-    @Min(value = 1_000_000_000L, message = "INN should be greater than 10 characters")
-    @Max(value = 999_999_999_999L, message = "BIK should be less than 12 characters")
+    @NotNull(message = "INN should not be null")
+    @Min(value = 1_000_000_000L, message = "INN must contain between 10 and 13 characters")
+    @Max(value = 999_999_999_999L, message = "INN must contain between 10 and 13 characters")
     private Long inn;
 
     @NonNull
-    @NotEmpty(message = "KPP should not be empty")
-    @Min(value = 1_000_000_000L, message = "INN should be greater than 10 characters")
-    @Max(value = 999_999_999_999L, message = "BIK should be less than 12 characters")
+    @NotNull(message = "KPP should not be null")
+    @Min(value = 1_000_000_000L, message = "KPP must contain between 10 and 12 characters")
+    @Max(value = 999_999_999_999L, message = "KPP must contain between 10 and 12 characters")
     private Long kpp;
 
     @NonNull
-    @NotEmpty(message = "Correspondent account should not be empty")
-    @Min(value = 1_000_000_000, message = "BIK should be 11 characters long")
-    @Max(value = 2_147_483_647, message = "BIK should be 11 characters long")
-    private Integer corAccount;
-    //Корреспондентский счет длиной в 20 символов, в Integer не влезет
+    @NotNull(message = "Correspondent account should not be null")
+    @Min(value = 10_000_000_000_000_000L, message = "Correspondent account should be 17 characters long")
+    @Max(value = 99_999_999_999_999_999L, message = "Correspondent account should be 17 characters long")
+    private Long corAccount;
 
     @NonNull
     @NotEmpty(message = "City should not be empty")
-    @Size(min = 2, max = 180, message = "City should be between 2 and 180 characters")
+    @Size(min = 2, max = 180, message = "City must contain between 2 and 180 characters")
     private String city;
 
     @NonNull
     @NotEmpty(message = "Joint stock company should not be empty")
-    @Size(min = 2, max = 15, message = "Joint stock company should be between 2 and 15 characters")
+    @Size(min = 2, max = 15, message = "Joint stock company name must contain between 2 and 15 characters")
     private String jointStockCompany;
 
     @NonNull
     @NotEmpty(message = "Name should not be empty")
-    @Size(min = 2, max = 80, message = "Name should be between 2 and 80 characters")
+    @Size(min = 2, max = 80, message = "Name must contain between 2 and 80 characters")
     private String name;
 }

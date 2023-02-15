@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Time;
 
@@ -36,7 +37,7 @@ public class Branch {
     private String address;
 
     @NonNull
-    @NotEmpty
+    @NotNull
     @Column(name = "phone_number")
     private Long phoneNumber;
 
@@ -47,12 +48,12 @@ public class Branch {
     private String city;
 
     @NonNull
-    @NotEmpty
+    @NotNull
     @Column(name = "start_of_work")
     private Time startOfWork;
 
     @NonNull
-    @NotEmpty
+    @NotNull
     @Column(name = "end_of_work")
     private Time endOfWork;
 }

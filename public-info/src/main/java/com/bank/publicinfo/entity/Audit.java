@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
@@ -37,16 +38,16 @@ public class Audit {
     private Long id;
 
     @NonNull
-    @NotEmpty
-    @Size(max = 40)
+    @NotNull
     @Enumerated(value=EnumType.STRING)
+    @Size(max = 40)
     @Column(name="entity_type")
     private EntityType entityType;
 
     @NonNull
-    @NotEmpty
-    @Size(max = 255)
+    @NotNull
     @Enumerated(value=EnumType.STRING)
+    @Size(max = 255)
     @Column(name = "operation_type")
     private OperationType operationType;
 
@@ -61,7 +62,7 @@ public class Audit {
     private String modifiedBy;
 
     @NonNull
-    @NotEmpty
+    @NotNull
     @Column(name = "created_at")
     private Timestamp createdAt;
 

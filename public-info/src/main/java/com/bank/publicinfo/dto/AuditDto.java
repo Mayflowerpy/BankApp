@@ -9,6 +9,7 @@ import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
@@ -36,29 +37,31 @@ import java.sql.Timestamp;
 @RequiredArgsConstructor
 public class AuditDto {
 
-    @NotEmpty(message = "Id should not be empty")
+    @NotNull(message = "Id should not be empty")
     @Min(value = 1, message = "Id should be greater than 0")
     private Long id;
 
     @NonNull
-    @NotEmpty(message = "Entity type should not be empty")
-    @Size(min = 2, max = 40, message = "Address should be between 2 and 40 characters")
+    @NotNull(message = "Entity type should not be null")
+//    @Size(min = 2, max = 40, message = "Entity type should be between 2 and 40 characters")
+//    Как вариант создать кастомную валидацию по типу https://www.baeldung.com/javax-validations-enums
     private EntityType entityType;
 
     @NonNull
-    @NotEmpty(message = "Operation type should not be empty")
-    @Size(min = 2, max = 255, message = "Address should be between 2 and 255 characters")
+    @NotNull(message = "Operation type should not be null")
+//    @Size(min = 2, max = 255, message = "Operation type should be between 2 and 255 characters")
+//    Как вариант создать кастомную валидацию по типу https://www.baeldung.com/javax-validations-enums
     private OperationType operationType;
 
     @NonNull
     @NotEmpty(message = "This string should not be empty")
-    @Size(min = 2, max = 255, message = "This string should be between 2 and 255 characters")
+    @Size(min = 2, max = 255, message = "This string must contain between 2 and 255 characters")
     private String createdBy;
 
     private String modifiedBy;
 
     @NonNull
-    @NotEmpty(message = "Time of creation should not be empty")
+    @NotNull(message = "Time of creation should not be null")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Timestamp createdAt;
 

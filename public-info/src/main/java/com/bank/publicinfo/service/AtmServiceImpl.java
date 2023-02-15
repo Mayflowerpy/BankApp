@@ -23,14 +23,15 @@ public class AtmServiceImpl implements AtmService {
     @Override
     public Atm findById(Long id) {
         log.debug("Вызов метода findById() |id = " + id + "| в сервисе " + this.getClass());
-        return atmRepository.findById(id).orElseThrow(() -> new NotFoundException(this.getClass() + " findById(), id = " + id));
+        return atmRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Not found: " + this.getClass().getSimpleName() + ", findById(), id = " + id));
     }
 
     @Override
     public Atm findByBranch(Branch branch) {
         log.debug("Вызов метода findByBranch() |branch = " + branch + "| в сервисе " + this.getClass());
         return atmRepository.findByBranch(branch).orElseThrow(
-                () -> new NotFoundException(this.getClass() + " findByBranch(), branch = " + branch));
+                () -> new NotFoundException("Not found: " + this.getClass().getSimpleName() + ", findByBranch(), branch = " + branch));
     }
 
     @Override

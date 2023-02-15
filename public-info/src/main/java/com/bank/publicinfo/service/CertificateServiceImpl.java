@@ -23,14 +23,16 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     public Certificate findById(Long id) {
         log.debug("Вызов метода findById() |id = " + id + "| в сервисе " + this.getClass());
-        return certificateRepository.findById(id).orElseThrow(() -> new NotFoundException(this.getClass() + " findById(), id = " + id));
+        return certificateRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Not found: " + this.getClass().getSimpleName() + ", findById(), id = " + id));
     }
 
     @Override
     public Certificate findByBankDetails(BankDetails bankDetails) {
         log.debug("Вызов метода findByBankDetails() |Bank details = " + bankDetails + "| в сервисе " + this.getClass());
         return certificateRepository.findByBankDetails(bankDetails).orElseThrow(
-                () -> new NotFoundException(this.getClass() + " findByBankDetails(), bank details = " + bankDetails));
+                () -> new NotFoundException("Not found: " + this.getClass().getSimpleName() +
+                        ", findByBankDetails(), bank details = " + bankDetails));
     }
 
     @Override

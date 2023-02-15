@@ -22,7 +22,8 @@ public class AuditServiceImpl implements AuditService {
     @Override
     public Audit findById(Long id) {
         log.debug("Вызов метода findById() |id = " + id + "| в сервисе " + this.getClass());
-        return auditRepository.findById(id).orElseThrow(() -> new NotFoundException(this.getClass() + " findById(), id = " + id));
+        return auditRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Not found: " + this.getClass().getSimpleName() + ", findById(), id = " + id));
     }
 
     @Override

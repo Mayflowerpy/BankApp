@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * Сущность License - лицензия банка.
@@ -35,7 +36,7 @@ public class License {
     private Byte[] photo;
 
     @NonNull
-    @NotEmpty
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private BankDetails bankDetails;
 }
