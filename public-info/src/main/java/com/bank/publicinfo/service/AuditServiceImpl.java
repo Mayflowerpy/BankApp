@@ -1,6 +1,7 @@
 package com.bank.publicinfo.service;
 
 import com.bank.publicinfo.entity.Audit;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.exception.NotFoundException;
 import com.bank.publicinfo.repository.AuditRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +44,12 @@ public class AuditServiceImpl implements AuditService {
     @Transactional
     public void save(Audit audit) {
         log.debug("Вызов метода save() |Entity = " + audit + "| в сервисе " + this.getClass());
-        auditRepository.save(audit);
+        if (auditRepository.existsById(audit.getId())) {
+            auditRepository.save(audit);
+        } else {
+            throw new NotExecutedException("Not executed: " + this.getClass().getSimpleName() +
+                    ", object with id = " + audit.getId() + " already exists");
+        }
+
     }
 }

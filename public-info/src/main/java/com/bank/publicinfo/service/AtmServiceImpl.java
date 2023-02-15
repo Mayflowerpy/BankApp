@@ -2,6 +2,7 @@ package com.bank.publicinfo.service;
 
 import com.bank.publicinfo.entity.Atm;
 import com.bank.publicinfo.entity.Branch;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.exception.NotFoundException;
 import com.bank.publicinfo.repository.AtmRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -51,6 +52,11 @@ public class AtmServiceImpl implements AtmService {
     @Transactional
     public void save(Atm atm) {
         log.debug("Вызов метода save() |Entity = " + atm + "| в сервисе " + this.getClass());
-        atmRepository.save(atm);
+        if (atmRepository.existsById(atm.getId())) {
+            throw new NotExecutedException("Not executed: " + this.getClass().getSimpleName() +
+                    ", object with id = " + atm.getId() + " already exists");
+        } else {
+            atmRepository.save(atm);
+        }
     }
 }

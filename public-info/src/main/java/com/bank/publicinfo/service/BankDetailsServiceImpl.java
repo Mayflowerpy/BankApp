@@ -1,6 +1,7 @@
 package com.bank.publicinfo.service;
 
 import com.bank.publicinfo.entity.BankDetails;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.exception.NotFoundException;
 import com.bank.publicinfo.repository.BankDetailsRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +44,11 @@ public class BankDetailsServiceImpl implements BankDetailsService {
     @Transactional
     public void save(BankDetails bankDetails) {
         log.debug("Вызов метода save() |Entity = " + bankDetails + "| в сервисе " + this.getClass());
-        bankDetailsRepository.save(bankDetails);
+        if (bankDetailsRepository.existsById(bankDetails.getId())) {
+            throw new NotExecutedException("Not executed: " + this.getClass().getSimpleName() +
+                    ", object with id = " + bankDetails.getId() + " already exists");
+        } else {
+            bankDetailsRepository.save(bankDetails);
+        }
     }
 }

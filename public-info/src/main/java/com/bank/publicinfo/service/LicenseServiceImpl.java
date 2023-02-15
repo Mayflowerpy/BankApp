@@ -2,6 +2,7 @@ package com.bank.publicinfo.service;
 
 import com.bank.publicinfo.entity.BankDetails;
 import com.bank.publicinfo.entity.License;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.exception.NotFoundException;
 import com.bank.publicinfo.repository.LicenseRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +53,11 @@ public class LicenseServiceImpl implements LicenseService {
     @Transactional
     public void save(License license) {
         log.debug("Вызов метода save() |Entity = " + license + "| в сервисе " + this.getClass());
-        licenseRepository.save(license);
+        if (licenseRepository.existsById(license.getId())) {
+            throw new NotExecutedException("Not executed: " + this.getClass().getSimpleName() +
+                    ", object with id = " + license.getId() + " already exists");
+        } else {
+            licenseRepository.save(license);
+        }
     }
 }
