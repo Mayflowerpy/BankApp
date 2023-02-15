@@ -63,7 +63,7 @@ public class RestBranchController implements BasicRestController<BranchDto> {
     @Override
     public ResponseEntity<BranchDto> create(@RequestBody @Valid BranchDto dto, BindingResult bindingResult) {
         log.info("Вызов метода create() |DTO = " + dto + "| в контроллере " + this.getClass());
-        if (bindingResult.hasFieldErrors()) {
+        if (bindingResult.hasErrors()) {
             throw new NotExecutedException(getBindingResultErrors(bindingResult));
         }
         service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
@@ -74,7 +74,7 @@ public class RestBranchController implements BasicRestController<BranchDto> {
     @Override
     public ResponseEntity<BranchDto> update(@RequestBody @Valid BranchDto dto, BindingResult bindingResult) {
         log.info("Вызов метода update() |DTO = " + dto + "| в контроллере " + this.getClass());
-        if (bindingResult.hasFieldErrors()) {
+        if (bindingResult.hasErrors()) {
             throw new NotExecutedException(getBindingResultErrors(bindingResult));
         }
         service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));

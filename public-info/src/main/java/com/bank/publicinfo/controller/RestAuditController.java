@@ -63,7 +63,7 @@ public class RestAuditController implements BasicRestController<AuditDto> {
     @Override
     public ResponseEntity<AuditDto> create(@RequestBody @Valid AuditDto dto, BindingResult bindingResult) {
         log.info("Вызов метода create() |DTO = " + dto + "| в контроллере " + this.getClass());
-        if (bindingResult.hasFieldErrors()) {
+        if (bindingResult.hasErrors()) {
             throw new NotExecutedException(getBindingResultErrors(bindingResult));
         }
         service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
@@ -74,7 +74,7 @@ public class RestAuditController implements BasicRestController<AuditDto> {
     @Override
     public ResponseEntity<AuditDto> update(@RequestBody @Valid AuditDto dto, BindingResult bindingResult) {
         log.info("Вызов метода update() |DTO = " + dto + "| в контроллере " + this.getClass());
-        if (bindingResult.hasFieldErrors()) {
+        if (bindingResult.hasErrors()) {
             throw new NotExecutedException(getBindingResultErrors(bindingResult));
         }
         service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));

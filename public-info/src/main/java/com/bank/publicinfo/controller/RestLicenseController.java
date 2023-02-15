@@ -63,7 +63,7 @@ public class RestLicenseController implements BasicRestController<LicenseDto> {
     @Override
     public ResponseEntity<LicenseDto> create(@RequestBody @Valid LicenseDto dto, BindingResult bindingResult) {
         log.info("Вызов метода create() |DTO = " + dto + "| в контроллере " + this.getClass());
-        if (bindingResult.hasFieldErrors()) {
+        if (bindingResult.hasErrors()) {
             throw new NotExecutedException(getBindingResultErrors(bindingResult));
         }
         service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
@@ -74,7 +74,7 @@ public class RestLicenseController implements BasicRestController<LicenseDto> {
     @Override
     public ResponseEntity<LicenseDto> update(@RequestBody @Valid LicenseDto dto, BindingResult bindingResult) {
         log.debug("Вызов метода update() |DTO = " + dto + "| в контроллере " + this.getClass());
-        if (bindingResult.hasFieldErrors()) {
+        if (bindingResult.hasErrors()) {
             throw new NotExecutedException(getBindingResultErrors(bindingResult));
         }
         service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
