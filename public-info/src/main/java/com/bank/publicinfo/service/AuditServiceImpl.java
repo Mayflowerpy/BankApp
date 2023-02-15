@@ -42,7 +42,7 @@ public class AuditServiceImpl implements AuditService {
 
     @Override
     @Transactional
-    public void save(Audit audit) {
+    public void save(Audit audit) throws NotExecutedException {
         log.debug("Вызов метода save() |Entity = " + audit + "| в сервисе " + this.getClass());
         if (auditRepository.existsById(audit.getId())) {
             auditRepository.save(audit);

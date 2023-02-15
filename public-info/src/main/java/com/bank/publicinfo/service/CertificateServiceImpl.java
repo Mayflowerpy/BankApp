@@ -51,7 +51,7 @@ public class CertificateServiceImpl implements CertificateService {
 
     @Override
     @Transactional
-    public void save(Certificate certificate) {
+    public void save(Certificate certificate) throws NotExecutedException {
         log.debug("Вызов метода save() |Entity = " + certificate + "| в сервисе " + this.getClass());
         if (certificateRepository.existsById(certificate.getId())) {
             throw new NotExecutedException("Not executed: " + this.getClass().getSimpleName() +

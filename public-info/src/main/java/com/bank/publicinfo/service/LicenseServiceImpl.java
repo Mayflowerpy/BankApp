@@ -51,7 +51,7 @@ public class LicenseServiceImpl implements LicenseService {
 
     @Override
     @Transactional
-    public void save(License license) {
+    public void save(License license) throws NotExecutedException {
         log.debug("Вызов метода save() |Entity = " + license + "| в сервисе " + this.getClass());
         if (licenseRepository.existsById(license.getId())) {
             throw new NotExecutedException("Not executed: " + this.getClass().getSimpleName() +

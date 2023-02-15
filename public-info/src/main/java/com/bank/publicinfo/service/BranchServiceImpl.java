@@ -42,7 +42,7 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     @Transactional
-    public void save(Branch branch) {
+    public void save(Branch branch) throws NotExecutedException {
         log.debug("Вызов метода save() |Entity = " + branch + "| в сервисе " + this.getClass());
         if (branchRepository.existsById(branch.getId())) {
             throw new NotExecutedException("Not executed: " + this.getClass().getSimpleName() +

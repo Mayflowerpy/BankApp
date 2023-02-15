@@ -42,7 +42,7 @@ public class BankDetailsServiceImpl implements BankDetailsService {
 
     @Override
     @Transactional
-    public void save(BankDetails bankDetails) {
+    public void save(BankDetails bankDetails) throws NotExecutedException {
         log.debug("Вызов метода save() |Entity = " + bankDetails + "| в сервисе " + this.getClass());
         if (bankDetailsRepository.existsById(bankDetails.getId())) {
             throw new NotExecutedException("Not executed: " + this.getClass().getSimpleName() +

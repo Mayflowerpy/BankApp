@@ -50,7 +50,7 @@ public class AtmServiceImpl implements AtmService {
 
     @Override
     @Transactional
-    public void save(Atm atm) {
+    public void save(Atm atm) throws NotExecutedException {
         log.debug("Вызов метода save() |Entity = " + atm + "| в сервисе " + this.getClass());
         if (atmRepository.existsById(atm.getId())) {
             throw new NotExecutedException("Not executed: " + this.getClass().getSimpleName() +
