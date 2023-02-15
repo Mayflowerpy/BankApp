@@ -24,30 +24,30 @@ import javax.validation.constraints.*;
 @RequiredArgsConstructor
 public class BankDetailsDto {
 
-    @NotEmpty(message = "Id should not be empty")
+    @NotNull(message = "Id should not be null")
     @Min(value = 1, message = "Id should be greater than 0")
     private Long id;
 
     @NonNull
-    @NotEmpty(message = "BIK should not be empty")
+    @NotNull(message = "BIK should not be null")
     @Min(value = 100_000_000L, message = "BIK should be 9 characters long")
     @Max(value = 999_999_999L, message = "BIK should be 9 characters long")
     private Long bik;
 
     @NonNull
-    @NotEmpty(message = "INN should not be empty")
+    @NotNull(message = "INN should not be null")
     @Min(value = 1_000_000_000L, message = "INN should be greater than 10 characters")
     @Max(value = 999_999_999_999L, message = "BIK should be less than 12 characters")
     private Long inn;
 
     @NonNull
-    @NotEmpty(message = "KPP should not be empty")
+    @NotNull(message = "KPP should not be null")
     @Min(value = 1_000_000_000L, message = "INN should be greater than 10 characters")
     @Max(value = 999_999_999_999L, message = "BIK should be less than 12 characters")
     private Long kpp;
 
     @NonNull
-    @NotEmpty(message = "Correspondent account should not be empty")
+    @NotNull(message = "Correspondent account should not be null")
     @Min(value = 10_000_000_000_000_000L, message = "Correspondent account should be 17 characters long")
     @Max(value = 99_999_999_999_999_999L, message = "Correspondent account should be 17 characters long")
     private Long corAccount;
