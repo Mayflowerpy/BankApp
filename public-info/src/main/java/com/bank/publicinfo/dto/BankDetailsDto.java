@@ -36,14 +36,14 @@ public class BankDetailsDto {
 
     @NonNull
     @NotNull(message = "INN should not be null")
-    @Min(value = 1_000_000_000L, message = "INN should be greater than 10 characters")
-    @Max(value = 999_999_999_999L, message = "BIK should be less than 12 characters")
+    @Min(value = 1_000_000_000L, message = "INN should be at least 10 characters long")
+    @Max(value = 999_999_999_999L, message = "INN should be less than 13 characters")
     private Long inn;
 
     @NonNull
     @NotNull(message = "KPP should not be null")
-    @Min(value = 1_000_000_000L, message = "INN should be greater than 10 characters")
-    @Max(value = 999_999_999_999L, message = "BIK should be less than 12 characters")
+    @Min(value = 1_000_000_000L, message = "KPP should be greater than 10 characters")
+    @Max(value = 999_999_999_999L, message = "KPP should be less than 12 characters")
     private Long kpp;
 
     @NonNull
