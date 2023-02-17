@@ -2,6 +2,7 @@ package com.bank.publicinfo.service;
 
 import com.bank.publicinfo.entity.BankDetails;
 import com.bank.publicinfo.entity.Certificate;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.exception.NotFoundException;
 import com.bank.publicinfo.repository.CertificateRepository;
 import org.junit.jupiter.api.*;
@@ -152,6 +153,15 @@ class CertificateServiceImplTest {
             when(mockRepository.findByBankDetails(BANK_DETAILS)).thenReturn(Optional.empty());
 
             assertThatThrownBy(() -> service.findByBankDetails(BANK_DETAILS)).isInstanceOf(NotFoundException.class);
+        }
+
+        @Test
+        @DisplayName("Выброс NotExecutedException, если сохраняемая сущность уже есть")
+        void savedThrowsNotExecutedException() {
+
+            when(mockRepository.existsById(ENTITY.getId())).thenReturn(true);
+
+            assertThatThrownBy(() -> service.save(ENTITY)).isInstanceOf(NotExecutedException.class);
         }
     }
 }

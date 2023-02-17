@@ -1,6 +1,7 @@
 package com.bank.publicinfo.service;
 
 import com.bank.publicinfo.entity.Branch;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.exception.NotFoundException;
 import com.bank.publicinfo.repository.BranchRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -41,9 +42,14 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     @Transactional
-    public void save(Branch branch) {
+    public void save(Branch branch) throws NotExecutedException {
         log.debug("Вызов метода save() |Entity = " + branch + "| в сервисе " + this.getClass());
-        branchRepository.save(branch);
+        if (branchRepository.existsById(branch.getId())) {
+            throw new NotExecutedException("Not executed: " + this.getClass().getSimpleName() +
+                    ", object with id = " + branch.getId() + " already exists");
+        } else {
+            branchRepository.save(branch);
+        }
     }
 
 }

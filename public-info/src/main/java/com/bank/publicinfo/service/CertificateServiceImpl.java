@@ -2,6 +2,7 @@ package com.bank.publicinfo.service;
 
 import com.bank.publicinfo.entity.BankDetails;
 import com.bank.publicinfo.entity.Certificate;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.exception.NotFoundException;
 import com.bank.publicinfo.repository.CertificateRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -50,8 +51,13 @@ public class CertificateServiceImpl implements CertificateService {
 
     @Override
     @Transactional
-    public void save(Certificate certificate) {
+    public void save(Certificate certificate) throws NotExecutedException {
         log.debug("Вызов метода save() |Entity = " + certificate + "| в сервисе " + this.getClass());
-        certificateRepository.save(certificate);
+        if (certificateRepository.existsById(certificate.getId())) {
+            throw new NotExecutedException("Not executed: " + this.getClass().getSimpleName() +
+                    ", object with id = " + certificate.getId() + " already exists");
+        } else {
+            certificateRepository.save(certificate);
+        }
     }
 }

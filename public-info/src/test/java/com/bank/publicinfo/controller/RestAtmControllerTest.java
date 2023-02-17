@@ -2,6 +2,7 @@ package com.bank.publicinfo.controller;
 
 import com.bank.publicinfo.dto.AtmDto;
 import com.bank.publicinfo.entity.Atm;
+import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.service.AtmService;
 import com.bank.publicinfo.service.EntityDtoMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,6 +46,8 @@ class RestAtmControllerTest {
 
     private final Atm ENTITY = new Atm("address", false);
     private final AtmDto DTO = new AtmDto("address", false);
+
+    private final AtmDto INVALID_DTO = new AtmDto("a", false);
 
     {
         ENTITY.setId(1L);
@@ -133,6 +136,20 @@ class RestAtmControllerTest {
     }
 
     @Test
+    @DisplayName("Выброс NotExecutedException при ошибке валидации (сохранение сущности)")
+    void testCreateThrowsNotExecutedException() throws Exception {
+
+        when(mockMapper.toEntity(INVALID_DTO, ENTITY_CLASS_NAME)).thenThrow(new NotExecutedException());
+
+        final MockHttpServletResponse response = mockMvc.perform(post("/admin/atm/new")
+                        .content(objectMapper.writeValueAsString(INVALID_DTO)).contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
     @DisplayName("Обновление сущности")
     void testUpdate() throws Exception {
 
@@ -146,6 +163,20 @@ class RestAtmControllerTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
         assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(DTO));
         verify(mockService).save(ENTITY);
+    }
+
+    @Test
+    @DisplayName("Выброс NotExecutedException при ошибке валидации (обновление сущности)")
+    void testUpdateThrowsNotExecutedException() throws Exception {
+
+        when(mockMapper.toEntity(INVALID_DTO, ENTITY_CLASS_NAME)).thenThrow(new NotExecutedException());
+
+        final MockHttpServletResponse response = mockMvc.perform(patch("/admin/atm/edit")
+                        .content(objectMapper.writeValueAsString(INVALID_DTO)).contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
     @Test
