@@ -81,10 +81,12 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="Рустам" id="1672954525823-5">
-        <addUniqueConstraint columnNames="account_number" constraintName="account_transfer_account_number_key" tableName="account_transfer"/>
-    </changeSet>
-    <changeSet author="Рустам" id="1672954525823-6">
-        <addUniqueConstraint columnNames="card_number" constraintName="card_transfer_card_number_key" tableName="card_transfer"/>
-    </changeSet>
+<!--    В результате тестов выяснил, что данные констрейнты не дают выполнять перевод пользователю более одного раза-->
+
+<!--    <changeSet author="Рустам" id="1672954525823-5">-->
+<!--        <addUniqueConstraint columnNames="account_number" constraintName="account_transfer_account_number_key" tableName="account_transfer"/>-->
+<!--    </changeSet>-->
+<!--    <changeSet author="Рустам" id="1672954525823-6">-->
+<!--        <addUniqueConstraint columnNames="card_number" constraintName="card_transfer_card_number_key" tableName="card_transfer"/>-->
+<!--    </changeSet>-->
 </databaseChangeLog>

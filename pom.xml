@@ -18,7 +18,6 @@
 	<description>parent</description>
 
 	<modules>
-		<module>eureka-server</module>
 		<module>account</module>
 		<module>antifraud</module>
 		<module>authorization</module>
@@ -26,6 +25,7 @@
 		<module>profile</module>
 		<module>public-info</module>
 		<module>transfer</module>
+		<module>eureka-server</module>
 	</modules>
 
 	<properties>
@@ -102,10 +102,6 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-security</artifactId>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
