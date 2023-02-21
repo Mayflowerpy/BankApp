@@ -67,7 +67,7 @@ public class UserRestController {
 
     @GetMapping
     public Profile getProfileByUsername(@RequestParam String email) {
-        return profileFeignClient.getProfileByUsername(email);
+        return profileFeignClient.getProfileByUsername(email).getBody();
     }
 
     @GetMapping("/userView")

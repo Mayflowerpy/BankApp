@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SuccessUserHandler successUserHandler;
@@ -39,14 +41,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable() //Отключение csrf-token (cross-site request forgery)
                 .authorizeRequests()
-//                .antMatchers("/api/auth", "/login", "/api/auth/login", "/api/auth/error").permitAll()
-//                .antMatchers("/api/auth/users/**", "/api/auth/roles/**", "/api/auth/audit/**").hasRole("ADMIN")
-//                .antMatchers("/api/auth/userView/**").authenticated()
-//                .anyRequest().authenticated()
-                .anyRequest().permitAll()
+                .antMatchers("/api/auth", "/login", "/api/auth/login", "/api/auth/error").permitAll()
+                .antMatchers("/api/auth/users/**", "/api/auth/roles/**", "/api/auth/audit/**").hasRole("ADMIN")
+                .antMatchers("/api/auth/userView/**").authenticated()
+                .anyRequest().authenticated()
+//                .anyRequest().permitAll()
                 .and()
-//                .formLogin().successHandler(successUserHandler).permitAll()
-//                .and()
+                .formLogin().successHandler(successUserHandler).permitAll()
+                .and()
                 .logout().permitAll();
     }
 
@@ -65,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * setUserDetailsService - userDetailsService класс создающий principal с username, password, roles
      */
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         final DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setHideUserNotFoundExceptions(false);
         provider.setPasswordEncoder(passwordEncoder());
