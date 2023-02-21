@@ -28,3 +28,10 @@ eureka:
   client:
     service-url:
       defaultZone: "http://localhost:8761/eureka/"
+logging:
+  file:
+    name: ./.idea/hist.log
+    logback:
+    rolling policy:
+      max-file-size: 1024
+      max-backup-index: 2

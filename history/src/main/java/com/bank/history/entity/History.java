@@ -19,8 +19,10 @@ import java.util.Objects;
 
 /**
  * модель, которая описана по таблице
+ *   для преобразования структуры обьекта и данных, чтобы сохранять и передавать
+ *   @author Larisa Ermakova
+ *
   */
-
 @Entity
 @Getter
 @Setter
@@ -28,11 +30,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Table(name = "history", schema = "history")
-/**
- * для преобразования структуры обьекта и данных, чтобы сохранять и передавать
- * @author Larisa Ermakova
- */
-
 public class History implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

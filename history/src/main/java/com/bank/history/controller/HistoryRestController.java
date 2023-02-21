@@ -2,6 +2,7 @@ package com.bank.history.controller;
 
 import com.bank.history.entity.dto.HistoryDTO;
 import com.bank.history.service.HistoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import java.util.List;
  *
  * @author Larisa Ermakova
  */
+@Slf4j
 @RestController
 public class HistoryRestController {
     /**
@@ -36,6 +38,7 @@ public class HistoryRestController {
      */
     @GetMapping(path = "/histories")
     public ResponseEntity<List<HistoryDTO>> getAllHistory() {
+        log.info("Method getAllHistory() is calling from RestController {}", this.getClass());
         return ResponseEntity.ok(historyService.getAllHistory());
     }
 
@@ -44,6 +47,7 @@ public class HistoryRestController {
      */
     @PostMapping(path = "/newHistory")
     public ResponseEntity<HistoryDTO> saveHistory(@RequestBody HistoryDTO historyDTO) {
+        log.info("Method saveHistory() is calling from RestController {}", this.getClass());
         return ResponseEntity.ok(historyService.save(historyDTO));
     }
 
@@ -52,6 +56,7 @@ public class HistoryRestController {
      */
     @GetMapping(path = "/{id}")
     public ResponseEntity<HistoryDTO> findHistoryById(@PathVariable("id") Long id) {
+        log.info("Method findHistoryById() by id={} is calling from RestController {} ", id, this.getClass());
         return ResponseEntity.ok(historyService.findById(id));
     }
 
@@ -60,6 +65,7 @@ public class HistoryRestController {
      */
     @PutMapping(path = "/update/{id}")
     public ResponseEntity<HistoryDTO> updateHistory(@PathVariable("id") Long id, @RequestBody HistoryDTO historyDTO) {
+        log.info("Method updateHistory() by id={} is calling from RestController {} ", id, this.getClass());
         return ResponseEntity.ok(historyService.update(id, historyDTO));
     }
 }
