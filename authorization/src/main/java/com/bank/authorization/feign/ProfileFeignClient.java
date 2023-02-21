@@ -2,6 +2,7 @@ package com.bank.authorization.feign;
 
 import com.bank.authorization.pojos.Profile;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,5 +18,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(value = "profileFeign", url = "http://localhost:8089/api/profile")
 public interface ProfileFeignClient {
     @GetMapping
-    Profile getProfileByUsername(@RequestParam(value = "username") String username);
+    ResponseEntity<Profile> getProfileByUsername(@RequestParam(value = "username") String username);
 }
