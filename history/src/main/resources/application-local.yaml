@@ -9,9 +9,9 @@ management:
     shutdown:
       enabled: true
   endpoints:
-    web:
-      exposure:
-        include: '*'
+    prometheus:
+      enabled: true
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
