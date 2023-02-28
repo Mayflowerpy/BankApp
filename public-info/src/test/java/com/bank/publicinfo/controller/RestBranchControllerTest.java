@@ -43,9 +43,6 @@ class RestBranchControllerTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private final String ENTITY_CLASS_NAME = Branch.class.getCanonicalName();
-    private final String DTO_CLASS_NAME = BranchDto.class.getCanonicalName();
-
     private final Branch ENTITY = new Branch("address", 11_111L, "city", Time.valueOf(LocalTime.of(12, 0, 0)),
             Time.valueOf(LocalTime.of(12, 0, 0)));
     private final BranchDto DTO = new BranchDto("address", 11_111L, "city", Time.valueOf(LocalTime.of(12, 0, 0)),
@@ -67,7 +64,7 @@ class RestBranchControllerTest {
         final List<BranchDto> dtoList = List.of(DTO);
 
         when(mockService.findAll()).thenReturn(entityList);
-        when(mockMapper.toDtoList(entityList, DTO_CLASS_NAME)).thenReturn(dtoList);
+        when(mockMapper.toDtoList(entityList)).thenReturn(dtoList);
 
         final MockHttpServletResponse response = mockMvc
                 .perform(get("/branch/all").accept(MediaType.APPLICATION_JSON))
@@ -82,7 +79,7 @@ class RestBranchControllerTest {
     void testGetEmptyList() throws Exception {
 
         when(mockService.findAll()).thenReturn(Collections.emptyList());
-        when(mockMapper.toDtoList(Collections.emptyList(), DTO_CLASS_NAME)).thenReturn(Collections.emptyList());
+        when(mockMapper.toDtoList(Collections.emptyList())).thenReturn(Collections.emptyList());
 
         final MockHttpServletResponse response = mockMvc
                 .perform(get("/branch/all").accept(MediaType.APPLICATION_JSON))
@@ -99,7 +96,7 @@ class RestBranchControllerTest {
         final List<Branch> entityList = List.of(ENTITY);
 
         when(mockService.findAll()).thenReturn(entityList);
-        when(mockMapper.toDtoList(entityList, DTO_CLASS_NAME)).thenReturn(Collections.emptyList());
+        when(mockMapper.toDtoList(entityList)).thenReturn(Collections.emptyList());
 
         final MockHttpServletResponse response = mockMvc
                 .perform(get("/branch/all").accept(MediaType.APPLICATION_JSON))
@@ -114,7 +111,7 @@ class RestBranchControllerTest {
     void testGetById() throws Exception {
 
         when(mockService.findById(1L)).thenReturn(ENTITY);
-        when(mockMapper.toDto(ENTITY, DTO_CLASS_NAME)).thenReturn(DTO);
+        when(mockMapper.toDto(ENTITY)).thenReturn(DTO);
 
         final MockHttpServletResponse response = mockMvc
                 .perform(get("/branch/id={id}", 1).accept(MediaType.APPLICATION_JSON))
@@ -128,7 +125,7 @@ class RestBranchControllerTest {
     @DisplayName("Сохранение сущности")
     void testCreate() throws Exception {
 
-        when(mockMapper.toEntity(DTO, ENTITY_CLASS_NAME)).thenReturn(ENTITY);
+        when(mockMapper.toEntity(DTO)).thenReturn(ENTITY);
 
         final MockHttpServletResponse response = mockMvc.perform(post("/admin/branch/new")
                         .content(objectMapper.writeValueAsString(DTO)).contentType(MediaType.APPLICATION_JSON)
@@ -144,7 +141,7 @@ class RestBranchControllerTest {
     @DisplayName("Выброс NotExecutedException при ошибке валидации (сохранение сущности)")
     void testCreateThrowsNotExecutedException() throws Exception {
 
-        when(mockMapper.toEntity(INVALID_DTO, ENTITY_CLASS_NAME)).thenThrow(new NotExecutedException());
+        when(mockMapper.toEntity(INVALID_DTO)).thenThrow(new NotExecutedException());
 
         final MockHttpServletResponse response = mockMvc.perform(post("/admin/branch/new")
                         .content(objectMapper.writeValueAsString(INVALID_DTO)).contentType(MediaType.APPLICATION_JSON)
@@ -158,7 +155,7 @@ class RestBranchControllerTest {
     @DisplayName("Обновление сущности")
     void testUpdate() throws Exception {
 
-        when(mockMapper.toEntity(DTO, ENTITY_CLASS_NAME)).thenReturn(ENTITY);
+        when(mockMapper.toEntity(DTO)).thenReturn(ENTITY);
 
         final MockHttpServletResponse response = mockMvc.perform(patch("/admin/branch/edit")
                         .content(objectMapper.writeValueAsString(DTO)).contentType(MediaType.APPLICATION_JSON)
@@ -174,7 +171,7 @@ class RestBranchControllerTest {
     @DisplayName("Выброс NotExecutedException при ошибке валидации (обновление сущности)")
     void testUpdateThrowsNotExecutedException() throws Exception {
 
-        when(mockMapper.toEntity(INVALID_DTO, ENTITY_CLASS_NAME)).thenThrow(new NotExecutedException());
+        when(mockMapper.toEntity(INVALID_DTO)).thenThrow(new NotExecutedException());
 
         final MockHttpServletResponse response = mockMvc.perform(patch("/admin/branch/edit")
                         .content(objectMapper.writeValueAsString(INVALID_DTO)).contentType(MediaType.APPLICATION_JSON)

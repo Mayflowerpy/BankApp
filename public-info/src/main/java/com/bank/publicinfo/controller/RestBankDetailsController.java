@@ -37,11 +37,10 @@ public class RestBankDetailsController implements BasicRestController<BankDetail
     private final BankDetailsService service;
     private final EntityDtoMapper<BankDetails, BankDetailsDto> mapper;
 
-    private final String ENTITY_CLASS_NAME = BankDetails.class.getCanonicalName();
-    private final String DTO_CLASS_NAME = BankDetailsDto.class.getCanonicalName();
-
     public RestBankDetailsController(BankDetailsService service, EntityDtoMapper<BankDetails, BankDetailsDto> mapper) {
         this.service = service;
+        mapper.setEntityClassName(BankDetails.class.getCanonicalName());
+        mapper.setDtoClassName(BankDetailsDto.class.getCanonicalName());
         this.mapper = mapper;
     }
 
@@ -49,14 +48,14 @@ public class RestBankDetailsController implements BasicRestController<BankDetail
     @Override
     public ResponseEntity<List<BankDetailsDto>> getList() {
         log.info("Вызов метода getList() в контроллере " + this.getClass());
-        return new ResponseEntity<>(mapper.toDtoList(service.findAll(), DTO_CLASS_NAME), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toDtoList(service.findAll()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/bank-details/id={id}")
     @Override
     public ResponseEntity<BankDetailsDto> getById(@PathVariable("id") Long id) {
         log.info("Вызов метода getById() |id = " + id + "| в контроллере " + this.getClass());
-        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toDto(service.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping(value = "/admin/bank-details/new")
@@ -66,7 +65,7 @@ public class RestBankDetailsController implements BasicRestController<BankDetail
         if (bindingResult.hasErrors()) {
             throw new NotExecutedException(getBindingResultErrors(bindingResult));
         }
-        service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
+        service.save(mapper.toEntity(dto));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
@@ -77,7 +76,7 @@ public class RestBankDetailsController implements BasicRestController<BankDetail
         if (bindingResult.hasErrors()) {
             throw new NotExecutedException(getBindingResultErrors(bindingResult));
         }
-        service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
+        service.save(mapper.toEntity(dto));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 

@@ -5,21 +5,19 @@ import com.bank.publicinfo.entity.Certificate;
 import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.exception.NotFoundException;
 import com.bank.publicinfo.repository.CertificateRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Slf4j
 @Service
 public class CertificateServiceImpl implements CertificateService {
 
     private final CertificateRepository certificateRepository;
-
-    public CertificateServiceImpl(CertificateRepository certificateRepository) {
-        this.certificateRepository = certificateRepository;
-    }
 
     @Override
     public Certificate findById(Long id) {

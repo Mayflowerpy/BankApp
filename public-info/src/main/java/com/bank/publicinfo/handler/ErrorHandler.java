@@ -27,14 +27,14 @@ import java.time.LocalDateTime;
 public class ErrorHandler {
 
     @ExceptionHandler
-    public ResponseEntity<ErrorResponse> notFoundException(NotFoundException e) {
+    public static ResponseEntity<ErrorResponse> notFoundException(NotFoundException e) {
         log.error("Объект не найден: " + e + " " + e.getMessage());
         ErrorResponse response = new ErrorResponse(Timestamp.valueOf(LocalDateTime.now()), HttpStatus.NOT_FOUND, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
-    public ResponseEntity<ErrorResponse> notExecutedException(NotExecutedException e) {
+    public static ResponseEntity<ErrorResponse> notExecutedException(NotExecutedException e) {
         log.error("В контроллере получен некорректный объект: " + e + " " + e.getMessage());
         ErrorResponse response = new ErrorResponse(Timestamp.valueOf(LocalDateTime.now()), HttpStatus.BAD_REQUEST, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);

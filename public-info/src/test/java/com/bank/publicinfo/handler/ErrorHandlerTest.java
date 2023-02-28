@@ -7,14 +7,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-class ErrorHandlerTest {
+import static com.bank.publicinfo.handler.ErrorHandler.notExecutedException;
+import static com.bank.publicinfo.handler.ErrorHandler.notFoundException;
 
-    private final ErrorHandler handler = new ErrorHandler();
+class ErrorHandlerTest {
 
     @Test
     void testNotFoundException() {
 
-        final ResponseEntity<ErrorResponse> result = handler.notFoundException(new NotFoundException());
+        final ResponseEntity<ErrorResponse> result = notFoundException(new NotFoundException());
 
         assert(result.getStatusCode().equals(HttpStatus.NOT_FOUND));
     }
@@ -22,7 +23,7 @@ class ErrorHandlerTest {
     @Test
     void testNotExecutedException() {
 
-        final ResponseEntity<ErrorResponse> result = handler.notExecutedException(new NotExecutedException());
+        final ResponseEntity<ErrorResponse> result = notExecutedException(new NotExecutedException());
 
         assert(result.getStatusCode().equals(HttpStatus.BAD_REQUEST));
     }
