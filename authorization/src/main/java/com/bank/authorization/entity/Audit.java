@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,8 +35,8 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@NoArgsConstructor
-//@RequiredArgsConstructor
+//@NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity

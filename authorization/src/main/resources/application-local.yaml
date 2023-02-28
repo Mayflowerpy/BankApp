@@ -5,9 +5,6 @@ server:
 management:
   server:
     port: 8187
-  endpoint:
-    shutdown:
-      enabled: true
   endpoints:
     web:
       exposure:

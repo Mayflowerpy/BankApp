@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
 /**
  * WebSecurityConfig - Конфигурационный класс в основе которого WebSecurityConfigurerAdapter(Deprecated)
  * @author Vladislav Shilov
@@ -41,11 +40,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable() //Отключение csrf-token (cross-site request forgery)
                 .authorizeRequests()
-                .antMatchers("/api/auth", "/login", "/api/auth/login", "/api/auth/error").permitAll()
-                .antMatchers("/api/auth/users/**", "/api/auth/roles/**", "/api/auth/audit/**").hasRole("ADMIN")
-                .antMatchers("/api/auth/userView/**").authenticated()
-                .anyRequest().authenticated()
-//                .anyRequest().permitAll()
+//                .antMatchers("/api/auth", "/login", "/api/auth/login", "/api/auth/error").permitAll()
+//                .antMatchers("/api/auth/users/**", "/api/auth/roles/**", "/api/auth/audit/**").hasRole("ADMIN")
+//                .antMatchers("/api/auth/userView/**").authenticated()
+//                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin().successHandler(successUserHandler).permitAll()
                 .and()
@@ -67,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * setUserDetailsService - userDetailsService класс создающий principal с username, password, roles
      */
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         final DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setHideUserNotFoundExceptions(false);
         provider.setPasswordEncoder(passwordEncoder());

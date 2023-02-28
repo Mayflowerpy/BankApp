@@ -4,6 +4,7 @@ import com.bank.authorization.dto.AuditDTO;
 import com.bank.authorization.exception.AuditNotCreatedException;
 import com.bank.authorization.service.AuditService;
 import com.bank.authorization.util.ErrBindingResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -34,6 +35,7 @@ import java.util.List;
  * @author Vladislav Shilov
  */
 
+@Slf4j
 @RestController
 public class AuditRestController {
 
@@ -48,17 +50,20 @@ public class AuditRestController {
 
     @GetMapping("/audit")
     public ResponseEntity<List<AuditDTO>> getAll() {
+        log.info("Call getAll() method in controller {}", this.getClass());
         return ResponseEntity.ok(auditService.getAll());
     }
 
     @GetMapping("/audit/{id}")
     public ResponseEntity<AuditDTO> getById(@PathVariable("id") long id) {
+        log.info("Call getById() method in controller {}, id = {}", this.getClass(), id);
         return ResponseEntity.ok(auditService.getById(id));
     }
 
     @PostMapping("/audit")
     public ResponseEntity<String> add(@RequestBody @Valid AuditDTO auditDTO,
                                       BindingResult bindingResult) throws AuditNotCreatedException {
+        log.info("Call add() method in controller {}, AuditDTO = {}", this.getClass(), auditDTO);
         if (bindingResult.hasErrors()) {
             throw new AuditNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));
         }
@@ -70,6 +75,7 @@ public class AuditRestController {
     public  ResponseEntity<String> update(@PathVariable("id") long id,
                                           @RequestBody @Valid AuditDTO auditDTO,
                                           BindingResult bindingResult) throws AuditNotCreatedException {
+        log.info("Call update() method in controller {}, id = {}, AuditDTO = {}", this.getClass(), id, auditDTO);
         if (bindingResult.hasErrors()) {
             throw new AuditNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));
         }
@@ -79,6 +85,7 @@ public class AuditRestController {
 
     @DeleteMapping("/audit/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") long id) {
+        log.info("Call delete() method in controller {}, id = {}", this.getClass(), id);
         auditService.delete(id);
         return ResponseEntity.ok(String.format("Audit with id-%s has been deleted", id));
     }

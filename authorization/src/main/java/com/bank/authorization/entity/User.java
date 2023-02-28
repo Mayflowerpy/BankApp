@@ -1,11 +1,6 @@
 package com.bank.authorization.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -90,7 +85,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null; // вернуть email из profile!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        return null; // возвращается из сервиса profile
     }
 
     @Override

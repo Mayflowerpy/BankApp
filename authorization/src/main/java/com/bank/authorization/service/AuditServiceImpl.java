@@ -5,6 +5,7 @@ import com.bank.authorization.entity.Audit;
 import com.bank.authorization.exception.AuditNotFoundException;
 import com.bank.authorization.mapper.AuditMapper;
 import com.bank.authorization.repository.AuditRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ import java.util.Optional;
  * @author Vladislav Shilov
  */
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 public class AuditServiceImpl implements AuditService {
@@ -39,11 +41,13 @@ public class AuditServiceImpl implements AuditService {
 
     @Override
     public List<AuditDTO> getAll() {
+        log.debug("Call getAll() method in service {}", this.getClass());
         return auditMapper.toDTOList(auditRepository.findAll());
     }
 
     @Override
     public AuditDTO getById(Long id) {
+        log.debug("Call getById() method inservice {}", this.getClass());
         final Optional<Audit> auditById = auditRepository.findById(id);
         return auditMapper.toDTO(auditById.orElseThrow(AuditNotFoundException::new));
     }
@@ -51,18 +55,21 @@ public class AuditServiceImpl implements AuditService {
     @Transactional
     @Override
     public void add(AuditDTO auditDTO) {
+        log.debug("Call add() method in service {}", this.getClass());
         auditRepository.saveAndFlush(auditMapper.toAudit(auditDTO));
     }
 
     @Transactional
     @Override
     public void update(AuditDTO auditDTO, Long id) {
+        log.debug("Call update() method in service {}", this.getClass());
         auditDTO.setId(id);
         auditRepository.saveAndFlush(auditMapper.toAudit(auditDTO));
     }
 
     @Override
     public void delete(Long id) {
+        log.debug("Call delete() method in service {}", this.getClass());
         auditRepository.deleteById(id);
     }
 }

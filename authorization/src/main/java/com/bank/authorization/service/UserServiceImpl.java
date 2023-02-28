@@ -5,6 +5,7 @@ import com.bank.authorization.entity.User;
 import com.bank.authorization.exception.UserNotFoundException;
 import com.bank.authorization.mapper.UserMapper;
 import com.bank.authorization.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -41,17 +43,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getAll() {
+        log.debug("Call getAll() method in service {}", this.getClass());
         return userMapper.toDTOList(userRepository.findAll());
     }
 
     @Override
     public UserDTO getById(long id) {
+        log.debug("Call getById() method in service {}", this.getClass());
         final Optional<User> userById = userRepository.findById(id);
         return userMapper.toDTO(userById.orElseThrow(UserNotFoundException::new));
     }
 
     @Override
     public UserDTO getByProfileId(long id) {
+        log.debug("Call getByProfileId() method in service {}", this.getClass());
         final Optional<User> userById = userRepository.getUserByProfileId(id);
         return userMapper.toDTO(userById.orElseThrow(UserNotFoundException::new));
     }
@@ -59,6 +64,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void add(UserDTO newUser) {
+        log.debug("Call add() method in service {}", this.getClass());
         newUser.setPassword(new BCryptPasswordEncoder().encode(newUser.getPassword()));
         userRepository.saveAndFlush(userMapper.toUser(newUser));
     }
@@ -66,6 +72,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void update(long id, UserDTO userForUpdate) {
+        log.debug("Call update() method in service {}", this.getClass());
         if (!getById(id).getPassword().equals(userForUpdate.getPassword())) {
             userForUpdate.setPassword(new BCryptPasswordEncoder().encode(userForUpdate.getPassword()));
         }
@@ -76,6 +83,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void delete(Long id) {
+        log.debug("Call delete() method in service {}", this.getClass());
         userRepository.deleteById(id);
     }
 }
