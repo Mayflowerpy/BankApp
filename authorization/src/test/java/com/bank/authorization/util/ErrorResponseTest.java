@@ -4,18 +4,20 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class RoleErrorResponseTest {
+import java.sql.Timestamp;
 
-    private RoleErrorResponse expectedResult;
+class ErrorResponseTest {
+
+    private ErrorResponse expectedResult;
 
     @BeforeEach
     void setUp() {
-        expectedResult = new RoleErrorResponse("message", 0L);
+        expectedResult = new ErrorResponse("message", Timestamp.valueOf("2000-01-01 12:00:00"));
     }
 
     @Test
     void createResponse() {
-        RoleErrorResponse actualResult = new RoleErrorResponse("message", 0L);
+        ErrorResponse actualResult = new ErrorResponse("message", Timestamp.valueOf("2000-01-01 12:00:00"));
 
         Assertions.assertThat(expectedResult).isEqualTo(actualResult);
     }

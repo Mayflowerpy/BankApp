@@ -4,6 +4,7 @@ import com.bank.authorization.entity.Role;
 import com.bank.authorization.exception.RoleNotCreatedException;
 import com.bank.authorization.service.RoleService;
 import com.bank.authorization.util.ErrBindingResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,7 @@ import java.util.List;
  * @author Vladislav Shilov
  */
 
+@Slf4j
 @RestController
 public class RoleRestController {
 
@@ -48,17 +50,20 @@ public class RoleRestController {
 
     @GetMapping("/roles")
     public ResponseEntity<List<Role>> getAll() {
+        log.info("Call getAll() method in controller {}", this.getClass());
         return new ResponseEntity<>(roleService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/roles/{id}")
-    ResponseEntity<Role> getRoleById(@PathVariable("id") long id) {
+    ResponseEntity<Role> getById(@PathVariable("id") long id) {
+        log.info("Call getById() method in controller {}, id = {}", this.getClass(), id);
         return new ResponseEntity<>(roleService.getById(id), HttpStatus.OK);
     }
 
     @PostMapping("/roles")
     public ResponseEntity<String> add(@RequestBody @Valid Role role,
                                               BindingResult bindingResult) throws RoleNotCreatedException {
+        log.info("Call add() method in controller {}, Role = {}", this.getClass(), role);
         if (bindingResult.hasErrors()) {
             throw new RoleNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));
         }
@@ -70,6 +75,7 @@ public class RoleRestController {
     public  ResponseEntity<String> update(@PathVariable("id") long id,
                                                 @RequestBody @Valid Role role,
                                                 BindingResult bindingResult) throws RoleNotCreatedException {
+        log.info("Call update() method in controller {}, id = {}, Role = {}", this.getClass(), id, role);
         if (bindingResult.hasErrors()) {
             throw new RoleNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));
         }
@@ -79,6 +85,7 @@ public class RoleRestController {
 
     @DeleteMapping("/roles/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") long id) {
+        log.info("Call delete() method in controller {}, id = {}", this.getClass(), id);
         roleService.delete(id);
         return new ResponseEntity<>(String.format("Role with id-%s has been deleted", id), HttpStatus.OK);
     }

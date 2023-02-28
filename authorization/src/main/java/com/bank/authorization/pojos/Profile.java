@@ -22,4 +22,3 @@ public class Profile {
     private Long passportId;
     private Long actualRegistrationId;
 }
-

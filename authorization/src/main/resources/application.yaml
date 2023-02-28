@@ -9,3 +9,15 @@ spring:
         default_schema: auth
         show-sql: true
     open-in-view: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,health,info,metric
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true

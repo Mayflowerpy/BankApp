@@ -6,6 +6,7 @@ import com.bank.authorization.feign.ProfileFeignClient;
 import com.bank.authorization.pojos.Profile;
 import com.bank.authorization.service.UserService;
 import com.bank.authorization.util.ErrBindingResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -40,6 +41,7 @@ import java.util.List;
  * @author Vladislav Shilov
  */
 
+@Slf4j
 @RestController
 public class UserRestController {
 
@@ -57,27 +59,32 @@ public class UserRestController {
 
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAll() {
+        log.info("Call getAll() method in controller {}", this.getClass());
         return ResponseEntity.ok(userService.getAll());
     }
 
     @GetMapping("/users/{id}")
     public ResponseEntity<UserDTO> getById(@PathVariable("id") long id) {
+        log.info("Call getById() method in controller {}, id = {}", this.getClass(), id);
         return ResponseEntity.ok(userService.getById(id));
     }
 
     @GetMapping
     public Profile getProfileByUsername(@RequestParam String email) {
+        log.info("Call getProfileByUsername() method in controller {}, email = {}", this.getClass(), email);
         return profileFeignClient.getProfileByUsername(email).getBody();
     }
 
     @GetMapping("/userView")
     public ResponseEntity<Profile> getAuthUser(Authentication auth) {
+        log.info("Call getAuthUser() method in controller {}, Authentication {}", this.getClass(), auth.getName());
         return ResponseEntity.ok(getProfileByUsername(auth.getName()));
     }
 
     @PostMapping("/users")
     public ResponseEntity<String> add(@RequestBody @Valid UserDTO userDTO,
                                               BindingResult bindingResult) throws UserNotCreatedException {
+        log.info("Call add() method in controller {}, UserDTO = {}", this.getClass(), userDTO);
         if (bindingResult.hasErrors()) {
             throw new UserNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));
         }
@@ -89,6 +96,7 @@ public class UserRestController {
     public  ResponseEntity<String> update(@PathVariable("id") long id,
                                                @RequestBody @Valid UserDTO userDTO,
                                                BindingResult bindingResult) throws UserNotCreatedException {
+        log.info("Call update() method in controller {}, id = {}, UserDTO = {}", this.getClass(), id, userDTO);
         if (bindingResult.hasErrors()) {
             throw new UserNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));
         }
@@ -98,6 +106,7 @@ public class UserRestController {
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") long id) {
+        log.info("Call delete() method in controller {}, id = {}", this.getClass(), id);
         userService.delete(id);
         return ResponseEntity.ok(String.format("User with id-%s has been deleted", id));
     }
