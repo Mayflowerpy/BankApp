@@ -1,14 +1,5 @@
 server:
   port: 8761
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5433/postgres
-    username: user
-    password: password
-  application:
-    name: eureka-server
-  liquibase:
-    enabled: false
 eureka:
   client:
     register-with-eureka: false
