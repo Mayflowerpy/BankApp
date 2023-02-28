@@ -37,11 +37,10 @@ public class RestAtmController implements BasicRestController<AtmDto> {
     private final AtmService service;
     private final EntityDtoMapper<Atm, AtmDto> mapper;
 
-    private final String ENTITY_CLASS_NAME = Atm.class.getCanonicalName();
-    private final String DTO_CLASS_NAME = AtmDto.class.getCanonicalName();
-
     public RestAtmController(AtmService service, EntityDtoMapper<Atm, AtmDto> mapper) {
         this.service = service;
+        mapper.setEntityClassName(Atm.class.getCanonicalName());
+        mapper.setDtoClassName(AtmDto.class.getCanonicalName());
         this.mapper = mapper;
     }
 
@@ -49,13 +48,14 @@ public class RestAtmController implements BasicRestController<AtmDto> {
     @Override
     public ResponseEntity<List<AtmDto>> getList() {
         log.info("Вызов метода getList() в контроллере " + this.getClass());
-        return new ResponseEntity<>(mapper.toDtoList(service.findAll(), DTO_CLASS_NAME), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toDtoList(service.findAll()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/atm/id={id}")
+    @Override
     public ResponseEntity<AtmDto> getById(@PathVariable("id") Long id) {
         log.info("Вызов метода getById() |id = " + id + "| в контроллере " + this.getClass());
-        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toDto(service.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping(value = "/admin/atm/new")
@@ -65,7 +65,7 @@ public class RestAtmController implements BasicRestController<AtmDto> {
         if (bindingResult.hasErrors()) {
             throw new NotExecutedException(getBindingResultErrors(bindingResult));
         }
-        service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
+        service.save(mapper.toEntity(dto));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
@@ -76,7 +76,7 @@ public class RestAtmController implements BasicRestController<AtmDto> {
         if (bindingResult.hasErrors()) {
             throw new NotExecutedException(getBindingResultErrors(bindingResult));
         }
-        service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
+        service.save(mapper.toEntity(dto));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 

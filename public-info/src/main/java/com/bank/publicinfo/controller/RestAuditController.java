@@ -37,11 +37,10 @@ public class RestAuditController implements BasicRestController<AuditDto> {
     private final AuditService service;
     private final EntityDtoMapper<Audit, AuditDto> mapper;
 
-    private final String ENTITY_CLASS_NAME = Audit.class.getCanonicalName();
-    private final String DTO_CLASS_NAME = AuditDto.class.getCanonicalName();
-
     public RestAuditController(AuditService service, EntityDtoMapper<Audit, AuditDto> mapper) {
         this.service = service;
+        mapper.setEntityClassName(Audit.class.getCanonicalName());
+        mapper.setDtoClassName(AuditDto.class.getCanonicalName());
         this.mapper = mapper;
     }
 
@@ -49,14 +48,14 @@ public class RestAuditController implements BasicRestController<AuditDto> {
     @Override
     public ResponseEntity<List<AuditDto>> getList() {
         log.info("Вызов метода getList() в контроллере " + this.getClass());
-        return new ResponseEntity<>(mapper.toDtoList(service.findAll(), DTO_CLASS_NAME), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toDtoList(service.findAll()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/audit/id={id}")
     @Override
     public ResponseEntity<AuditDto> getById(@PathVariable("id") Long id) {
         log.info("Вызов метода getById() |id = " + id + "| в контроллере " + this.getClass());
-        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toDto(service.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping(value = "/admin/audit/new")
@@ -66,7 +65,7 @@ public class RestAuditController implements BasicRestController<AuditDto> {
         if (bindingResult.hasErrors()) {
             throw new NotExecutedException(getBindingResultErrors(bindingResult));
         }
-        service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
+        service.save(mapper.toEntity(dto));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
@@ -77,7 +76,7 @@ public class RestAuditController implements BasicRestController<AuditDto> {
         if (bindingResult.hasErrors()) {
             throw new NotExecutedException(getBindingResultErrors(bindingResult));
         }
-        service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
+        service.save(mapper.toEntity(dto));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 

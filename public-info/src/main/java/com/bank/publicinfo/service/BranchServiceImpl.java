@@ -4,21 +4,19 @@ import com.bank.publicinfo.entity.Branch;
 import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.exception.NotFoundException;
 import com.bank.publicinfo.repository.BranchRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Slf4j
 @Service
 public class BranchServiceImpl implements BranchService {
 
     private final BranchRepository branchRepository;
-
-    public BranchServiceImpl(BranchRepository branchRepository) {
-        this.branchRepository = branchRepository;
-    }
 
     @Override
     public Branch findById(Long id) {

@@ -42,9 +42,6 @@ class RestCertificateControllerTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private final String ENTITY_CLASS_NAME = Certificate.class.getCanonicalName();
-    private final String DTO_CLASS_NAME = CertificateDto.class.getCanonicalName();
-
     private final BankDetails BANK_DETAILS = new BankDetails(144_525_974L, 1_000_000_000L, 1_000_000_000L,
             11_810_600_000_000_957L, "city", "jointStock", "name");
 
@@ -67,7 +64,7 @@ class RestCertificateControllerTest {
         final List<CertificateDto> dtoList = List.of(DTO);
 
         when(mockService.findAll()).thenReturn(entityList);
-        when(mockMapper.toDtoList(entityList, DTO_CLASS_NAME)).thenReturn(dtoList);
+        when(mockMapper.toDtoList(entityList)).thenReturn(dtoList);
 
         final MockHttpServletResponse response = mockMvc
                 .perform(get("/certificate/all").accept(MediaType.APPLICATION_JSON))
@@ -82,7 +79,7 @@ class RestCertificateControllerTest {
     void testGetEmptyList() throws Exception {
 
         when(mockService.findAll()).thenReturn(Collections.emptyList());
-        when(mockMapper.toDtoList(Collections.emptyList(), DTO_CLASS_NAME)).thenReturn(Collections.emptyList());
+        when(mockMapper.toDtoList(Collections.emptyList())).thenReturn(Collections.emptyList());
 
         final MockHttpServletResponse response = mockMvc
                 .perform(get("/certificate/all").accept(MediaType.APPLICATION_JSON))
@@ -99,7 +96,7 @@ class RestCertificateControllerTest {
         final List<Certificate> entityList = List.of(ENTITY);
 
         when(mockService.findAll()).thenReturn(entityList);
-        when(mockMapper.toDtoList(entityList, DTO_CLASS_NAME)).thenReturn(Collections.emptyList());
+        when(mockMapper.toDtoList(entityList)).thenReturn(Collections.emptyList());
 
         final MockHttpServletResponse response = mockMvc
                 .perform(get("/certificate/all").accept(MediaType.APPLICATION_JSON))
@@ -114,7 +111,7 @@ class RestCertificateControllerTest {
     void testGetById() throws Exception {
 
         when(mockService.findById(1L)).thenReturn(ENTITY);
-        when(mockMapper.toDto(ENTITY, DTO_CLASS_NAME)).thenReturn(DTO);
+        when(mockMapper.toDto(ENTITY)).thenReturn(DTO);
 
         final MockHttpServletResponse response = mockMvc
                 .perform(get("/certificate/id={id}", 1).accept(MediaType.APPLICATION_JSON))
@@ -128,7 +125,7 @@ class RestCertificateControllerTest {
     @DisplayName("Сохранение сущности")
     void testCreate() throws Exception {
 
-        when(mockMapper.toEntity(DTO, ENTITY_CLASS_NAME)).thenReturn(ENTITY);
+        when(mockMapper.toEntity(DTO)).thenReturn(ENTITY);
 
         final MockHttpServletResponse response = mockMvc.perform(post("/admin/certificate/new")
                         .content(objectMapper.writeValueAsString(DTO)).contentType(MediaType.APPLICATION_JSON)
@@ -144,7 +141,7 @@ class RestCertificateControllerTest {
     @DisplayName("Выброс NotExecutedException при ошибке валидации (сохранение сущности)")
     void testCreateThrowsNotExecutedException() throws Exception {
 
-        when(mockMapper.toEntity(INVALID_DTO, ENTITY_CLASS_NAME)).thenThrow(new NotExecutedException());
+        when(mockMapper.toEntity(INVALID_DTO)).thenThrow(new NotExecutedException());
 
         final MockHttpServletResponse response = mockMvc.perform(post("/admin/certificate/new")
                         .content(objectMapper.writeValueAsString(INVALID_DTO)).contentType(MediaType.APPLICATION_JSON)
@@ -158,7 +155,7 @@ class RestCertificateControllerTest {
     @DisplayName("Обновление сущности")
     void testUpdate() throws Exception {
 
-        when(mockMapper.toEntity(DTO, ENTITY_CLASS_NAME)).thenReturn(ENTITY);
+        when(mockMapper.toEntity(DTO)).thenReturn(ENTITY);
 
         final MockHttpServletResponse response = mockMvc.perform(patch("/admin/certificate/edit")
                         .content(objectMapper.writeValueAsString(DTO)).contentType(MediaType.APPLICATION_JSON)
@@ -174,7 +171,7 @@ class RestCertificateControllerTest {
     @DisplayName("Выброс NotExecutedException при ошибке валидации (обновление сущности)")
     void testUpdateThrowsNotExecutedException() throws Exception {
 
-        when(mockMapper.toEntity(INVALID_DTO, ENTITY_CLASS_NAME)).thenThrow(new NotExecutedException());
+        when(mockMapper.toEntity(INVALID_DTO)).thenThrow(new NotExecutedException());
 
         final MockHttpServletResponse response = mockMvc.perform(patch("/admin/certificate/edit")
                         .content(objectMapper.writeValueAsString(INVALID_DTO)).contentType(MediaType.APPLICATION_JSON)

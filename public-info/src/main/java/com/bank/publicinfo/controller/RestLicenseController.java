@@ -37,11 +37,10 @@ public class RestLicenseController implements BasicRestController<LicenseDto> {
     private final LicenseService service;
     private final EntityDtoMapper<License, LicenseDto> mapper;
 
-    private final String ENTITY_CLASS_NAME = License.class.getCanonicalName();
-    private final String DTO_CLASS_NAME = LicenseDto.class.getCanonicalName();
-
     public RestLicenseController(LicenseService service, EntityDtoMapper<License, LicenseDto> mapper) {
         this.service = service;
+        mapper.setEntityClassName(License.class.getCanonicalName());
+        mapper.setDtoClassName(LicenseDto.class.getCanonicalName());
         this.mapper = mapper;
     }
 
@@ -49,14 +48,14 @@ public class RestLicenseController implements BasicRestController<LicenseDto> {
     @Override
     public ResponseEntity<List<LicenseDto>> getList() {
         log.info("Вызов метода getList() в контроллере " + this.getClass());
-        return new ResponseEntity<>(mapper.toDtoList(service.findAll(), DTO_CLASS_NAME), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toDtoList(service.findAll()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/license/id={id}")
     @Override
     public ResponseEntity<LicenseDto> getById(@PathVariable("id") Long id) {
         log.info("Вызов метода getById() |id = " + id + "| в контроллере " + this.getClass());
-        return new ResponseEntity<>(mapper.toDto(service.findById(id), DTO_CLASS_NAME), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toDto(service.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping(value = "/admin/license/new")
@@ -66,7 +65,7 @@ public class RestLicenseController implements BasicRestController<LicenseDto> {
         if (bindingResult.hasErrors()) {
             throw new NotExecutedException(getBindingResultErrors(bindingResult));
         }
-        service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
+        service.save(mapper.toEntity(dto));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
@@ -77,7 +76,7 @@ public class RestLicenseController implements BasicRestController<LicenseDto> {
         if (bindingResult.hasErrors()) {
             throw new NotExecutedException(getBindingResultErrors(bindingResult));
         }
-        service.save(mapper.toEntity(dto, ENTITY_CLASS_NAME));
+        service.save(mapper.toEntity(dto));
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
