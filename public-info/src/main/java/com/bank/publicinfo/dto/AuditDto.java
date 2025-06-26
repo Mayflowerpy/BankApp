@@ -5,7 +5,10 @@ import com.bank.publicinfo.entity.Audit;
 import com.bank.publicinfo.entity.EntityType;
 import com.bank.publicinfo.entity.OperationType;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;

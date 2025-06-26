@@ -1,8 +1,23 @@
 package com.bank.publicinfo.service;
 
-import com.bank.publicinfo.dto.*;
-import com.bank.publicinfo.entity.*;
-import org.junit.jupiter.api.*;
+import com.bank.publicinfo.dto.AtmDto;
+import com.bank.publicinfo.dto.AuditDto;
+import com.bank.publicinfo.dto.BankDetailsDto;
+import com.bank.publicinfo.dto.BranchDto;
+import com.bank.publicinfo.dto.CertificateDto;
+import com.bank.publicinfo.dto.LicenseDto;
+import com.bank.publicinfo.entity.Atm;
+import com.bank.publicinfo.entity.Audit;
+import com.bank.publicinfo.entity.BankDetails;
+import com.bank.publicinfo.entity.Branch;
+import com.bank.publicinfo.entity.Certificate;
+import com.bank.publicinfo.entity.EntityType;
+import com.bank.publicinfo.entity.License;
+import com.bank.publicinfo.entity.OperationType;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Time;
 import java.sql.Timestamp;

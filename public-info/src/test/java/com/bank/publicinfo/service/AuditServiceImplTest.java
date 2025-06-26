@@ -1,10 +1,16 @@
 package com.bank.publicinfo.service;
 
-import com.bank.publicinfo.entity.*;
+import com.bank.publicinfo.entity.Audit;
+import com.bank.publicinfo.entity.EntityType;
+import com.bank.publicinfo.entity.OperationType;
 import com.bank.publicinfo.exception.NotExecutedException;
 import com.bank.publicinfo.exception.NotFoundException;
 import com.bank.publicinfo.repository.AuditRepository;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;

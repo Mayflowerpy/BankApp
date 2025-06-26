@@ -2,7 +2,10 @@ package com.bank.publicinfo.dto;
 
 import com.bank.publicinfo.entity.BankDetails;
 import com.bank.publicinfo.entity.Certificate;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;

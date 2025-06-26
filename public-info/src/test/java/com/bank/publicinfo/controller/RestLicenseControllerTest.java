@@ -4,8 +4,8 @@ import com.bank.publicinfo.dto.LicenseDto;
 import com.bank.publicinfo.entity.BankDetails;
 import com.bank.publicinfo.entity.License;
 import com.bank.publicinfo.exception.NotExecutedException;
-import com.bank.publicinfo.service.LicenseService;
 import com.bank.publicinfo.service.EntityDtoMapper;
+import com.bank.publicinfo.service.LicenseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,10 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(RestLicenseController.class)
