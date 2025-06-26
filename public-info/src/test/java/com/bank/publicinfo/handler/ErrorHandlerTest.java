@@ -17,7 +17,7 @@ class ErrorHandlerTest {
 
         final ResponseEntity<ErrorResponse> result = notFoundException(new NotFoundException());
 
-        assert(result.getStatusCode().equals(HttpStatus.NOT_FOUND));
+        assert (result.getStatusCode().equals(HttpStatus.NOT_FOUND));
     }
 
     @Test
@@ -25,6 +25,6 @@ class ErrorHandlerTest {
 
         final ResponseEntity<ErrorResponse> result = notExecutedException(new NotExecutedException());
 
-        assert(result.getStatusCode().equals(HttpStatus.BAD_REQUEST));
+        assert (result.getStatusCode().equals(HttpStatus.BAD_REQUEST));
     }
 }

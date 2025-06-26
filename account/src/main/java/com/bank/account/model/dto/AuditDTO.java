@@ -1,7 +1,10 @@
 package com.bank.account.model.dto;
 
 import com.bank.account.model.entity.Audit;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;

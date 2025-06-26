@@ -11,6 +11,7 @@ public class Postgres {
 
     public static final PostgreSQLContainer<?> database = new PostgreSQLContainer<>("postgres:15.1")
             .withReuse(true);
+
     public static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
         @Override

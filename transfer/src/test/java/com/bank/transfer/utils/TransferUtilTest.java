@@ -9,8 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchException;
+import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
 class TransferUtilTest {
@@ -34,6 +35,7 @@ class TransferUtilTest {
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }
+
     @Test
     void getAndCheckInsufficientFundsException() {
         Account senderWithoutMoney = Account.builder()

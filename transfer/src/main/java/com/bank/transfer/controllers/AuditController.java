@@ -21,16 +21,20 @@ import java.util.List;
 @RequestMapping("/audit")
 public class AuditController {
     private final AuditService auditService;
+
     /**
      * Метод, возвращающий список всех записей аудита
+     *
      * @return список записей аудита
      */
     @GetMapping
     public ResponseEntity<List<AuditEntity>> getAudits() {
         return new ResponseEntity<>(auditService.getAllAudits(), HttpStatus.OK);
     }
+
     /**
      * Метод, возвращающий запись аудита по ее id
+     *
      * @param id id аудита
      * @return список записей аудита
      */
@@ -38,16 +42,20 @@ public class AuditController {
     public ResponseEntity<AuditEntity> getAuditById(@PathVariable Long id) {
         return new ResponseEntity<>(auditService.getAuditById(id), HttpStatus.OK);
     }
+
     /**
      * Метод, возвращающий список записей аудита неуспешных транзакций
+     *
      * @return список записей аудита
      */
     @GetMapping("/failed")
     public ResponseEntity<List<AuditEntity>> getFailedTransfers() {
         return new ResponseEntity<>(auditService.getAuditsByType(AuditOperationType.FAILED_TRANSFER), HttpStatus.OK);
     }
+
     /**
      * Метод, возвращающий список записей аудита успешных транзакций
+     *
      * @return список записей аудита
      */
     @GetMapping("/success")

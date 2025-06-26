@@ -4,9 +4,10 @@ import com.bank.authorization.dto.UserDTO;
 import com.bank.authorization.entity.Role;
 import com.bank.authorization.entity.RoleEnum;
 import com.bank.authorization.service.RoleService;
-import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.bank.authorization.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import javax.annotation.PostConstruct;
 import java.util.Collections;
 import java.util.HashSet;
@@ -24,6 +25,7 @@ import java.util.Set;
 public class DatabaseInit {
     private final UserService userService;
     private final RoleService roleService;
+
     @Autowired
     public DatabaseInit(UserService userService, RoleService roleService) {
         this.userService = userService;

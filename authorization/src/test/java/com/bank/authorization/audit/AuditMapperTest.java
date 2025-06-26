@@ -4,13 +4,16 @@ import com.bank.authorization.dto.AuditDTO;
 import com.bank.authorization.entity.Audit;
 import com.bank.authorization.mapper.AuditMapper;
 import org.junit.jupiter.api.Test;
+
 import java.sql.Timestamp;
 import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class AuditMapperTest {
 
     AuditMapper auditMapper = AuditMapper.MAPPER;
+
     @Test
     void shouldMapToDto() {
         Audit audit = Audit.builder()

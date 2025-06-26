@@ -27,8 +27,9 @@ public class PhoneTransferController {
 
     /**
      * Rest-метод, принимающий POST запрос с dto транзакции:
-     * @param transferDto        - запрос банковской транзакции, включает в себя тип перевода,
-     *                             отправителя, получателя, сумму и цель перевода
+     *
+     * @param transferDto - запрос банковской транзакции, включает в себя тип перевода,
+     *                    отправителя, получателя, сумму и цель перевода
      * @return в случае успешной транзакции - Http ответ ACCEPTED
      */
     @PostMapping
@@ -36,8 +37,10 @@ public class PhoneTransferController {
         transferService.doTransfer(transferDto);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
+
     /**
      * Rest-метод, возвращающий список всех банковских транзакций по номеру телефона
+     *
      * @return список банковских транзакций по номеру телефона
      */
     @GetMapping
@@ -45,8 +48,10 @@ public class PhoneTransferController {
         final List<PhoneTransferDto> transfers = transferService.getAllTransfers();
         return new ResponseEntity<>(transfers, HttpStatus.OK);
     }
+
     /**
      * Rest-метод, возвращающий банковскую транзакцию по номеру телефона по ее id номеру
+     *
      * @return список банковских транзакций по номеру счета
      */
     @GetMapping("/{id}")
@@ -54,8 +59,10 @@ public class PhoneTransferController {
         final PhoneTransferDto transfer = transferService.getTransferById(id);
         return new ResponseEntity<>(transfer, HttpStatus.OK);
     }
+
     /**
      * Rest-метод, возвращающий банковскую транзакцию по номеру счета по id отправителя
+     *
      * @return список банковских транзакций по номеру счета
      */
     @GetMapping(params = {"sender_id"})

@@ -1,10 +1,10 @@
 package com.bank.account.feign;
 
-
 import com.bank.publicinfo.dto.BankDetailsDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
 /**
  * FeignClient для обращения к микросервису Public-info
  * Метод getById возвращает детали банка из базы данных микросервиса publicinfo по полю id
@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author Dina Petrashova
  * @om 2023-02-10
  */
-
-
 
 @FeignClient(name = "publicinfo")
 public interface PublicInfoFeignClient {

@@ -9,6 +9,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
  * тестирование handler
+ *
  * @author Larisa Ermakova
  */
 public class HandlerTest {

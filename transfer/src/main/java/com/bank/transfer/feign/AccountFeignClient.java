@@ -16,27 +16,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface AccountFeignClient {
     /**
      * Метод, в котором мы ищем аккаунт по номеру лицевого счета
+     *
      * @param accountNumber - номер лицевого счета
      * @return Account
      */
     @GetMapping
     Account getAccountByAccountNumber(@RequestParam(name = "account_number") Long accountNumber);
+
     /**
      * Метод, в котором мы ищем аккаунт по id профиля
+     *
      * @param profileId id профиля
      * @return Account
      */
     @GetMapping
     Account getAccountByProfileId(@RequestParam(name = "profile_id") Long profileId);
+
     /**
      * Метод, в котором мы ищем аккаунт по id
+     *
      * @param id id аккаунта
      * @return Account
      */
     @GetMapping("{id}")
     Account getAccountById(@PathVariable Long id);
+
     /**
      * Отправляет обновленный аккаунт в аккаунт-сервис
+     *
      * @param account аккаунт получателя/отправителя
      */
     @Transactional

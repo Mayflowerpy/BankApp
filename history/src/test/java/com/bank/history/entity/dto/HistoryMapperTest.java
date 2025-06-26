@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 /*
  * Класс для тестирования  работы маппера из сущности в дто и обратно
  * Поскольку не создавался отдельно маппер с List, используется аннотация над классом и внедрение через обьявление.
@@ -15,6 +16,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class HistoryMapperTest {
     @Autowired
     private HistoryMapper historyMapper;
+
     /**
      * тестирование перевода в DTO
      */
@@ -60,7 +62,7 @@ class HistoryMapperTest {
 
         assertThat(history2).isEqualTo(history1);
 
-        HistoryDTO historyDTO2 =new HistoryDTO();
+        HistoryDTO historyDTO2 = new HistoryDTO();
         historyDTO2.setId(70L);
         historyDTO2.setBankInfoAuditId(70L);
 

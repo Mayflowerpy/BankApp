@@ -11,14 +11,18 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface AccountTransferMapper {
     AccountTransferMapper INSTANCE = Mappers.getMapper(AccountTransferMapper.class);
+
     /**
      * Метод конвертации Dto банковской транзакции по номеру счета в entity
+     *
      * @param transferDto dto банковской транзакции по номеру счета
      * @return entity
      */
     AccountTransfer convertToEntity(AccountTransferDto transferDto);
+
     /**
      * Метод конвертации entity банковской транзакции по номеру счета в dto
+     *
      * @param transfer entity банковской транзакции по номеру счета
      * @return dto
      */

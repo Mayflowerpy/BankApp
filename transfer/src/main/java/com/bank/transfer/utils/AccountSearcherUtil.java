@@ -21,6 +21,7 @@ public class AccountSearcherUtil {
 
     /**
      * Метод, возвращающий аккаунт по id
+     *
      * @param id id аккаунта
      * @return аккаунт
      * @throws AccountNotFoundException если аккаунт не был найден
@@ -31,6 +32,7 @@ public class AccountSearcherUtil {
 
     /**
      * Метод, возвращающий аккаунт по номеру банковского счета
+     *
      * @param accountNumber номер банковского счета
      * @return аккаунт
      * @throws AccountNotFoundException если аккаунт не был найден
@@ -42,6 +44,7 @@ public class AccountSearcherUtil {
     /**
      * Метод, возвращающий аккаунт по номеру карты
      * Хз в каком микросервисе искать данную инфу
+     *
      * @param cardNumber номер карты
      * @return аккаунт
      * @throws AccountNotFoundException если аккаунт не был найден
@@ -52,10 +55,11 @@ public class AccountSearcherUtil {
 
     /**
      * Метод, возвращающий аккаунт по номеру телефона
+     *
      * @param phoneNumber номер банковского счета
      * @return аккаунт
      * @throws AccountNotFoundException если аккаунт не был найден
-     * @throws AccountServiceException если проблемы со стороны аккаунт-сервиса
+     * @throws AccountServiceException  если проблемы со стороны аккаунт-сервиса
      */
     public Account getAccountByPhoneNumber(Long phoneNumber) throws AccountNotFoundException,
             ServiceNotAvailableException {

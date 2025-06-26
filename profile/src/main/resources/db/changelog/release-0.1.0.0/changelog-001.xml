@@ -121,7 +121,8 @@
             <column name="passport_id" remarks="ссылка на паспорт" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="actual_registration_id" remarks="ссылка на фактическую регистрацию(может и не быть)" type="BIGINT"/>
+            <column name="actual_registration_id" remarks="ссылка на фактическую регистрацию(может и не быть)"
+                    type="BIGINT"/>
         </createTable>
     </changeSet>
     <changeSet author="Рустам" id="1672956301685-6">

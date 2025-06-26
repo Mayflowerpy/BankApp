@@ -11,12 +11,15 @@ import org.mapstruct.Mapper;
 public interface CardTransferMapper {
     /**
      * Метод конвертации Dto банковской транзакции по номеру карты в entity
+     *
      * @param transferDto dto банковской транзакции по номеру карты
      * @return entity
      */
     CardTransfer convertToEntity(CardTransferDto transferDto);
+
     /**
      * Метод конвертации entity банковской транзакции по номеру карты в dto
+     *
      * @param transfer entity банковской транзакции по номеру карты
      * @return dto
      */

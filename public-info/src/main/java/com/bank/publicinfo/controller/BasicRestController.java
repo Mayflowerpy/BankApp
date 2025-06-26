@@ -33,7 +33,7 @@ public interface BasicRestController<D> {
     /**
      * Создает новую сущность в базе данных и вовзращает объект передачи данных
      *
-     * @param dto - объект передачи данных
+     * @param dto           - объект передачи данных
      * @param bindingResult - объект проверки ошибок валидации
      * @return ResponseEntity<D>
      */
@@ -42,7 +42,7 @@ public interface BasicRestController<D> {
     /**
      * Обновляет сущность в базе данных и вовзращает объект передачи данных
      *
-     * @param dto- объект передачи данных
+     * @param dto-          объект передачи данных
      * @param bindingResult - объект проверки ошибок валидации
      * @return ResponseEntity<AtmDto>
      */

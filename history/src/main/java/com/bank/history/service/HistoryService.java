@@ -11,22 +11,23 @@ import java.util.List;
  */
 
 public interface HistoryService {
-/**
-* найти конкретный history
-*/
+    /**
+     * найти конкретный history
+     */
     HistoryDTO findById(Long id);
 
-/**
-* выводит всех history
-*/
+    /**
+     * выводит всех history
+     */
     List<HistoryDTO> getAllHistory();
 
-/**
-* сохраняет новую history
-*/
+    /**
+     * сохраняет новую history
+     */
     HistoryDTO save(HistoryDTO historyDTO);
-/**
-* обновляет/редактирует history
-*/
+
+    /**
+     * обновляет/редактирует history
+     */
     HistoryDTO update(Long id, HistoryDTO historyDTO);
 }

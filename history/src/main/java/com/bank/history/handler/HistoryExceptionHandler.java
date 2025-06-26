@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * класс для вывода ошибок рестконтроллера при ненахождении в БД
  * указывается класс исключения
  * возвращает статус ответа и сообщение исключения
+ *
  * @author Larisa Ermakova
  */
 @RestControllerAdvice
 public class HistoryExceptionHandler {
     @ExceptionHandler(HistoryNotFoundException.class)
     public ResponseEntity<String> handler(HistoryNotFoundException exception) {
-        return new ResponseEntity<> (exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
 

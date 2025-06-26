@@ -17,8 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchException;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
 class CardTransferServiceTest {
@@ -53,6 +55,7 @@ class CardTransferServiceTest {
 
         return transfers;
     }
+
     @Test
     void getAllCardTransfers() {
         doReturn(getCardTransfers()).when(cardTransferRepository).findAll();
@@ -61,6 +64,7 @@ class CardTransferServiceTest {
 
         assertThat(actualResult.size()).isEqualTo(2);
     }
+
     @Test
     void getCardTransferById() {
         CardTransfer cardTransfer42 = CardTransfer.builder()
@@ -85,6 +89,7 @@ class CardTransferServiceTest {
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }
+
     @Test
     void getCardTransferByIdFailed() {
         Optional<CardTransfer> empty = Optional.empty();
@@ -94,6 +99,7 @@ class CardTransferServiceTest {
 
         assertThat(exception).isInstanceOf(TransferNotFoundException.class);
     }
+
     private List<CardTransfer> getCardTransfersBySenderId69() {
         CardTransfer cardTransfer1 = CardTransfer.builder()
                 .id(46L)
@@ -116,6 +122,7 @@ class CardTransferServiceTest {
 
         return transfers;
     }
+
     @Test
     void getCardTransfersBySenderId() {
         doReturn(getCardTransfersBySenderId69()).when(cardTransferRepository).findAllByAccountDetailsId(69L);
@@ -125,6 +132,7 @@ class CardTransferServiceTest {
 
         assertThat(actualResult.size()).isEqualTo(2);
     }
+
     @Test
     void getCardTransfersBySenderIdFailed() {
         doReturn(false).when(cardTransferRepository).existsByAccountDetailsId(any());

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -83,7 +84,7 @@ public class UserRestController {
 
     @PostMapping("/users")
     public ResponseEntity<String> add(@RequestBody @Valid UserDTO userDTO,
-                                              BindingResult bindingResult) throws UserNotCreatedException {
+                                      BindingResult bindingResult) throws UserNotCreatedException {
         log.info("Call add() method in controller {}, UserDTO = {}", this.getClass(), userDTO);
         if (bindingResult.hasErrors()) {
             throw new UserNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));
@@ -93,9 +94,9 @@ public class UserRestController {
     }
 
     @PutMapping("/users/{id}")
-    public  ResponseEntity<String> update(@PathVariable("id") long id,
-                                               @RequestBody @Valid UserDTO userDTO,
-                                               BindingResult bindingResult) throws UserNotCreatedException {
+    public ResponseEntity<String> update(@PathVariable("id") long id,
+                                         @RequestBody @Valid UserDTO userDTO,
+                                         BindingResult bindingResult) throws UserNotCreatedException {
         log.info("Call update() method in controller {}, id = {}, UserDTO = {}", this.getClass(), id, userDTO);
         if (bindingResult.hasErrors()) {
             throw new UserNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));

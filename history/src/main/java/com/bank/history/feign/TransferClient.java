@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(value = "transferAuditFeignClient", url = "http:/localhost:8092/api/transfer")
 public interface TransferClient {
-    @GetMapping(path = "/api/transfer/.../{id}")     // потом исправить путь !!!
-    Long getId (@PathVariable Long id);
+    @GetMapping(path = "/api/transfer/.../{id}")
+        // потом исправить путь !!!
+    Long getId(@PathVariable Long id);
 }

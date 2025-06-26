@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class AccountMapper extends BaseMapper <Account, AccountDTO>{
+public class AccountMapper extends BaseMapper<Account, AccountDTO> {
     @Override
     public Account convertToEntity(AccountDTO dto, Object... args) {
         Account entity = new Account();

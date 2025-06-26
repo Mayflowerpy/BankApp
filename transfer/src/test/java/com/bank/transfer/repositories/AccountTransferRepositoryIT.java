@@ -2,18 +2,18 @@ package com.bank.transfer.repositories;
 
 import com.bank.transfer.entities.AccountTransfer;
 import com.bank.transfer.support.IntegrationTestBase;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class AccountTransferRepositoryIT extends IntegrationTestBase {
     @Autowired
     private AccountTransferRepository repository;
+
     private void insertTransfers() {
         AccountTransfer transfer1 = AccountTransfer.builder()
                 .id(1L)
@@ -41,6 +41,7 @@ class AccountTransferRepositoryIT extends IntegrationTestBase {
         repository.save(transfer3);
         repository.flush();
     }
+
     @Test
     void save() {
         AccountTransfer expectedResult = AccountTransfer.builder()

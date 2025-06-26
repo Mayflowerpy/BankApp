@@ -1,8 +1,8 @@
 package com.bank.transfer.services;
 
+import com.bank.transfer.entities.AbstractTransfer;
 import com.bank.transfer.entities.AuditEntity;
 import com.bank.transfer.entities.AuditOperationType;
-import com.bank.transfer.entities.AbstractTransfer;
 import com.bank.transfer.exceptions.AuditNotFoundException;
 import com.bank.transfer.exceptions.TransferFailedException;
 import com.bank.transfer.repositories.AuditRepository;
@@ -24,8 +24,9 @@ public class AuditServiceImp implements AuditService {
 
     /**
      * Метод, выполняющий аудит банковской транзакции
+     *
      * @param auditedObject объект банковской транзакции, подлежащий аудиту
-     * @param type - результат выполнения банковского перевода
+     * @param type          - результат выполнения банковского перевода
      * @throws TransferFailedException - если запись аудита не была выполнена
      */
     @Override
@@ -44,8 +45,10 @@ public class AuditServiceImp implements AuditService {
             throw new TransferFailedException(exception.getMessage());
         }
     }
+
     /**
      * Метод, возвращающий список записей аудита по id
+     *
      * @param id технический идентификатор записи аудита
      * @return запись аудита
      */
@@ -57,8 +60,10 @@ public class AuditServiceImp implements AuditService {
                     return new AuditNotFoundException(String.format("Audit with id %d not found", id));
                 });
     }
+
     /**
      * Метод, возвращающий список всех записей аудита
+     *
      * @return список записей аудита
      */
     @Override
@@ -68,6 +73,7 @@ public class AuditServiceImp implements AuditService {
 
     /**
      * Метод, возвращающий список записей аудита по типу результата транзакций(успешная, неуспешная)
+     *
      * @param operationType тип результата выполнения транзакции
      * @return список записей аудита
      */

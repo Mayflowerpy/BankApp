@@ -24,6 +24,8 @@ public interface UserMapper {
     UserMapper MAPPER = Mappers.getMapper(UserMapper.class);
 
     User toUser(UserDTO userDTO);
+
     UserDTO toDTO(User user);
+
     List<UserDTO> toDTOList(List<User> userDTOList);
 }

@@ -56,9 +56,11 @@
         </createTable>
     </changeSet>
     <changeSet author="Рустам" id="1672956681136-3">
-        <addUniqueConstraint columnNames="account_number" constraintName="account_details_account_number_key" tableName="account_details"/>
+        <addUniqueConstraint columnNames="account_number" constraintName="account_details_account_number_key"
+                             tableName="account_details"/>
     </changeSet>
     <changeSet author="Рустам" id="1672956681136-4">
-        <addUniqueConstraint columnNames="bank_details_id" constraintName="account_details_bank_details_id_key" tableName="account_details"/>
+        <addUniqueConstraint columnNames="bank_details_id" constraintName="account_details_bank_details_id_key"
+                             tableName="account_details"/>
     </changeSet>
 </databaseChangeLog>

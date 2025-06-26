@@ -1,9 +1,10 @@
 package com.bank.account.feign;
 
-import com.bank.profile.model.Profile;
+import com.bank.profile.entity.Profile;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
 /**
  * FeignClient для обращения к микросервису Profile
  * Метод getById возвращает профиль из базы данных микросервиса profile по полю id
@@ -16,8 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  *
  * @author Dina Petrashova
  * @om 2023-02-10
-*/
-
+ */
 
 
 @FeignClient(name = "profile")

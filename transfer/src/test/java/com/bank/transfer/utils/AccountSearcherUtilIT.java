@@ -15,9 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 class AccountSearcherUtilIT extends IntegrationTestBase {
@@ -55,6 +57,7 @@ class AccountSearcherUtilIT extends IntegrationTestBase {
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }
+
     @Test
     void catchAccountNotFoundById() {
         Long accountId = 1L;
@@ -87,6 +90,7 @@ class AccountSearcherUtilIT extends IntegrationTestBase {
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }
+
     @Test
     void catchAccountNotFoundByAccountNumber() {
         Long accountNumber = 12345L;
@@ -133,6 +137,7 @@ class AccountSearcherUtilIT extends IntegrationTestBase {
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }
+
     @Test
     void catchAccountNotFoundByPhoneNumber() {
         Long phoneNumber = 8_800_555_35_35L;
@@ -144,6 +149,7 @@ class AccountSearcherUtilIT extends IntegrationTestBase {
         assertThrows(AccountNotFoundException.class,
                 () -> searcherUtil.getAccountByPhoneNumber(phoneNumber));
     }
+
     @Test
     void catchProfileInternalServerException() {
         Long phoneNumber = 8_800_555_35_35L;
@@ -154,6 +160,7 @@ class AccountSearcherUtilIT extends IntegrationTestBase {
         assertThrows(ServiceNotAvailableException.class,
                 () -> searcherUtil.getAccountByPhoneNumber(phoneNumber));
     }
+
     @Test
     void catchAccountInternalServerException() {
         Long accountId = 1L;

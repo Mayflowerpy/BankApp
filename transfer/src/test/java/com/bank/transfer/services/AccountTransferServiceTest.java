@@ -4,11 +4,9 @@ import com.bank.transfer.dtos.AccountTransferDto;
 import com.bank.transfer.entities.AccountTransfer;
 import com.bank.transfer.exceptions.AccountNotFoundException;
 import com.bank.transfer.exceptions.TransferNotFoundException;
-import com.bank.transfer.pojos.Account;
 import com.bank.transfer.repositories.AccountTransferRepository;
 import com.bank.transfer.utils.AccountSearcherUtil;
 import com.bank.transfer.utils.TransferUtil;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,8 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchException;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
 class AccountTransferServiceTest {
@@ -65,6 +65,7 @@ class AccountTransferServiceTest {
 
         return transfers;
     }
+
     @Test
     void getAllAccountTransfers() {
         doReturn(getAccountTransfers()).when(repository).findAll();
@@ -73,6 +74,7 @@ class AccountTransferServiceTest {
 
         assertThat(actualResult.size()).isEqualTo(3);
     }
+
     @Test
     void getAccountTransferById() {
         AccountTransfer accountTransfer42 = AccountTransfer.builder()
@@ -97,6 +99,7 @@ class AccountTransferServiceTest {
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }
+
     @Test
     void getAccountTransferByIdFailed() {
         Optional<AccountTransfer> empty = Optional.empty();
@@ -106,6 +109,7 @@ class AccountTransferServiceTest {
 
         assertThat(exception).isInstanceOf(TransferNotFoundException.class);
     }
+
     private List<AccountTransfer> getAccountTransfersBySenderId69() {
         AccountTransfer accountTransfer1 = AccountTransfer.builder()
                 .id(104L)
@@ -120,6 +124,7 @@ class AccountTransferServiceTest {
 
         return transfers;
     }
+
     @Test
     void getAccountTransfersBySenderId() {
         doReturn(getAccountTransfersBySenderId69()).when(repository).findAllByAccountDetailsId(69L);
@@ -129,6 +134,7 @@ class AccountTransferServiceTest {
 
         assertThat(actualResult.size()).isEqualTo(1);
     }
+
     @Test
     void getAccountTransfersBySenderIdFailed() {
         doReturn(false).when(repository).existsByAccountDetailsId(any());

@@ -16,7 +16,7 @@ public interface EntityDtoMapper<E, D> {
     /**
      * Преобразует DTO в Entity указанного класса
      *
-     * @param dto             - объект передачи данных
+     * @param dto - объект передачи данных
      * @return E - объект Entity указанного класса
      */
     E toEntity(D dto);
@@ -24,7 +24,7 @@ public interface EntityDtoMapper<E, D> {
     /**
      * Преобразует Entity в DTO указанного класса
      *
-     * @param entity       - объект сущности
+     * @param entity - объект сущности
      * @return D - объект передачи данных указанного класса
      */
     D toDto(E entity);
@@ -38,8 +38,8 @@ public interface EntityDtoMapper<E, D> {
     List<D> toDtoList(Collection<E> entityCollection);
 
     /**
-    * @param entityClassName - имя класса сущности
-    */
+     * @param entityClassName - имя класса сущности
+     */
     void setEntityClassName(String entityClassName);
 
     /**

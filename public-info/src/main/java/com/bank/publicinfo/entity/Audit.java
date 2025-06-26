@@ -1,8 +1,18 @@
 package com.bank.publicinfo.entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -39,14 +49,14 @@ public class Audit {
 
     @NonNull
     @NotNull
-    @Enumerated(value=EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     @Size(max = 40)
-    @Column(name="entity_type")
+    @Column(name = "entity_type")
     private EntityType entityType;
 
     @NonNull
     @NotNull
-    @Enumerated(value=EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     @Size(max = 255)
     @Column(name = "operation_type")
     private OperationType operationType;

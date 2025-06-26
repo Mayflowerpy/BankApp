@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class RoleRestController {
 
     private final RoleService roleService;
     private final ErrBindingResult errBindingResult;
+
     @Autowired
     public RoleRestController(RoleService roleService, ErrBindingResult errBindingResult) {
         this.roleService = roleService;
@@ -62,7 +64,7 @@ public class RoleRestController {
 
     @PostMapping("/roles")
     public ResponseEntity<String> add(@RequestBody @Valid Role role,
-                                              BindingResult bindingResult) throws RoleNotCreatedException {
+                                      BindingResult bindingResult) throws RoleNotCreatedException {
         log.info("Call add() method in controller {}, Role = {}", this.getClass(), role);
         if (bindingResult.hasErrors()) {
             throw new RoleNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));
@@ -72,9 +74,9 @@ public class RoleRestController {
     }
 
     @PutMapping("/roles/{id}")
-    public  ResponseEntity<String> update(@PathVariable("id") long id,
-                                                @RequestBody @Valid Role role,
-                                                BindingResult bindingResult) throws RoleNotCreatedException {
+    public ResponseEntity<String> update(@PathVariable("id") long id,
+                                         @RequestBody @Valid Role role,
+                                         BindingResult bindingResult) throws RoleNotCreatedException {
         log.info("Call update() method in controller {}, id = {}, Role = {}", this.getClass(), id, role);
         if (bindingResult.hasErrors()) {
             throw new RoleNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));

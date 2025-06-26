@@ -38,13 +38,13 @@ public class AccountServiceImpl implements AccountService {
 
     public Account getByID(Long id) {
         Account account = accountRepository.findById(id).orElseThrow(()
-                -> new AccountNotFoundException("Account with id " + id  + "not found"));
+                -> new AccountNotFoundException("Account with id " + id + "not found"));
         return accountMapper.convertToDto(account);
     }
 
     @Override
     @Transactional
-    public void save(AccountDTO  accountDTO) {
+    public void save(AccountDTO accountDTO) {
         /* добавить метод валидации полей, которые должны совпадать с данными из БД других микросервисов,
            полученных через FeignClient
          */

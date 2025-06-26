@@ -1,7 +1,7 @@
 package com.bank.transfer.handlers;
 
-import com.bank.transfer.exceptions.InsufficientFundsException;
 import com.bank.transfer.exceptions.AccountNotFoundException;
+import com.bank.transfer.exceptions.InsufficientFundsException;
 import com.bank.transfer.exceptions.TransferNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,9 +23,10 @@ import java.util.Map;
 public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * Метод, обрабатывающий ошибки валидации
-     * @param ex ArgumentNotValidException
+     *
+     * @param ex      ArgumentNotValidException
      * @param headers http headers
-     * @param status http статус
+     * @param status  http статус
      * @param request http запрос
      * @return http ответ, в котором содержится информация о невалидном поле и сообщение ошибки
      */
@@ -41,9 +42,11 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
         });
         return handleExceptionInternal(ex, errors, headers, HttpStatus.BAD_REQUEST, request);
     }
+
     /**
      * Метод, обрабатывающий исключения, если что-либо не было найдено
-     * @param ex NotFoundException
+     *
+     * @param ex      NotFoundException
      * @param request http-запрос
      * @return текст исключения и 404 Http-ошибка
      */
@@ -53,9 +56,11 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
         return handleExceptionInternal(ex, bodyOfResponse,
                 new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
+
     /**
      * Метод, обрабатывающий исключения, если транзакция не была выполнена
-     * @param ex InsufficientFundsException
+     *
+     * @param ex      InsufficientFundsException
      * @param request http-запрос
      * @return текст исключения и Http-ошибка
      */

@@ -22,6 +22,7 @@ import static org.mockito.Mockito.verify;
 
 /**
  * класс тестов для проверки методов сервиса
+ *
  * @author Larisa Ermakova
  */
 @ExtendWith(MockitoExtension.class)
@@ -44,9 +45,9 @@ class HistoryServiceImplTest {
         autoCloseable = MockitoAnnotations.openMocks(this);
         historyServiceImpl = new HistoryServiceImpl(historyRepository, historyMapper);
     }
+
     /**
      * запускается после каждого выполненного метода теста, закрывает ресурсы, может кидать исключение
-     *
      */
     @AfterEach
     void setDown() throws Exception {

@@ -1,8 +1,8 @@
 package com.bank.transfer.utils;
 
 import com.bank.transfer.exceptions.AccountNotFoundException;
-import com.bank.transfer.exceptions.ServiceNotAvailableException;
 import com.bank.transfer.exceptions.InsufficientFundsException;
+import com.bank.transfer.exceptions.ServiceNotAvailableException;
 import com.bank.transfer.exceptions.TransferFailedException;
 import com.bank.transfer.feign.AccountFeignClient;
 import com.bank.transfer.pojos.Account;
@@ -23,8 +23,9 @@ public class TransferUtil {
 
     /**
      * Метод, запрашивающий аккаунт отправителя и проверяющий возможность транзакции
+     *
      * @param accountDetailsId id аккаунта отправителя
-     * @param amount сумма транзакции
+     * @param amount           сумма транзакции
      * @return аккаунт отправителя
      */
     public Account getAndCheckSender(Long accountDetailsId, Double amount) throws AccountNotFoundException,
@@ -44,9 +45,10 @@ public class TransferUtil {
 
     /**
      * В данном методе происходит непосредственно изменение банковских счетов отправителя и получателя
-     * @param sender аккаунт отправителя
+     *
+     * @param sender    аккаунт отправителя
      * @param recipient аккаунт получателя
-     * @param amount сумма транзакции
+     * @param amount    сумма транзакции
      */
     public void moneyTransfer(Account sender, Account recipient, Double amount) {
         log.info("Снимаем деньги со счета отправителя");
@@ -58,7 +60,8 @@ public class TransferUtil {
 
     /**
      * Метод, загружающий изменения банковских счетов в account сервис
-     * @param sender аккаунт отправителя
+     *
+     * @param sender    аккаунт отправителя
      * @param recipient аккаунт получателя
      * @throws ServiceNotAvailableException если загрузить данные не удалось
      */

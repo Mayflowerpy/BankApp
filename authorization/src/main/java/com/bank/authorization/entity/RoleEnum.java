@@ -6,7 +6,7 @@ package com.bank.authorization.entity;
  * @author Vladislav Shilov
  */
 
-public enum  RoleEnum {
+public enum RoleEnum {
     ROLE_ADMIN,
     ROLE_USER
 

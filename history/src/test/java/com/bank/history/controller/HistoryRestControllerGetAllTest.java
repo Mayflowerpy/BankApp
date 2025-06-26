@@ -14,17 +14,19 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.only;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 /**
  * тестирование контроллера по получению всех записей
+ *
  * @author Larisa Ermakova
  */
 
@@ -39,7 +41,8 @@ class HistoryRestControllerGetAllTest {
     private HistoryServiceImpl historyService;
     @MockBean
     private HistoryMapper historyMapper;
-      @Test
+
+    @Test
     void getAllHistoryTest() throws Exception {
         historyRepository.deleteAll();
         History history1 = new History();

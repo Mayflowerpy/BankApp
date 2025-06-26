@@ -1,8 +1,8 @@
 package com.bank.transfer.services;
 
-import com.bank.transfer.entities.AuditOperationType;
 import com.bank.transfer.dtos.AccountTransferDto;
 import com.bank.transfer.entities.AccountTransfer;
+import com.bank.transfer.entities.AuditOperationType;
 import com.bank.transfer.exceptions.TransferFailedException;
 import com.bank.transfer.pojos.Account;
 import com.bank.transfer.repositories.AccountTransferRepository;
@@ -19,7 +19,11 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.patch;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
 import static org.assertj.core.api.Assertions.assertThat;
 
 

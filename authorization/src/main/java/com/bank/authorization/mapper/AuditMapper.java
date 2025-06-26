@@ -5,6 +5,7 @@ import com.bank.authorization.entity.Audit;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 /**
@@ -23,6 +24,8 @@ public interface AuditMapper {
     AuditMapper MAPPER = Mappers.getMapper(AuditMapper.class);
 
     Audit toAudit(AuditDTO AuditDTO);
+
     AuditDTO toDTO(Audit audit);
+
     List<AuditDTO> toDTOList(List<Audit> auditDTOList);
 }

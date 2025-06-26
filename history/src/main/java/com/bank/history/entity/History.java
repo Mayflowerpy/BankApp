@@ -1,8 +1,8 @@
 package com.bank.history.entity;
 
-import lombok.RequiredArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -13,16 +13,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * модель, которая описана по таблице
- *   для преобразования структуры обьекта и данных, чтобы сохранять и передавать
- *   @author Larisa Ermakova
+ * для преобразования структуры обьекта и данных, чтобы сохранять и передавать
  *
-  */
+ * @author Larisa Ermakova
+ */
 @Entity
 @Getter
 @Setter

@@ -20,8 +20,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+
 import java.util.Objects;
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -67,5 +69,5 @@ public class FeignRestControllerTest {
         ResponseEntity<Profile> profileResponse = mockProfileFeignClient.getProfileByUsername("Admin@mail.ru");
 
         Assertions.assertThat(Objects.requireNonNull(profileResponse.getBody()).getEmail()).isEqualTo("Admin@mail.ru");
-        }
+    }
 }

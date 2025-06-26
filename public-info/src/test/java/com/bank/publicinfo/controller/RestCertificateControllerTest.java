@@ -25,7 +25,10 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(RestCertificateController.class)
@@ -49,7 +52,7 @@ class RestCertificateControllerTest {
 
     private final CertificateDto DTO = new CertificateDto(new Byte[]{(byte) 0b0}, BANK_DETAILS);
 
-    private final CertificateDto INVALID_DTO = new CertificateDto(new Byte[] {}, BANK_DETAILS);
+    private final CertificateDto INVALID_DTO = new CertificateDto(new Byte[]{}, BANK_DETAILS);
 
     {
         ENTITY.setId(1L);

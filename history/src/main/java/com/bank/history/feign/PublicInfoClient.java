@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(value = "publicInfoAuditFeignClient", url = "http:/localhost:8091/api/public-info")
 public interface PublicInfoClient {
-    @GetMapping(path = "/api/public-info/.../{id}")     // потом исправить путь !!!
-    Long getId (@PathVariable Long id);
+    @GetMapping(path = "/api/public-info/.../{id}")
+        // потом исправить путь !!!
+    Long getId(@PathVariable Long id);
 }

@@ -33,6 +33,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.BindingResult;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -40,6 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -164,10 +166,12 @@ class UserRestControllerTest {
         assertThat(httpResponse.getStatusLine().getStatusCode()).isEqualTo(200);
         assertThat(stringResponse).isEqualTo(objectMapper.writeValueAsString(profileEntity));
     }
+
     private String convertHttpResponseToString(HttpResponse httpResponse) throws IOException {
         InputStream inputStream = httpResponse.getEntity().getContent();
         return convertInputStreamToString(inputStream);
     }
+
     private String convertInputStreamToString(InputStream inputStream) {
         Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8);
         String string = scanner.useDelimiter("\\Z").next();

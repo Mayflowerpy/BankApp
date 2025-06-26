@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -72,9 +73,9 @@ public class AuditRestController {
     }
 
     @PutMapping("/audit/{id}")
-    public  ResponseEntity<String> update(@PathVariable("id") long id,
-                                          @RequestBody @Valid AuditDTO auditDTO,
-                                          BindingResult bindingResult) throws AuditNotCreatedException {
+    public ResponseEntity<String> update(@PathVariable("id") long id,
+                                         @RequestBody @Valid AuditDTO auditDTO,
+                                         BindingResult bindingResult) throws AuditNotCreatedException {
         log.info("Call update() method in controller {}, id = {}, AuditDTO = {}", this.getClass(), id, auditDTO);
         if (bindingResult.hasErrors()) {
             throw new AuditNotCreatedException(errBindingResult.getErrorsFromBindingResult(bindingResult));

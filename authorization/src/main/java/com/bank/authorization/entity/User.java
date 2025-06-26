@@ -1,20 +1,16 @@
 package com.bank.authorization.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -42,7 +38,6 @@ import java.util.Set;
 @Setter
 @Builder
 @NoArgsConstructor
-//@RequiredArgsConstructor
 @AllArgsConstructor
 @ToString
 public class User implements UserDetails {
@@ -63,7 +58,6 @@ public class User implements UserDetails {
     @NotEmpty(message = "ProfileId should not be empty")
     @Column(name = "profile_id")
     private Long profileId;
-
     @NotNull
     @Column(name = "password")
     @NotEmpty(message = "Password should not be empty")

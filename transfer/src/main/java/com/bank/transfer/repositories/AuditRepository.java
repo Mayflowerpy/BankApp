@@ -12,6 +12,7 @@ import java.util.List;
 public interface AuditRepository extends JpaRepository<AuditEntity, Long> {
     /**
      * Метод, возвращающий список записей аудита по успешности выполнения транзакции
+     *
      * @param operationType тип выполнения транзакции(успешная/неудачная)
      * @return список записей аудита
      */

@@ -18,7 +18,8 @@
             <column name="all_hours" remarks="работает ли банкомат круглосуточно" type="BOOLEAN">
                 <constraints nullable="false"/>
             </column>
-            <column name="branch_id" remarks="ссылка на отделение, где стоит банкомат(null, если не стоит в отделении)" type="BIGINT"/>
+            <column name="branch_id" remarks="ссылка на отделение, где стоит банкомат(null, если не стоит в отделении)"
+                    type="BIGINT"/>
         </createTable>
     </changeSet>
     <changeSet author="Рустам" id="1672955251679-2">
@@ -126,7 +127,8 @@
         <addUniqueConstraint columnNames="bik" constraintName="bank_details_bik_key" tableName="bank_details"/>
     </changeSet>
     <changeSet author="Рустам" id="1672955251679-8">
-        <addUniqueConstraint columnNames="cor_account" constraintName="bank_details_cor_account_key" tableName="bank_details"/>
+        <addUniqueConstraint columnNames="cor_account" constraintName="bank_details_cor_account_key"
+                             tableName="bank_details"/>
     </changeSet>
     <changeSet author="Рустам" id="1672955251679-9">
         <addUniqueConstraint columnNames="inn" constraintName="bank_details_inn_key" tableName="bank_details"/>
@@ -138,12 +140,20 @@
         <addUniqueConstraint columnNames="phone_number" constraintName="branch_phone_number_key" tableName="branch"/>
     </changeSet>
     <changeSet author="Рустам" id="1672955251679-12">
-        <addForeignKeyConstraint baseColumnNames="bank_details_id" baseTableName="certificate" constraintName="bank_details__certificate_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="bank_details"/>
+        <addForeignKeyConstraint baseColumnNames="bank_details_id" baseTableName="certificate"
+                                 constraintName="bank_details__certificate_fk" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="bank_details"/>
     </changeSet>
     <changeSet author="Рустам" id="1672955251679-13">
-        <addForeignKeyConstraint baseColumnNames="bank_details_id" baseTableName="license" constraintName="bank_details__license_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="bank_details"/>
+        <addForeignKeyConstraint baseColumnNames="bank_details_id" baseTableName="license"
+                                 constraintName="bank_details__license_fk" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="bank_details"/>
     </changeSet>
     <changeSet author="Рустам" id="1672955251679-14">
-        <addForeignKeyConstraint baseColumnNames="branch_id" baseTableName="atm" constraintName="branch__atm_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="branch"/>
+        <addForeignKeyConstraint baseColumnNames="branch_id" baseTableName="atm" constraintName="branch__atm_fk"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="branch"/>
     </changeSet>
 </databaseChangeLog>

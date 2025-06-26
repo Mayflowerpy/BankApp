@@ -40,7 +40,6 @@ class CardTransferMapperTest {
                 .build();
 
 
-
         CardTransferDto actualResult = mapper.convertToDto(transfer);
 
         CardTransferDto expectedResult = CardTransferDto.builder()

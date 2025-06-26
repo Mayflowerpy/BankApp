@@ -6,8 +6,10 @@ import com.bank.authorization.entity.RoleEnum;
 import com.bank.authorization.entity.User;
 import com.bank.authorization.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
 import java.util.Set;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class UserMapperTest {

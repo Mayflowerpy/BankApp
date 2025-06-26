@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * интерфейс для работы с БД, наследуется от JpaRepository, чтобы были используемые методы
+ *
  * @author Larisa Ermakova
  */
 

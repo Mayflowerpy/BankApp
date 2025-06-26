@@ -30,7 +30,7 @@ public class AccountDTO extends Account {
     @Min(value = 1, message = "Account number should not be 0")
     private Long accountNumber;
 
-    @Digits(integer=20, fraction=2)
+    @Digits(integer = 20, fraction = 2)
     private double money;
 
     @NotEmpty(message = "Negative balance should not be empty")

@@ -1,8 +1,8 @@
 package com.bank.history.entity.dto;
 
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -10,6 +10,7 @@ import java.util.Objects;
 
 /**
  * Класс дто создан для того, чтобы сервису не брать каждый раз в работу модель, а общаться с этим классом
+ *
  * @author Larisa Ermakova
  */
 @NoArgsConstructor

@@ -1,9 +1,8 @@
 package com.bank.history.service;
 
-import com.bank.history.entity.dto.HistoryMapper;
 import com.bank.history.entity.History;
 import com.bank.history.entity.dto.HistoryDTO;
-
+import com.bank.history.entity.dto.HistoryMapper;
 import com.bank.history.exception.HistoryNotFoundException;
 import com.bank.history.repository.HistoryRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +36,7 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public List<HistoryDTO> getAllHistory() {
-        log.debug("getAllHistory() method is calling from {}  ", this.getClass() );
+        log.debug("getAllHistory() method is calling from {}  ", this.getClass());
         return historyRepository.findAll().stream().map(historyMapper::toDTO).collect(Collectors.toList());
     }
 

@@ -13,8 +13,12 @@ import java.util.List;
  */
 public interface AccountService {
     List<Account> getAll();
+
     Account getByID(Long id);
-    void save (AccountDTO accountDTO);
-    void update (AccountDTO accountDTO, Long id);
-    void delete (Long id);
+
+    void save(AccountDTO accountDTO);
+
+    void update(AccountDTO accountDTO, Long id);
+
+    void delete(Long id);
 }

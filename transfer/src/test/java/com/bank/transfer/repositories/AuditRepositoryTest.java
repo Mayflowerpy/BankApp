@@ -13,11 +13,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class AuditRepositoryTest extends IntegrationTestBase {
     @Autowired
     private AuditRepository repository;
+
     private void insertAudits() {
         AuditEntity audit1 = AuditEntity.builder()
                 .id(1L)
@@ -48,6 +49,7 @@ class AuditRepositoryTest extends IntegrationTestBase {
         repository.save(audit3);
         repository.flush();
     }
+
     @Test
     void save() {
         AuditEntity expectedResult = AuditEntity.builder()

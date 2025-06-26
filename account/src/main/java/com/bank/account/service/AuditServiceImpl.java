@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @Service
-public class AuditServiceImpl implements AuditService{
+public class AuditServiceImpl implements AuditService {
     private final AuditRepository auditRepository;
     private final AuditMapper auditMapper;
 
@@ -34,7 +34,7 @@ public class AuditServiceImpl implements AuditService{
     @Override
     public Audit getByID(Long id) {
         Audit audit = auditRepository.findById(id).orElseThrow(()
-                -> new AccountNotFoundException("Audit for Account with id " + id  + "not found"));
+                -> new AccountNotFoundException("Audit for Account with id " + id + "not found"));
         return auditMapper.convertToDto(audit);
     }
 

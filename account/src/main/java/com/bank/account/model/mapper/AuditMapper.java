@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class AuditMapper extends BaseMapper <Audit, AuditDTO>{
+public class AuditMapper extends BaseMapper<Audit, AuditDTO> {
     @Override
     public Audit convertToEntity(AuditDTO dto, Object... args) {
         Audit entity = new Audit();

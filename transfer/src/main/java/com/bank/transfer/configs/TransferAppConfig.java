@@ -17,6 +17,7 @@ public class TransferAppConfig {
     public ErrorDecoder errorDecoder() {
         return new FeignClientErrorDecoder();
     }
+
     @Bean
     public OkHttpClient client() {
         return new OkHttpClient();

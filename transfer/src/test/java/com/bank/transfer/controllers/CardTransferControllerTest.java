@@ -50,6 +50,7 @@ class CardTransferControllerTest {
                         .content(objectMapper.writeValueAsString(transfer)))
                 .andExpect(status().isAccepted());
     }
+
     @ParameterizedTest
     @NullSource
     @ValueSource(longs = {-10, 0, -3})
@@ -66,6 +67,7 @@ class CardTransferControllerTest {
                         .content(objectMapper.writeValueAsString(invalidTransfer)))
                 .andExpect(status().isBadRequest());
     }
+
     @ParameterizedTest
     @NullSource
     @ValueSource(doubles = {-100, 0})

@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,8 +36,8 @@ import java.util.Objects;
 
 @Getter
 @Setter
-//@NoArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
+//@RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
@@ -68,11 +69,11 @@ public class Audit {
     @NotEmpty
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     @Column(name = "created_at")
-    private Timestamp  createdAt;
+    private Timestamp createdAt;
 
     @Column(name = "modified_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-    private Timestamp  modifiedAt;
+    private Timestamp modifiedAt;
 
     @Column(name = "new_entity_json")
     private String newEntityJson;

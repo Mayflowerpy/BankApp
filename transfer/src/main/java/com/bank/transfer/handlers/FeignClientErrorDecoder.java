@@ -12,6 +12,7 @@ public class FeignClientErrorDecoder implements ErrorDecoder {
 
     /**
      * Метод-декодер ошибок
+     *
      * @param response ответ feign клиента
      * @return
      */
@@ -24,11 +25,14 @@ public class FeignClientErrorDecoder implements ErrorDecoder {
         switch (response.status()) {
             case badRequestError -> {
                 return new RuntimeException("Bad request");
-            } case notFoundError -> {
+            }
+            case notFoundError -> {
                 return new AccountNotFoundException("Account not found");
-            } case internalServerError -> {
+            }
+            case internalServerError -> {
                 return new ServiceNotAvailableException("Service is unavailable");
-            } default -> {
+            }
+            default -> {
                 return new Exception("Exception while getting data");
             }
         }

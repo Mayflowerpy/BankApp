@@ -11,12 +11,15 @@ import org.mapstruct.Mapper;
 public interface PhoneTransferMapper {
     /**
      * Метод конвертации Dto банковской транзакции по номеру телефона в entity
+     *
      * @param transferDto dto банковской транзакции по номеру телефона
      * @return entity
      */
     PhoneTransfer convertToEntity(PhoneTransferDto transferDto);
+
     /**
      * Метод конвертации entity банковской транзакции по номеру телефона в dto
+     *
      * @param transfer entity банковской транзакции по номеру телефона
      * @return dto
      */

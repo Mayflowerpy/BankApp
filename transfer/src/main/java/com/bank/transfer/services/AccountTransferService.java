@@ -1,8 +1,8 @@
 package com.bank.transfer.services;
 
-import com.bank.transfer.entities.AuditOperationType;
 import com.bank.transfer.dtos.AccountTransferDto;
 import com.bank.transfer.entities.AccountTransfer;
+import com.bank.transfer.entities.AuditOperationType;
 import com.bank.transfer.exceptions.AccountNotFoundException;
 import com.bank.transfer.exceptions.TransferFailedException;
 import com.bank.transfer.exceptions.TransferNotFoundException;
@@ -32,6 +32,7 @@ public class AccountTransferService implements TransferService<AccountTransferDt
     private final TransferUtil transferUtil;
     private final AccountSearcherUtil searcherUtil;
     private final AuditService auditService;
+
     /**
      * Метод, выполняющий транзакцию на банковский счет:
      *

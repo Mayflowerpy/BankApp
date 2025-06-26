@@ -2,6 +2,7 @@ package com.bank.account.service;
 
 import com.bank.account.model.dto.AuditDTO;
 import com.bank.account.model.entity.Audit;
+
 import java.util.List;
 
 /**
@@ -13,8 +14,12 @@ import java.util.List;
 
 public interface AuditService {
     List<Audit> getAll();
+
     Audit getByID(Long id);
-    void save (AuditDTO auditDTO);
-    void update (AuditDTO auditDTO, Long id);
-    void delete (Long id);
+
+    void save(AuditDTO auditDTO);
+
+    void update(AuditDTO auditDTO, Long id);
+
+    void delete(Long id);
 }

@@ -3,7 +3,6 @@ package com.bank.history.controller;
 import com.bank.history.entity.History;
 import com.bank.history.entity.dto.HistoryDTO;
 import com.bank.history.entity.dto.HistoryMapper;
-
 import com.bank.history.repository.HistoryRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -15,13 +14,16 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * класс тестирования контроллеров
+ *
  * @author Larisa Ermakova
  */
 @SpringBootTest

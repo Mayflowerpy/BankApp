@@ -1,24 +1,23 @@
 package com.bank.history.service;
+
 import com.bank.history.entity.History;
 import com.bank.history.entity.dto.HistoryDTO;
-import com.bank.history.entity.dto.HistoryMapper;
 import com.bank.history.exception.HistoryNotFoundException;
 import com.bank.history.repository.HistoryRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.only;
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * класс тестов, альтернативных тем, что описаны в классе HistoryServiceImplTest
+ *
  * @author Larisa Ermakova
  */
 @SpringBootTest
@@ -32,6 +31,7 @@ class HistoryServiceImplSecondTest {
     private HistoryDTO historyDTO;
     @Mock
     private HistoryServiceImpl historyService;
+
     /**
      * проверка поиска по id
      */
@@ -42,6 +42,7 @@ class HistoryServiceImplSecondTest {
 
         verify(historyService).findById(id);
     }
+
     /**
      * проверка метода поиска по id на исключение
      */
@@ -52,6 +53,7 @@ class HistoryServiceImplSecondTest {
 
         assertThrows(HistoryNotFoundException.class, () -> historyService.findById(id));
     }
+
     /**
      * проверка на выполнение метода save()
      */
@@ -61,6 +63,7 @@ class HistoryServiceImplSecondTest {
 
         verify(historyService).save(historyDTO);
     }
+
     /**
      * проверка на выполнение метода редактирования при редактировании сущности
      */
@@ -72,6 +75,7 @@ class HistoryServiceImplSecondTest {
 
         verify(historyService).update(id, historyDTO);
     }
+
     /**
      * проверка на исключение метода update
      */
@@ -83,6 +87,7 @@ class HistoryServiceImplSecondTest {
 
         assertThrows(HistoryNotFoundException.class, () -> historyService.update(id, historyDTO));
     }
+
     /**
      * проверка получения всех history
      */

@@ -11,6 +11,7 @@ import java.util.List;
 public interface CardTransferRepository extends JpaRepository<CardTransfer, Long> {
     /**
      * Метод, возвращающий список транзакций, совершенных отправителем по его id
+     *
      * @param senderId id отправителя
      * @return список транзакций
      */
@@ -18,6 +19,7 @@ public interface CardTransferRepository extends JpaRepository<CardTransfer, Long
 
     /**
      * Метод, проверяющий, совершал ли отправитель по заданному id какие-либо переводы
+     *
      * @param id id отправителя
      * @return true - если отправитель был найден
      */

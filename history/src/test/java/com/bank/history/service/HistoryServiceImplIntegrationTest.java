@@ -106,6 +106,7 @@ public class HistoryServiceImplIntegrationTest {
         } catch (HistoryNotFoundException exception) {
         }
     }
+
     /**
      * проверка сервиса на сохранение
      */
@@ -123,6 +124,7 @@ public class HistoryServiceImplIntegrationTest {
         assertThat(historyDTO1.getAccountAuditId()).isEqualTo(45L);
         assertThat(historyDTO1.getBankInfoAuditId()).isEqualTo(46L);
     }
+
     /**
      * проверка сервиса на обновление
      */
@@ -144,6 +146,7 @@ public class HistoryServiceImplIntegrationTest {
         assertThat(history2.getId()).isEqualTo(history1.getId());
         assertThat(history2.getAccountAuditId()).isEqualTo(1L);
     }
+
     /**
      * тестирование получения всех history
      */
@@ -194,6 +197,7 @@ public class HistoryServiceImplIntegrationTest {
 
         Assertions.assertEquals(list.size(), 1);
     }
+
     /**
      * тест на получение всех history, если содержимое таблицы пустое
      */

@@ -1,7 +1,16 @@
 package com.bank.account.model.entity;
 
-import lombok.*;
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
@@ -21,7 +30,7 @@ import java.sql.Timestamp;
  *
  * @author Dina Petrashova
  * @om 2023-02-07
-*/
+ */
 
 @Getter
 @Setter
@@ -36,7 +45,7 @@ public class Audit {
 
     @NotEmpty
     @Size(max = 40)
-    @Column(name="entity_type")
+    @Column(name = "entity_type")
     private String entityType;
 
     @NotEmpty
@@ -55,10 +64,10 @@ public class Audit {
 
     @NotEmpty
     @Column(name = "created_at")
-    private Timestamp  createdAt;
+    private Timestamp createdAt;
 
     @Column(name = "modified_at")
-    private Timestamp  modifiedAt;
+    private Timestamp modifiedAt;
 
     @Column(name = "new_entity_json")
     private String newEntityJson;

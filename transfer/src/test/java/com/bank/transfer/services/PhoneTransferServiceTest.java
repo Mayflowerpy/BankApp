@@ -17,8 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchException;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
 class PhoneTransferServiceTest {
@@ -69,6 +71,7 @@ class PhoneTransferServiceTest {
 
         return transfers;
     }
+
     @Test
     void getAllPhoneTransfers() {
         doReturn(getPhoneTransfers()).when(phoneTransferRepository).findAll();
@@ -77,6 +80,7 @@ class PhoneTransferServiceTest {
 
         assertThat(actualResult.size()).isEqualTo(4);
     }
+
     @Test
     void getPhoneTransferById() {
         PhoneTransfer phoneTransfer42 = PhoneTransfer.builder()
@@ -101,6 +105,7 @@ class PhoneTransferServiceTest {
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }
+
     @Test
     void getPhoneTransferByIdFailed() {
         Optional<PhoneTransfer> empty = Optional.empty();
@@ -110,6 +115,7 @@ class PhoneTransferServiceTest {
 
         assertThat(exception).isInstanceOf(TransferNotFoundException.class);
     }
+
     private List<PhoneTransfer> getPhoneTransfersBySenderId69() {
         PhoneTransfer phoneTransfer1 = PhoneTransfer.builder()
                 .id(842L)
@@ -140,6 +146,7 @@ class PhoneTransferServiceTest {
 
         return transfers;
     }
+
     @Test
     void getPhoneTransfersBySenderId() {
         doReturn(getPhoneTransfersBySenderId69()).when(phoneTransferRepository).findAllByAccountDetailsId(69L);
@@ -149,6 +156,7 @@ class PhoneTransferServiceTest {
 
         assertThat(actualResult.size()).isEqualTo(3);
     }
+
     @Test
     void getPhoneTransfersBySenderIdFailed() {
         doReturn(false).when(phoneTransferRepository).existsByAccountDetailsId(any());
