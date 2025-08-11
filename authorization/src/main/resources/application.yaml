@@ -1,6 +1,6 @@
 spring:
   application:
-    name: authorization-app
+    name: authorization
   profiles:
     active: local
   jpa:

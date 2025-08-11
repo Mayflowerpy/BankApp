@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -43,25 +44,23 @@ public class DatabaseInit {
             roleService.add(roleUser);
         }
 
-        if (userService.getAll().isEmpty()) {
-
-            final Set<Role> adminRoles = new HashSet<>();
-            Collections.addAll(adminRoles, roleService.getById(1L), roleService.getById(2L));
-            final UserDTO admin = UserDTO.builder()
-                    .role(adminRoles)
-                    .profileId(1L)
-                    .password("Admin1@")
-                    .build();
-            userService.add(admin);
-
-            final Set<Role> userRoles = new HashSet<>();
-            Collections.addAll(userRoles, roleService.getById(2L));
-            final UserDTO user = UserDTO.builder()
-                    .role(userRoles)
-                    .profileId(2L)
-                    .password("User1@")
-                    .build();
-            userService.add(user);
-        }
+//        if (userService.getAll().isEmpty()) {
+//            final Collection<Role> adminRoles = roleService.getAll();
+//            final UserDTO admin = UserDTO.builder()
+//                    .role((Set<Role>) adminRoles)
+//                    .profileId(1L)
+//                    .password("Admin1@")
+//                    .build();
+//            userService.add(admin);
+//
+//            final Set<Role> userRoles = new HashSet<>();
+//            Collections.addAll(userRoles, roleService.getById(2L));
+//            final UserDTO user = UserDTO.builder()
+//                    .role(userRoles)
+//                    .profileId(2L)
+//                    .password("User1@")
+//                    .build();
+//            userService.add(user);
+//        }
     }
 }

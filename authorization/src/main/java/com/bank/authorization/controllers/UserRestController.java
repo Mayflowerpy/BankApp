@@ -58,6 +58,12 @@ public class UserRestController {
         this.profileFeignClient = profileFeignClient;
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<String> getTest() {
+        log.info("Call test {}", this.getClass());
+        return ResponseEntity.ok("test");
+    }
+
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAll() {
         log.info("Call getAll() method in controller {}", this.getClass());

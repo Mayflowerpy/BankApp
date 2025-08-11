@@ -1,14 +1,14 @@
 server:
   port: 8087
-  servlet:
-    context-path: /api/auth
-management:
-  server:
-    port: 8187
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+#  servlet:
+#    context-path: /api/auth
+#management:
+#  server:
+#    port: 8187
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/postgres
@@ -20,7 +20,7 @@ spring:
     enabled: true
     drop-first: false
   application:
-    name: authorization-app
+    name: authorization
 eureka:
   client:
     service-url:
