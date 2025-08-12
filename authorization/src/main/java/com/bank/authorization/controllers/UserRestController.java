@@ -8,6 +8,7 @@ import com.bank.authorization.service.UserService;
 import com.bank.authorization.util.ErrBindingResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
@@ -50,6 +51,9 @@ public class UserRestController {
     private final ErrBindingResult errBindingResult;
     private final ProfileFeignClient profileFeignClient;
 
+    @Value("${eureka.instance.instance-id}")
+    private String id;
+
     @Autowired
     public UserRestController(UserService userService, ErrBindingResult errBindingResult,
                               ProfileFeignClient profileFeignClient) {
@@ -61,7 +65,7 @@ public class UserRestController {
     @GetMapping("/test")
     public ResponseEntity<String> getTest() {
         log.info("Call test {}", this.getClass());
-        return ResponseEntity.ok("test");
+        return ResponseEntity.ok("test " + id);
     }
 
     @GetMapping("/users")

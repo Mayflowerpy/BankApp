@@ -11,3 +11,9 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+      routes[0]:
+        .id: test
+        .uri: lb://authorization
+        predicates:
+          - Path=/test
+#          - Method=GET
